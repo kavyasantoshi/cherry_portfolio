@@ -1,0 +1,32 @@
+.page-header {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("/hero/contact-bg.jpg") center/cover no-repeat;
+  color: #fff;
+}
+
+.page-header .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.page-header-content {
+  position: relative;
+  text-align: center;
+  z-index: 2;
+}
+
+.page-header-content h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-header-content p {
+  font-size: 0.95rem;
+  color: #f1c40f;
+  letter-spacing: 1px;
+}

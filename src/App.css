@@ -1,0 +1,670 @@
+/* ========================================
+   GLOBAL ANIMATIONS FOR RESTAURANT SITE
+   ======================================== */
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Page transition fade-in */
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-content {
+  animation: pageLoad 0.6s ease-out;
+}
+
+/* ========================================
+   HEADER ANIMATIONS
+   ======================================== */
+
+/* Logo entrance */
+.logo {
+  animation: logoEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Nav links stagger entrance */
+.nav-links li {
+  opacity: 0;
+  animation: slideInDown 0.5s ease forwards;
+}
+
+.nav-links li:nth-child(1) { animation-delay: 0.1s; }
+.nav-links li:nth-child(2) { animation-delay: 0.2s; }
+.nav-links li:nth-child(3) { animation-delay: 0.3s; }
+.nav-links li:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Link hover glow effect */
+.nav-links a {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ff7a18;
+  text-shadow: 0 0 10px rgba(255, 122, 24, 0.5);
+}
+
+/* Search input animation */
+.search input {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search input:focus {
+  transform: translateY(-2px);
+  border-bottom-color: #ff7a18;
+  box-shadow: 0 2px 8px rgba(255, 122, 24, 0.2);
+}
+
+.search-icon {
+  transition: all 0.3s ease;
+}
+
+.search input:focus ~ .search-icon {
+  color: #ff7a18;
+  transform: scale(1.1);
+}
+
+/* ========================================
+   HERO SLIDER ANIMATIONS
+   ======================================== */
+
+/* Enhanced slide transition */
+.slide {
+  animation: slideZoom 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideZoom {
+  0% {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Overlay content animation */
+.overlay h1 {
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.3s forwards;
+}
+
+.overlay p {
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.5s forwards;
+}
+
+.overlay button {
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.7s forwards;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.overlay button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(211, 84, 0, 0.4);
+}
+
+.overlay button:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Arrow pulse */
+.arrow {
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+.arrow:hover {
+  animation: none;
+  transform: translateY(-50%) scale(1.15);
+}
+
+/* ========================================
+   ABOUT SECTION ANIMATIONS
+   ======================================== */
+
+/* Image float with glow */
+.about-image img {
+  animation: floatGlow 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  transition: all 0.5s ease;
+}
+
+@keyframes floatGlow {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  }
+  50% {
+    transform: translateY(-20px);
+    filter: drop-shadow(0 15px 30px rgba(255, 122, 24, 0.2));
+  }
+}
+
+.about-image img:hover {
+  transform: translateY(-10px) rotate(2deg);
+  filter: drop-shadow(0 20px 40px rgba(255, 122, 24, 0.3));
+}
+
+/* Text reveal animation */
+.about-content .subtitle {
+  opacity: 0;
+  animation: slideInLeft 0.8s ease 0.2s forwards;
+}
+
+.about-content h1 {
+  opacity: 0;
+  animation: slideInLeft 0.8s ease 0.4s forwards;
+}
+
+.about-content p {
+  opacity: 0;
+  animation: slideInLeft 0.8s ease 0.6s forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Food icon bounce */
+.food-icon {
+  display: inline-block;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ========================================
+   MENU SECTION ANIMATIONS
+   ======================================== */
+
+/* Menu title reveal */
+.menu-title {
+  opacity: 0;
+  animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Category circles stagger */
+.menu-circle {
+  opacity: 0;
+  animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tab-wrapper:nth-child(1) .menu-circle { animation-delay: 0.1s; }
+.tab-wrapper:nth-child(2) .menu-circle { animation-delay: 0.2s; }
+.tab-wrapper:nth-child(3) .menu-circle { animation-delay: 0.3s; }
+.tab-wrapper:nth-child(4) .menu-circle { animation-delay: 0.4s; }
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.menu-circle:hover {
+  transform: translateY(-8px) scale(1.15);
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+}
+
+.menu-circle:active {
+  transform: translateY(-4px) scale(1.08);
+}
+
+/* Connector line draw */
+.connector-line {
+  width: 0;
+  animation: drawLine 0.6s ease 0.5s forwards;
+}
+
+@keyframes drawLine {
+  to {
+    width: 80px;
+  }
+}
+
+/* Menu items grid entrance */
+.menu-item {
+  opacity: 0;
+  animation: menuItemEnter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes menuItemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotateX(-20deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+.menu-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  border-color: #ff7a18;
+}
+
+.menu-item:hover img {
+  transform: scale(1.1) rotate(3deg);
+}
+
+.menu-item img {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Price pop */
+.price {
+  display: inline-block;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.menu-item:hover .price {
+  transform: scale(1.2);
+  color: #d35400;
+}
+
+/* Button animations */
+.tap-view-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tap-view-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.tap-view-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.tap-view-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(139, 46, 46, 0.4);
+}
+
+/* Menu image modal animations */
+.menu-modal {
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+.zoomed-image {
+  animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.close-btn {
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  transform: rotate(90deg) scale(1.3);
+  color: #ff7a18;
+}
+
+/* Dots animation */
+.dot {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dot:hover {
+  transform: scale(1.5);
+  background: #ff7a18;
+}
+
+/* ========================================
+   CONTACT SECTION ANIMATIONS
+   ======================================== */
+
+.contact-info h2 {
+  opacity: 0;
+  animation: slideInRight 0.8s ease 0.2s forwards;
+}
+
+.contact-info p {
+  opacity: 0;
+  animation: slideInRight 0.8s ease 0.4s forwards;
+}
+
+.contact-buttons {
+  opacity: 0;
+  animation: slideInRight 0.8s ease 0.6s forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Button hover effects */
+.call-btn, .whatsapp-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.call-btn::after {
+  content: '☎';
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.call-btn:hover::after {
+  right: 20px;
+  opacity: 1;
+}
+
+.call-btn:hover {
+  transform: translateX(-10px);
+  box-shadow: 0 8px 20px rgba(255, 122, 24, 0.4);
+  padding-right: 60px;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.05) rotate(-2deg);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* Map container animation */
+.map-container {
+  opacity: 0;
+  animation: fadeInScale 0.8s ease 0.5s forwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.map-container iframe {
+  transition: all 0.4s ease;
+}
+
+.map-container:hover iframe {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   FOOTER ANIMATIONS
+   ======================================== */
+
+.footer-brand {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.2s forwards;
+}
+
+.footer-links {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.4s forwards;
+}
+
+.footer-contact {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.6s forwards;
+}
+
+.footer-brand h2 {
+  transition: all 0.3s ease;
+}
+
+.footer-brand h2:hover {
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 122, 24, 0.8);
+  transform: scale(1.05);
+}
+
+.footer-links a {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff7a18;
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+.footer-links a:hover {
+  transform: translateX(5px);
+}
+
+/* ========================================
+   SCROLL ANIMATIONS (Intersection Observer)
+   ======================================== */
+
+/* Add these classes via JavaScript */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   LOADING ANIMATIONS
+   ======================================== */
+
+.loader-logo {
+  animation: loaderPulse 1.5s ease-in-out;
+}
+
+@keyframes loaderPulse {
+  0%, 100% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   RESPONSIVE ANIMATION ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Reduce animation intensity on mobile */
+  .menu-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .about-image img {
+    animation: floatGlow 5s ease-in-out infinite;
+  }
+  
+  @keyframes floatGlow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* Disable hover animations on touch devices */
+  @media (hover: none) {
+    .menu-circle:hover,
+    .menu-item:hover,
+    .nav-links a:hover {
+      transform: none;
+    }
+  }
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+/* Use GPU acceleration for smoother animations */
+.slide,
+.menu-item,
+.menu-circle,
+.about-image img {
+  will-change: transform;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

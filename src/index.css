@@ -1,0 +1,54 @@
+/* :root {
+  --bg-main: #d9ebe2;
+  --bg-card: #2e3a27;
+
+  --green-primary: #2E7D32;
+  --red-accent: #C62828;
+
+  --cream-primary: #E9DFC9;
+  --text-body: #B9C2B8;
+
+  --border-soft: #2F3A33;
+} */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Playfair Display', serif; /* Use a Serif font for the headings */
+    background-color: #fff;
+    color: #333;
+    overflow-x: hidden;
+}
+#about,
+#menu,
+#contact {
+  scroll-margin-top: 90px;
+}
+html, body {
+  min-height: 100%;
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header stays on top */
+header {
+  flex-shrink: 0;
+}
+
+/* Footer stays at bottom */
+footer {
+  flex-shrink: 0;
+}
+
+/* Main content grows */
+.page-content {
+  flex: 1;
+}

@@ -1,0 +1,28 @@
+.loader-container {
+  position: fixed;
+  inset: 0;
+  background-color: #faf4ec; /* same beige background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loader-logo {
+  width: 90px;
+  animation: scaleFade 1.5s ease-in-out;
+}
+
+@keyframes scaleFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+  }
+}
