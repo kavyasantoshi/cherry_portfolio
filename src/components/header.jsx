@@ -5,16 +5,18 @@ import { FaSearch } from "react-icons/fa";
 import "./header.css";
 import logo from "../assets/cherry_logo.png";
 import logo1 from "../assets/cherry_text.png";
+// import "@fontsource/pacifico";
+
+
 
 function header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <nav className="navbar">
       <div className="nav-container">
          <div className="logo">
           <img src={logo} alt="Cherries Restaurant Logo" />
-          <span>CHERRIES</span>
+          <span >CHERRIES</span>
         </div>
         <div className="search">
           <input type="text" placeholder="Search dishes..." className="search-input"/>

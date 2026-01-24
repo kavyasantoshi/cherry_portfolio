@@ -4,10 +4,12 @@ import poori from "../assets/poori.webp";
 import vada from "../assets/vada.avif";
 import dosa from "../assets/dosa.png";
 import menu from "../assets/menu1.jpeg";
-import menu1 from "../assets/menu1.jpeg";
+import menu1 from "../assets/menu2.jpeg";
 import paneer from "../assets/paneer-manchurian.jpg";
 import p_biryani from "../assets/veg-biryani.jpg";
+import masalachai from "../assets/masalachai.png";
 import corn from "../assets/corn.jpg";
+import lime from "../assets/limesoda.png";
 import "./Menu.css";
 
 function Menu() {
@@ -16,7 +18,7 @@ function Menu() {
   const [menuIndex, setMenuIndex] = useState(0);
   const [zoomOpen, setZoomOpen] = useState(false);
 
-  const menuImages = [menu, poori];
+  const menuImages = [menu, menu1];
 
   const menuData = {
     breakfast: [
@@ -77,12 +79,6 @@ function Menu() {
         desc: "Yellow lentils tempered with aromatic spices and ghee",
         price: 180,
         image: p_biryani
-      },
-      {
-        name: "Chole Bhature",
-        desc: "Spicy chickpea curry served with fluffy fried bread",
-        price: 200,
-        image: p_biryani
       }
     ],
     beverages: [
@@ -90,13 +86,13 @@ function Menu() {
         name: "Masala Chai",
         desc: "Traditional Indian spiced tea with aromatic herbs",
         price: 40,
-        image: p_biryani
+        image: masalachai
       },
       {
         name: "Fresh Lime Soda",
         desc: "Refreshing citrus drink with a hint of mint",
         price: 60,
-        image: p_biryani
+        image: lime
       }
     ]
   };

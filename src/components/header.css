@@ -18,11 +18,11 @@
 .logo img {
   height: 60px;
 }
-
 .logo span {
   font-size: 30px;
   font-weight: 600;
   letter-spacing: 2px;
+  font-family: 'Lobster', cursive;;
 }
 .nav-links {
   list-style: none;
@@ -92,7 +92,7 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background:#f8c29c;
+    background:#ffdcc2;
     flex-direction: column;
     gap: 20px;
     text-align: left;
@@ -109,7 +109,7 @@
   }
   .nav-links.open {
     max-height: 400px;
-    background: #f8c29c;
+    background: #ffdcc2;
     padding: 20px 0;
   }
   .nav-container{

@@ -9,12 +9,12 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 1.2s ease, transform 1.2s ease;
+   transform: translateY(12px);
+  transition: transform 1.2s ease;
 }
 .slide.active {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0);
 }
 
 /* Dark overlay like Rameshwaram Cafe */
@@ -72,25 +72,37 @@
 .arrow.right {
   right: 30px;
 }
-@media(max-width:321px)
-{
-  .overlay h1{
-    font-size: 37px;
-  }
-  .overlay p{
-    font-size: 23px;
-  }
-}
-@media(min-width:326px) and (max-width:426px)
+@media(max-width:425px)
 {
   .overlay h1{
     font-size: 40px;
   }
   .overlay p{
-    font-size: 25px;
+    font-size: 20px;
   }
+  .arrow.left {
+  left: 20px;
 }
-@media(min-width:426px) and (max-width:769px)
+.arrow.right {
+  right: 20px;
+}
+.arrow{
+  font-size: 20px;
+}
+}
+@media(min-width:326px) and (max-width:525px)
+{
+  .overlay h1{
+    font-size: 40px;
+  }
+  .overlay p{
+    font-size: 20px;
+  }
+  .arrow{
+  font-size: 23px;
+}
+}
+@media(min-width:526px) and (max-width:769px)
 {
   .overlay h1{
     font-size: 50px;
@@ -98,4 +110,7 @@
   .overlay p{
     font-size: 28px;
   }
+  .arrow{
+  font-size: 25px;
+}
 }

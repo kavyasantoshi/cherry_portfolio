@@ -1,7 +1,14 @@
 /* Menu Page Container */
 .menu-page {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #fff7ed, #ffffff);
+  background: linear-gradient(to bottom, white,#fff7ed, #ffffff);
+   /* background: linear-gradient(
+    to left,
+    #ffffff 0%,
+    #ffffff 50%,
+    #ffdcc2 70%,
+    #f8c29c 100%
+  ); */
   padding: 4rem 1rem;
   position: relative;
 }

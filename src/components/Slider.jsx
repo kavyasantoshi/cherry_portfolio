@@ -43,7 +43,11 @@ function Slider() {
           <div className="overlay">
             <h1>{slide.title}</h1>
             <p>{slide.subtitle}</p>
-            <button>Contact Us</button>
+            <div className="contact-buttons">
+            <button className="call-btn"><a href="tel:+919000202206">
+              Call Now
+            </a></button>
+          </div>
           </div>
         </div>
       ))}

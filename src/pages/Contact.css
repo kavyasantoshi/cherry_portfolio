@@ -11,25 +11,47 @@
 }
 
 /* Left content */
-.contact-info h2 {
-  font-size: 38px;
-  margin-bottom: 15px;
-  color: #333;
+.contact-header {
+  text-align: center;
+  /* margin-bottom: 60px; */
+  animation: fadeInDown 0.8s ease-out;
 }
 
-.contact-info p {
-  color: #666;
-  margin-bottom: 25px;
+.contact-header h2 {
+  font-size: 48px;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 15px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.contact-header h2 span {
+  color: #ff7a18;
+}
+
+.title-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff7a18 0%, #ff9a56 100%);
+  margin: 0 auto 20px;
+  border-radius: 10px;
+  animation: expandWidth 1s ease-out 0.5s both;
+}
+.contact-description {
+  font-size: 18px;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
   line-height: 1.6;
 }
-
 .contact-buttons {
   /* display: flex;
   gap: 20px; */
   display: flex;
   align-items: center;
   gap: 16px;           /* 👈 This creates space */
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 .whatsapp-btn {
   padding: 14px 20px;
@@ -48,11 +70,11 @@
   font-weight: 500;
   transition: 0.3s ease;
   border: none;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .call-btn {
-  background: #ff7a18;
+   background: linear-gradient(to right, #ea580c, #dc2626);
   color: #fff;
 }
 .call-btn a{
@@ -60,7 +82,7 @@
   color: white;
 }
 .call-btn:hover {
-  background: #e96b10;
+  background: linear-gradient(to right, #ea580c, #dc2626);
 }
 
 .whatsapp-btn {
@@ -95,4 +117,42 @@
   .contact-buttons {
     flex-direction: column;
   }
+}
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.contact-card {
+  display: flex;
+  gap: 14px;
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+}
+
+.icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.contact-card h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.contact-card p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #555;
 }
