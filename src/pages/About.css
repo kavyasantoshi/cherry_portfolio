@@ -149,7 +149,9 @@
 }
 
 .badge-icon {
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   animation: rotate-slow 4s ease-in-out infinite;
 }
 
@@ -270,7 +272,7 @@
   animation-delay: 1.2s;
 }
 
-/* Feature Cards */
+/* Feature Cards - Updated with Icons */
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -287,8 +289,12 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   opacity: 0;
-  transform: translateY(30px);
-  animation: card-fade-in 0.8s ease-out forwards;
+  transform: translateX(100px);
+}
+
+/* Slide in animation from right to left */
+.feature-card.slide-in {
+  animation: slide-from-right 0.8s ease-out forwards;
 }
 
 .feature-card:nth-child(1) {
@@ -308,21 +314,24 @@
   box-shadow: 0 8px 25px rgba(249, 115, 22, 0.2);
 }
 
-.feature-icon {
-  font-size: 32px;
-  animation: icon-bounce 2s ease-in-out infinite;
+/* Icon wrapper for feature cards */
+.feature-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: linear-gradient(135deg, #fff5eb 0%, #ffe8d1 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f97316;
+  transition: all 0.3s ease;
 }
 
-.feature-card:nth-child(1) .feature-icon {
-  animation-delay: 0s;
-}
-
-.feature-card:nth-child(2) .feature-icon {
-  animation-delay: 0.7s;
-}
-
-.feature-card:nth-child(3) .feature-icon {
-  animation-delay: 1.4s;
+.feature-card:hover .feature-icon-wrapper {
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+  color: white;
+  transform: scale(1.1) rotate(5deg);
 }
 
 .feature-info h4 {
@@ -465,19 +474,15 @@
   }
 }
 
-@keyframes card-fade-in {
+/* New animation: Slide from right to left */
+@keyframes slide-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
   to {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes icon-bounce {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
+    transform: translateX(0);
   }
 }
 
@@ -571,15 +576,17 @@
     gap: 8px;
   }
 
-  .badge-icon {
-    font-size: 22px;
-  }
-
   .badge-text strong {
     font-size: 15px;
   }
 
   .badge-text span {
     font-size: 11px;
+  }
+
+  .feature-icon-wrapper {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
   }
 }

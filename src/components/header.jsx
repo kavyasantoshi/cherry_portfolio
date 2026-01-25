@@ -18,10 +18,10 @@ function header() {
           <img src={logo} alt="Cherries Restaurant Logo" />
           <span >CHERRIES</span>
         </div>
-        <div className="search">
+        {/* <div className="search">
           <input type="text" placeholder="Search dishes..." className="search-input"/>
           <FaSearch className="search-icon" />
-        </div>
+        </div> */}
         <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
           <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
           <li><Link to="/about" onClick={() => setMenuOpen(false)}>About</Link></li>

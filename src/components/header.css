@@ -92,7 +92,7 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background:#ffdcc2;
+    background:#ffffff;
     flex-direction: column;
     gap: 20px;
     text-align: left;
@@ -109,7 +109,7 @@
   }
   .nav-links.open {
     max-height: 400px;
-    background: #ffdcc2;
+    background: #ffffff;
     padding: 20px 0;
   }
   .nav-container{

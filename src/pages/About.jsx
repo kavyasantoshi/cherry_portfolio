@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Leaf, Star, Utensils, Sparkles, Heart } from "lucide-react";
 import "./About.css";
 import Veg from "../assets/cafe.jpg";
 
@@ -44,9 +45,11 @@ export default function About() {
             <div className="image-shadow"></div>
           </div>
           
-          {/* Floating badges */}
+          {/* Floating badges with icons */}
           <div className="badge badge-1">
-            <div className="badge-icon">🌿</div>
+            <div className="badge-icon">
+              <Leaf size={28} strokeWidth={2} color="#22c55e" />
+            </div>
             <div className="badge-text">
               <strong>100%</strong>
               <span>Vegetarian</span>
@@ -54,7 +57,9 @@ export default function About() {
           </div>
           
           <div className="badge badge-2">
-            <div className="badge-icon">⭐</div>
+            <div className="badge-icon">
+              <Star size={28} strokeWidth={2} color="#f59e0b" fill="#f59e0b" />
+            </div>
             <div className="badge-text">
               <strong>Fresh</strong>
               <span>Daily</span>
@@ -88,26 +93,32 @@ export default function About() {
             </span>
           </p>
 
-          {/* Feature Cards */}
+          {/* Feature Cards with Icons */}
           <div className="features">
-            <div className="feature-card">
-              <div className="feature-icon">🍽️</div>
+            <div className={`feature-card ${isVisible ? "slide-in" : ""}`}>
+              <div className="feature-icon-wrapper">
+                <Utensils size={28} strokeWidth={2} />
+              </div>
               <div className="feature-info">
                 <h4>Traditional Taste</h4>
                 <p>Authentic recipes</p>
               </div>
             </div>
 
-            <div className="feature-card">
-              <div className="feature-icon">✨</div>
+            <div className={`feature-card ${isVisible ? "slide-in" : ""}`}>
+              <div className="feature-icon-wrapper">
+                <Sparkles size={28} strokeWidth={2} />
+              </div>
               <div className="feature-info">
                 <h4>Quality First</h4>
                 <p>Fresh ingredients</p>
               </div>
             </div>
 
-            <div className="feature-card">
-              <div className="feature-icon">💚</div>
+            <div className={`feature-card ${isVisible ? "slide-in" : ""}`}>
+              <div className="feature-icon-wrapper">
+                <Heart size={28} strokeWidth={2} />
+              </div>
               <div className="feature-info">
                 <h4>Hygienic</h4>
                 <p>Clean & safe</p>

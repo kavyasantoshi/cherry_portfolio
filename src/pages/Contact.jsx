@@ -1,4 +1,5 @@
 import React from "react";
+import { MapPin, Clock } from "lucide-react";
 import "./Contact.css";
 
 const Contact = () => {
@@ -29,15 +30,17 @@ const Contact = () => {
           <iframe
             title="Cherries Veg Restaurant Location"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3816.3539095647616!2d82.23104577492444!3d16.957133283858578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a382952b626832d%3A0xea201af6aa4e193e!2sCHERRIES%20PURE%20VEG%20CAFE!5e0!3m2!1sen!2sus!4v1767454845432!5m2!1sen!2sus"
-            allowfullscreen=""
+            allowFullScreen=""
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
         <div className="contact-cards">
           <div className="contact-card">
-            <span className="icon">📍</span>
-            <div>
+            <div className="icon-wrapper">
+              <MapPin size={24} strokeWidth={2.5} />
+            </div>
+            <div className="contact-card-content">
               <h4>Address</h4>
               <p>
                 Temple St, near fire office petrol station, Rama Rao Peta,
@@ -47,8 +50,10 @@ const Contact = () => {
           </div>
 
           <div className="contact-card">
-            <span className="icon">⏰</span>
-            <div>
+            <div className="icon-wrapper">
+              <Clock size={24} strokeWidth={2.5} />
+            </div>
+            <div className="contact-card-content">
               <h4>Working Hours</h4>
               <p>06:00 AM – 11:00 PM</p>
             </div>
