@@ -6,7 +6,6 @@
   background: #000;
 }
 
-/* Critical Fix: Base state for ALL slides */
 .slide {
   position: absolute;
   inset: 0;
@@ -14,39 +13,31 @@
   background-position: center;
   width: 100%;
   height: 100%;
-  
-  /* Slower, smoother transition - KEY FIX */
   transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1),
               opacity 1.2s cubic-bezier(0.65, 0, 0.35, 1);
-  
-  /* Default: hidden and off-screen right */
   opacity: 0;
   transform: translateX(100%);
   z-index: 1;
 }
 
-/* Active slide: centered and visible */
 .slide.active {
   transform: translateX(0);
   opacity: 1;
   z-index: 2;
 }
 
-/* Next slide positioning (off-screen right) */
 .slide.next {
   transform: translateX(100%);
   opacity: 0;
   z-index: 1;
 }
 
-/* Previous slide positioning (off-screen left) */
 .slide.prev {
   transform: translateX(-100%);
   opacity: 0;
   z-index: 1;
 }
 
-/* Overlay for content */
 .overlay {
   position: absolute;
   inset: 0;
@@ -58,7 +49,6 @@
   color: white;
 }
 
-/* Content wrapper - centered */
 .content-wrapper {
   display: flex;
   flex-direction: column;
@@ -68,38 +58,37 @@
   padding: 20px;
 }
 
-/* Slide title */
 .slide-title {
   font-size: clamp(40px, 8vw, 100px);
-  font-weight: 900;
+  font-weight: 400;
   text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   line-height: 1.1;
   letter-spacing: 4px;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Slide subtitle */
 .slide-subtitle {
   font-size: clamp(18px, 3vw, 28px);
   margin: 15px 0 35px 0;
   font-weight: 300;
   letter-spacing: 2px;
+  font-family: "Poppins", sans-serif;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Contact buttons container */
 .contact-buttons {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-/* Call button styling */
 .slider-btn {
   padding: 16px 50px;
   background: transparent;
-  border: 2px solid rgb(255, 200, 1);
+  border: 2px solid rgb(255, 141, 1);
+  border-radius: 15px;
   color: white;
   font-size: 16px;
   font-weight: 600;
@@ -107,6 +96,7 @@
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
 }
 
 .slider-btn:hover {
@@ -121,7 +111,6 @@
   color: inherit;
 }
 
-/* Navigation arrows */
 .arrow {
   position: absolute;
   top: 50%;
@@ -156,15 +145,9 @@
   opacity: 0.7;
 }
 
-.arrow.left {
-  left: 30px;
-}
+.arrow.left { left: 30px; }
+.arrow.right { right: 30px; }
 
-.arrow.right {
-  right: 30px;
-}
-
-/* Slide indicators */
 .slide-indicators {
   position: absolute;
   bottom: 40px;
@@ -198,56 +181,93 @@
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-.indicator:disabled {
-  cursor: pointer;
+.indicator:disabled { cursor: pointer; }
+
+/* =====================
+   SLIDER STORE BUTTONS
+   ===================== */
+.slider-store-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
 }
 
-/* Responsive design */
+.slider-store-btn img {
+  height: 53px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slider-store-btn img:hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
 @media (max-width: 768px) {
   .arrow {
     width: 45px;
     height: 45px;
     font-size: 16px;
   }
-  
-  .arrow.left {
-    left: 15px;
-  }
-  
-  .arrow.right {
-    right: 15px;
-  }
-  
-  .slide-indicators {
-    bottom: 25px;
-  }
-  
+
+  .arrow.left { left: 15px; }
+  .arrow.right { right: 15px; }
+
+  .slide-indicators { bottom: 25px; }
+
   .slider-btn {
     padding: 12px 35px;
     font-size: 14px;
   }
+
+  .slider-store-buttons {
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .slider-store-btn img {
+    height: 40px;
+  }
 }
 
 @media (max-width: 480px) {
-  .slide-title {
-    letter-spacing: 2px;
-  }
-  
-  .slide-subtitle {
-    margin: 10px 0 25px 0;
-  }
-  
+  .slide-title { letter-spacing: 2px; }
+
+  .slide-subtitle { margin: 10px 0 25px 0; }
+
   .arrow {
     width: 25px;
     height: 25px;
     font-size: 14px;
   }
-  
-  .arrow.left {
-    left: 10px;
+
+  .arrow.left { left: 10px; }
+  .arrow.right { right: 10px; }
+
+  .slider-store-buttons {
+    gap: 10px;
+    margin-top: 14px;
   }
-  
-  .arrow.right {
-    right: 10px;
+
+  .slider-store-btn img {
+    height: 45px;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .slider-store-buttons {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .slider-store-btn img {
+    height: 40px;
   }
 }

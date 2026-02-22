@@ -9,6 +9,7 @@ import Menu from "./pages/Menu";
 import "./pages/Home.css";
 import "./index.css";
 import Contact from "./pages/Contact";
+import Playstore from "./components/Playstore";
 // import "./script.js";
 // import "./script1.js";
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
       </main>
+      <Playstore/>
       <Footer />
     </BrowserRouter>
 

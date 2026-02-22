@@ -2,7 +2,14 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255); */
+  background: linear-gradient(
+    to left,
+    #ffffff 0%,
+    #ffffff 50%,
+    #ffdcc2 70%,
+    #f8c29c 100%
+  );
 }
 .nav-container {
   padding: 15px 30px;

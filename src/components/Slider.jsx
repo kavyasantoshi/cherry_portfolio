@@ -36,32 +36,25 @@ function Slider() {
 
   const nextSlide = () => {
     if (isTransitioning) return;
-    
     setIsTransitioning(true);
     setDirection('next');
     setCurrent((prev) => (prev + 1) % slides.length);
-    
-    // Match this to CSS transition duration
     setTimeout(() => setIsTransitioning(false), 1200);
   };
 
   const prevSlide = () => {
     if (isTransitioning) return;
-    
     setIsTransitioning(true);
     setDirection('prev');
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-    
     setTimeout(() => setIsTransitioning(false), 1200);
   };
 
   const goToSlide = (index) => {
     if (isTransitioning || index === current) return;
-    
     setIsTransitioning(true);
     setDirection(index > current ? 'next' : 'prev');
     setCurrent(index);
-    
     setTimeout(() => setIsTransitioning(false), 1200);
   };
 
@@ -69,7 +62,7 @@ function Slider() {
     <section className="hero-slider">
       {slides.map((slide, index) => {
         let slideClass = 'slide';
-        
+
         if (index === current) {
           slideClass += ' active';
         } else if (direction === 'next') {
@@ -96,28 +89,57 @@ function Slider() {
               <div className="content-wrapper">
                 <h1 className="slide-title">{slide.title}</h1>
                 <p className="slide-subtitle">{slide.subtitle}</p>
+
+                {/* Call Now Button */}
                 <div className="contact-buttons">
-                  <button className="call-btn">
+                  <button className="slider-btn">
                     <a href="tel:+919000202206">Call Now</a>
                   </button>
                 </div>
+
+                {/* Store Buttons */}
+                <div className="slider-store-buttons">
+                  {/* <a
+                    href="https://example.com/app-store"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="slider-store-btn"
+                  >
+                    <img
+                      src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                      alt="Download on the App Store"
+                    />
+                  </a> */}
+                  <a
+                    href="https://example.com/google-play"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="slider-store-btn"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                      alt="Get it on Google Play"
+                    />
+                  </a>
+                </div>
+
               </div>
             </div>
           </div>
         );
       })}
 
-      <button 
-        className="arrow left" 
-        onClick={prevSlide} 
+      <button
+        className="arrow left"
+        onClick={prevSlide}
         aria-label="Previous slide"
         disabled={isTransitioning}
       >
         ❮
       </button>
-      <button 
-        className="arrow right" 
-        onClick={nextSlide} 
+      <button
+        className="arrow right"
+        onClick={nextSlide}
         aria-label="Next slide"
         disabled={isTransitioning}
       >

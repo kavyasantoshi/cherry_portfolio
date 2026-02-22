@@ -43,26 +43,26 @@ export default function About() {
           <div className="image-frame">
             <img src={Veg} alt="Healthy food" />
             <div className="image-shadow"></div>
-          </div>
-          
-          {/* Floating badges with icons */}
-          <div className="badge badge-1">
-            <div className="badge-icon">
-              <Leaf size={28} strokeWidth={2} color="#22c55e" />
+
+            {/* Badges INSIDE image-frame — positioned relative to the image */}
+            <div className="badge badge-1">
+              <div className="badge-icon">
+                <Leaf size={24} strokeWidth={2} color="#22c55e" />
+              </div>
+              <div className="badge-text">
+                <strong>100%</strong>
+                <span>Vegetarian</span>
+              </div>
             </div>
-            <div className="badge-text">
-              <strong>100%</strong>
-              <span>Vegetarian</span>
-            </div>
-          </div>
-          
-          <div className="badge badge-2">
-            <div className="badge-icon">
-              <Star size={28} strokeWidth={2} color="#f59e0b" fill="#f59e0b" />
-            </div>
-            <div className="badge-text">
-              <strong>Fresh</strong>
-              <span>Daily</span>
+
+            <div className="badge badge-2">
+              <div className="badge-icon">
+                <Star size={24} strokeWidth={2} color="#f59e0b" fill="#f59e0b" />
+              </div>
+              <div className="badge-text">
+                <strong>Fresh</strong>
+                <span>Daily</span>
+              </div>
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function About() {
           <div className="features">
             <div className={`feature-card ${isVisible ? "slide-in" : ""}`}>
               <div className="feature-icon-wrapper">
-                <Utensils size={28} strokeWidth={2} />
+                <Utensils size={26} strokeWidth={2} />
               </div>
               <div className="feature-info">
                 <h4>Traditional Taste</h4>
@@ -107,7 +107,7 @@ export default function About() {
 
             <div className={`feature-card ${isVisible ? "slide-in" : ""}`}>
               <div className="feature-icon-wrapper">
-                <Sparkles size={28} strokeWidth={2} />
+                <Sparkles size={26} strokeWidth={2} />
               </div>
               <div className="feature-info">
                 <h4>Quality First</h4>
@@ -117,7 +117,7 @@ export default function About() {
 
             <div className={`feature-card ${isVisible ? "slide-in" : ""}`}>
               <div className="feature-icon-wrapper">
-                <Heart size={28} strokeWidth={2} />
+                <Heart size={26} strokeWidth={2} />
               </div>
               <div className="feature-info">
                 <h4>Hygienic</h4>
