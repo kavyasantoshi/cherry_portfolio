@@ -1,7 +1,7 @@
-import About from "./About.jsx";
-import Menu from "./Menu.jsx";
-import Contact from "./Contact.jsx";
-import Slider from "../components/Slider.jsx";
+import About from "../components/about/About.jsx";
+import Menu from "../components/menu/Menu.jsx";
+import Contact from "../components/contact/Contact.jsx";
+import Slider from "../components/home/Slider.jsx";
 function Home() {
   return (
     <>

@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect,useState } from "react";
 import Loader from "./components/Loader";
-import Header from "./components/header";
-import Footer from "./pages/Footer";
+import Header from "./components/layout/header";
+import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Menu from "./pages/Menu";
+import About from "./components/about/About";
+import Menu from "./components/menu/Menu";
 import "./pages/Home.css";
 import "./index.css";
-import Contact from "./pages/Contact";
-import Playstore from "./components/Playstore";
+import Contact from "./components/contact/Contact";
+import Playstore from "./components/app/Playstore";
 // import "./script.js";
 // import "./script1.js";
 function App() {
