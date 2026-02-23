@@ -17,34 +17,10 @@
   justify-content: space-between;
   gap: 40px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
-  overflow: visible;
   position: relative;
+  /* NO overflow:hidden here — we use a clip wrapper instead */
+  overflow: visible;
 }
-
-/* Decorative curves */
-/* .download-container::before {
-  content: "";
-  position: absolute;
-  bottom: -60px;
-  left: 30%;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  border: 1px solid rgba(200, 150, 150, 0.2);
-  pointer-events: none;
-} */
-
-/* .download-container::after {
-  content: "";
-  position: absolute;
-  bottom: -100px;
-  left: 25%;
-  width: 450px;
-  height: 450px;
-  border-radius: 50%;
-  border: 1px solid rgba(200, 150, 150, 0.15);
-  pointer-events: none;
-} */
 
 /* =====================
    LEFT SIDE
@@ -56,10 +32,11 @@
 
 .download-content h2 {
   font-size: 38px;
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 14px;
   line-height: 1.2;
   color: #1a1a1a;
+    font-family: "Poppins", sans-serif;
 }
 
 .download-content p {
@@ -67,6 +44,7 @@
   color: #666;
   margin-bottom: 28px;
   line-height: 1.6;
+    font-family: "Poppins", sans-serif;
 }
 
 .store-buttons {
@@ -87,28 +65,57 @@
 }
 
 /* =====================
-   RIGHT SIDE — PHONE MOCKUP (partially cropped / overflowing)
+   RIGHT SIDE — PHONE MOCKUP
+   Top fully visible (overflows above card via section padding)
+   Bottom clipped by .phone-clip-box
    ===================== */
+
+/* Outer wrapper: gives room for phone top to overflow above card */
 .phone-wrapper {
   flex: 0 0 auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-  /* Phone overflows top and bottom of the card */
-  margin-top: -80px;
-  margin-bottom: -50px;
+  align-items: flex-start;
+  /* Pull phone top above the card — section padding absorbs this */
+  margin-top: -130px;
+  /* No negative bottom margin needed — clip box handles bottom */
+  animation: phoneFallIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.2s;
+}
+
+/* The clip box: hides ONLY the bottom of the phone */
+.phone-clip-box {
+  /* Height controls how much of the phone is visible */
+  height: 380px;
+  overflow: hidden;
+}
+
+@keyframes phoneFallIn {
+  from {
+    opacity: 0;
+    transform: translateY(-90px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Section top padding must compensate for phone overflow above card */
+.download-section {
+  padding-top: 130px;
 }
 
 .phone-mockup {
   position: relative;
-  width: 260px;
+  width: 280px;
 }
 
-/* The main phone frame */
+/* Phone frame */
 .phone-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 7 / 10;
+  aspect-ratio: 7 / 13;
   background: #ffffff;
   border-radius: 44px;
   border: 8px solid #1a1a2e;
@@ -119,7 +126,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
 }
 
@@ -153,10 +160,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 36px 16px 24px;
+  justify-content: flex-start;
+  padding: 42px 16px 20px;
   width: 100%;
-  height: 100%;
 }
 
 .qr-label {
@@ -166,6 +172,7 @@
   line-height: 1.5;
   margin-bottom: 14px;
   font-weight: 500;
+    font-family: "Poppins", sans-serif;
 }
 
 .qr-wrapper {
@@ -177,12 +184,11 @@
 }
 
 .qr-image {
-  width: 130px;
-  height: 130px;
+  width: 140px;
+  height: 140px;
   display: block;
 }
 
-/* Home indicator bar */
 .phone-home-bar {
   position: absolute;
   bottom: 8px;
@@ -195,7 +201,6 @@
   opacity: 0.5;
 }
 
-/* Side buttons */
 .phone-btn-volume-up,
 .phone-btn-volume-down,
 .phone-btn-power {
@@ -204,355 +209,140 @@
   border-radius: 3px;
 }
 
-.phone-btn-volume-up {
-  left: -10px;
-  top: 22%;
-  width: 4px;
-  height: 26px;
-}
-
-.phone-btn-volume-down {
-  left: -10px;
-  top: 33%;
-  width: 4px;
-  height: 26px;
-}
-
-.phone-btn-power {
-  right: -10px;
-  top: 27%;
-  width: 4px;
-  height: 38px;
-}
+.phone-btn-volume-up   { left: -10px; top: 16%; width: 4px; height: 26px; }
+.phone-btn-volume-down { left: -10px; top: 25%; width: 4px; height: 26px; }
+.phone-btn-power       { right: -10px; top: 20%; width: 4px; height: 38px; }
 
 /* =====================
    LARGE DESKTOP: 1440px+
    ===================== */
 @media (min-width: 1440px) {
-  .download-container {
-    max-width: 1320px;
-    padding: 55px 90px;
-    gap: 60px;
-  }
-
-  .download-content h2 {
-    font-size: 48px;
-  }
-
-  .download-content p {
-    font-size: 20px;
-  }
-
-  .store-btn img {
-    height: 56px;
-  }
-
-  .phone-mockup {
-    width: 290px;
-  }
-
-  .phone-wrapper {
-    margin-top: -90px;
-    margin-bottom: -55px;
-  }
+  .download-section    { padding: 150px 20px 80px; }
+  .download-container  { max-width: 1320px; padding: 55px 90px; gap: 60px; }
+  .download-content h2 { font-size: 48px; }
+  .download-content p  { font-size: 20px; }
+  .store-btn img       { height: 56px; }
+  .phone-mockup        { width: 310px; }
+  .phone-wrapper       { margin-top: -145px; }
+  .phone-clip-box      { height: 420px; }
+  .qr-image            { width: 158px; height: 158px; }
 }
 
 /* =====================
    DESKTOP: 1200px – 1439px
    ===================== */
 @media (max-width: 1439px) and (min-width: 1200px) {
-  .download-container {
-    padding: 52px 80px;
-    gap: 50px;
-  }
-
-  .download-content h2 {
-    font-size: 42px;
-  }
-
-  .download-content p {
-    font-size: 18px;
-  }
-
-  .phone-mockup {
-    width: 268px;
-  }
+  .download-container  { padding: 52px 80px; gap: 50px; }
+  .download-content h2 { font-size: 42px; }
+  .download-content p  { font-size: 18px; }
+  .phone-mockup        { width: 285px; }
+  .phone-clip-box      { height: 390px; }
 }
 
 /* =====================
    LAPTOP: 1025px – 1199px
    ===================== */
 @media (max-width: 1199px) and (min-width: 1025px) {
-  .download-container {
-    padding: 48px 55px;
-    gap: 36px;
-  }
-
-  .download-content h2 {
-    font-size: 34px;
-  }
-
-  .download-content p {
-    font-size: 16px;
-  }
-
-  .store-btn img {
-    height: 46px;
-  }
-
-  .phone-mockup {
-    width: 230px;
-  }
-
-  .phone-wrapper {
-    margin-top: -70px;
-    margin-bottom: -44px;
-  }
-
-  .qr-image {
-    width: 110px;
-    height: 110px;
-  }
-
-  .qr-label {
-    font-size: 12px;
-  }
+  .download-section    { padding: 120px 20px 80px; }
+  .download-container  { padding: 48px 55px; gap: 36px; }
+  .download-content h2 { font-size: 34px; }
+  .download-content p  { font-size: 16px; }
+  .store-btn img       { height: 46px; }
+  .phone-mockup        { width: 250px; }
+  .phone-wrapper       { margin-top: -115px; }
+  .phone-clip-box      { height: 345px; }
+  .qr-image            { width: 122px; height: 122px; }
+  .qr-label            { font-size: 12px; }
 }
 
 /* =====================
    TABLET LANDSCAPE: 619px – 1024px
    ===================== */
 @media (max-width: 1024px) and (min-width: 619px) {
-  .download-section {
-    padding: 60px 16px;
-  }
-
-  .download-container {
-    padding: 42px 40px;
-    gap: 28px;
-    border-radius: 24px;
-  }
-
-  .download-content h2 {
-    font-size: 26px;
-    margin-bottom: 10px;
-  }
-
-  .download-content p {
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-
-  .store-buttons {
-    gap: 12px;
-  }
-
-  .store-btn img {
-    height: 40px;
-  }
-
-  .phone-mockup {
-    width: 200px;
-  }
-
-  .phone-wrapper {
-    margin-top: -60px;
-    margin-bottom: -40px;
-  }
-
-  .qr-image {
-    width: 100px;
-    height: 100px;
-  }
-
-  .qr-label {
-    font-size: 11px;
-    margin-bottom: 10px;
-  }
-
-  .qr-wrapper {
-    padding: 8px;
-    border-radius: 12px;
-  }
-
-  .phone-frame {
-    border-width: 6px;
-    border-radius: 34px;
-  }
-
-  .phone-notch {
-    height: 22px;
-  }
+  .download-section    { padding: 110px 16px 60px; }
+  .download-container  { padding: 42px 40px; gap: 28px; border-radius: 24px; }
+  .download-content h2 { font-size: 26px; margin-bottom: 10px; }
+  .download-content p  { font-size: 14px; margin-bottom: 20px; }
+  .store-buttons       { gap: 12px; }
+  .store-btn img       { height: 40px; }
+  .phone-mockup        { width: 210px; }
+  .phone-wrapper       { margin-top: -105px; }
+  .phone-clip-box      { height: 300px; }
+  .qr-image            { width: 104px; height: 104px; }
+  .qr-label            { font-size: 11px; margin-bottom: 10px; }
+  .qr-wrapper          { padding: 8px; border-radius: 12px; }
+  .phone-frame         { border-width: 6px; border-radius: 34px; }
+  .phone-notch         { height: 22px; }
 }
 
 /* =====================
-   STACKED: 618px and below
-   Phone ON TOP (overflowing upward), content below
+   STACKED: ≤618px — phone on top, content below
    ===================== */
 @media (max-width: 618px) {
-  /* Section top padding gives space for phone to visibly overflow above card */
   .download-section {
-    padding: 90px 14px 50px;
+    padding: 50px 14px 50px;
   }
 
   .download-container {
     flex-direction: column;
     text-align: center;
-    padding: 0 22px 36px;
+    padding: 20px 22px 36px;
     border-radius: 24px;
-    gap: 0;
-    /* overflow: visible so phone top (notch) is fully visible above card */
+    gap: 20px;
     overflow: visible;
   }
 
-  /* Phone comes FIRST (top), floats above card */
   .phone-wrapper {
     order: -1;
     width: 100%;
     justify-content: center;
-    /* Pulls phone up above the card top — section padding compensates */
-    margin-top: -90px;
-    margin-bottom: 24px;
+    margin-top: 0;               /* no overflow above in stacked — phone sits inside card */
+    animation-delay: 0.1s;
   }
 
-  .phone-mockup {
-    width: 230px;
-    margin: 0 auto;
+  .phone-clip-box {
+    height: 280px;
   }
 
-  .qr-image {
-    width: 115px;
-    height: 115px;
-  }
+  .phone-mockup { width: 210px; margin: 0 auto; }
+  .qr-image     { width: 105px; height: 105px; }
+  .qr-label     { font-size: 11px; }
 
-  .qr-label {
-    font-size: 12px;
-  }
+  .download-content    { width: 100%; order: 1; }
+  .download-content h2 { font-size: 24px; margin-bottom: 10px; }
+  .download-content p  { font-size: 13px; margin-bottom: 18px; }
 
-  /* Content below */
-  .download-content {
-    width: 100%;
-    order: 1;
-  }
-
-  .download-content h2 {
-    font-size: 26px;
-    margin-bottom: 10px;
-  }
-
-  .download-content p {
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-
-  /* Buttons always side by side */
-  .store-buttons {
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .store-btn img {
-    height: 44px;
-  }
+  .store-buttons { justify-content: center; flex-direction: row; flex-wrap: wrap; gap: 12px; }
+  .store-btn img { height: 44px; }
 }
 
 /* =====================
    SMALL MOBILE: 361px – 480px
    ===================== */
 @media (max-width: 480px) and (min-width: 361px) {
-  .download-section {
-    padding: 85px 12px 40px;
-  }
-
-  .download-container {
-    padding: 0 18px 30px;
-    border-radius: 20px;
-    overflow: visible;
-  }
-
-  .download-content h2 {
-    font-size: 22px;
-  }
-
-  .download-content p {
-    font-size: 13px;
-  }
-
-  .store-btn img {
-    height: 42px;
-  }
-
-  .phone-mockup {
-    width: 210px;
-  }
-
-  .phone-wrapper {
-    margin-top: -85px;
-    margin-bottom: 20px;
-  }
-
-  .qr-image {
-    width: 105px;
-    height: 105px;
-  }
+  .download-section    { padding: 44px 12px 40px; }
+  .download-container  { padding: 16px 18px 28px; border-radius: 20px; }
+  .download-content h2 { font-size: 22px; }
+  .download-content p  { font-size: 13px; }
+  .store-btn img       { height: 42px; }
+  .phone-mockup        { width: 190px; }
+  .phone-clip-box      { height: 250px; }
+  .qr-image            { width: 94px; height: 94px; }
 }
 
 /* =====================
-   TINY MOBILE: 360px and below (down to 320px)
+   TINY MOBILE: ≤360px
    ===================== */
 @media (max-width: 360px) {
-  .download-section {
-    padding: 80px 10px 36px;
-  }
-
-  .download-container {
-    padding: 0 14px 24px;
-    border-radius: 16px;
-    overflow: visible;
-  }
-
-  .download-content h2 {
-    font-size: 20px;
-  }
-
-  .download-content p {
-    font-size: 12px;
-  }
-
-  /* Keep buttons side by side even on tiny screens */
-  .store-buttons {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .store-btn img {
-    height: 38px;
-  }
-
-  .phone-mockup {
-    width: 185px;
-  }
-
-  .phone-wrapper {
-    margin-top: -80px;
-    margin-bottom: 18px;
-  }
-
-  .qr-image {
-    width: 88px;
-    height: 88px;
-  }
-
-  .qr-label {
-    font-size: 10px;
-  }
-
-  .phone-frame {
-    border-width: 5px;
-    border-radius: 30px;
-  }
+  .download-section    { padding: 40px 10px 36px; }
+  .download-container  { padding: 14px 14px 24px; border-radius: 16px; }
+  .download-content h2 { font-size: 20px; }
+  .download-content p  { font-size: 12px; }
+  .store-buttons       { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .store-btn img       { height: 38px; }
+  .phone-mockup        { width: 168px; }
+  .phone-clip-box      { height: 220px; }
+  .qr-image            { width: 82px; height: 82px; }
+  .qr-label            { font-size: 10px; }
+  .phone-frame         { border-width: 5px; border-radius: 30px; }
 }

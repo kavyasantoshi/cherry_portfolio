@@ -29,12 +29,15 @@
   font-size: 30px;
   font-weight: 600;
   letter-spacing: 2px;
-  font-family: 'Lobster', cursive;;
+  /* font-family: 'Lobster', cursive; */
+  font-family: "Poppins", sans-serif;
+  /* filter: brightness(0); */
 }
 .nav-links {
   list-style: none;
   display: flex;
   gap: 40px;
+  font-family: "Poppins", sans-serif;
 }
 .nav-links a {
   text-decoration: none;
@@ -99,7 +102,14 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background:#ffffff;
+    /* background:#ffffff; */
+     background: linear-gradient(
+    to left,
+    #ffffff 0%,
+    #ffffff 50%,
+    #ffdcc2 70%,
+    #f8c29c 100%
+  );
     flex-direction: column;
     gap: 20px;
     text-align: left;
@@ -116,7 +126,13 @@
   }
   .nav-links.open {
     max-height: 400px;
-    background: #ffffff;
+     background: linear-gradient(
+    to left,
+    #ffffff 0%,
+    #ffffff 50%,
+    #ffdcc2 70%,
+    #f8c29c 100%
+  );
     padding: 20px 0;
   }
   .nav-container{

@@ -5,8 +5,6 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-
-        {/* BRAND */}
         <div className="footer-brand">
           <h2>Cherries</h2>
           <p>
@@ -35,7 +33,6 @@ const Footer = () => {
             </a>
 
             <a href="mailto:cherrieskakinada@gmail.com" aria-label="Email" className="social-icon">
-              {/* Email */}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2"/>
                 <polyline points="2,4 12,13 22,4"/>

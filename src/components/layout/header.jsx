@@ -1,19 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-// import { FaSearch } from "react-icons/fa";
 import "./styles/header.css";
-// import logo from "./images/logos/cherry_logo.png";
-// import logo1 from "../assets/cherry_text.png";
-// import "@fontsource/pacifico";
-
 function header() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <nav className="navbar">
       <div className="nav-container">
          <div className="logo">
-          {/* <img src={logo} alt="Cherries Restaurant Logo" /> */}
+          <img src="/logos/cherry_logo.png" alt="Cherries Restaurant Logo" />
           <span >CHERRIES</span>
         </div>
         {/* <div className="search">

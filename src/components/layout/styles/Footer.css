@@ -20,9 +20,10 @@
 .footer-brand h2 {
   color: #ff7a18;
   font-size: 34px;
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: 12px;
   letter-spacing: -0.5px;
+  font-family: "Poppins", sans-serif;
 }
 
 .footer-brand p {
@@ -30,6 +31,7 @@
   color: #999;
   font-size: 15px;
   margin-bottom: 24px;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Social Icons */
@@ -70,35 +72,24 @@
 .footer-links h3,
 .footer-contact h3,
 .footer-download h3 {
-  color: #fff;
-  font-size: 17px;
+  color: #ff7a18;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-top: 12px;
+  margin-bottom: 14px;           /* ← reduced from 20px */
   position: relative;
-  padding-bottom: 10px;
-}
-
-.footer-links h3::after,
-.footer-contact h3::after,
-.footer-download h3::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 30px;
-  height: 2px;
-  background: #ff7a18;
-  border-radius: 2px;
+  padding-bottom: 8px;
+  font-family: "Poppins", sans-serif;
 }
 
 .footer-links ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 .footer-links li {
-  margin-bottom: 12px;
+  margin-bottom: 4px;            /* ← reduced from 6px */
 }
 
 .footer-links a {
@@ -139,6 +130,7 @@
   align-items: flex-start;
   gap: 10px;
   margin-bottom: 14px;
+  font-family: "Poppins", sans-serif;
 }
 
 .contact-icon {
@@ -218,7 +210,7 @@
   padding-top: 18px;
   text-align: center;
   font-size: 13px;
-  color: #666;
+  color: #ffffff;
 }
 
 /* =====================
@@ -266,11 +258,14 @@
   .footer-store-btn img {
     height: 42px;
   }
+
+  .footer-links li {
+    margin-bottom: 3px;
+  }
 }
 
 /* =====================
    TABLET LANDSCAPE: 769px – 1024px
-   Same 4-column row, scaled down
    ===================== */
 @media (max-width: 1024px) and (min-width: 769px) {
   .footer {
@@ -280,6 +275,7 @@
   .footer-container {
     grid-template-columns: 1.5fr 0.8fr 1.4fr 1.2fr;
     gap: 20px;
+    align-items: start;
   }
 
   .footer-brand h2 {
@@ -297,7 +293,7 @@
   .footer-contact h3,
   .footer-download h3 {
     font-size: 14px;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
   }
 
   .footer-links a {
@@ -305,7 +301,7 @@
   }
 
   .footer-links li {
-    margin-bottom: 8px;
+    margin-bottom: 3px;          /* ← reduced */
   }
 
   .contact-item p,
@@ -358,7 +354,6 @@
 
 /* =====================
    TABLET PORTRAIT: 481px – 768px
-   Same 4-column row, more compact
    ===================== */
 @media (max-width: 768px) and (min-width: 481px) {
   .footer {
@@ -368,6 +363,7 @@
   .footer-container {
     grid-template-columns: 1.4fr 0.7fr 1.3fr 1.1fr;
     gap: 14px;
+    align-items: start;
   }
 
   .footer-brand h2 {
@@ -385,8 +381,8 @@
   .footer-contact h3,
   .footer-download h3 {
     font-size: 13px;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
   }
 
   .footer-links h3::after,
@@ -409,7 +405,7 @@
   }
 
   .footer-links li {
-    margin-bottom: 7px;
+    margin-bottom: 3px;          /* ← reduced */
   }
 
   .contact-item p,
@@ -462,7 +458,6 @@
 
 /* =====================
    MOBILE: 361px – 480px
-   Same 4-column row, minimal
    ===================== */
 @media (max-width: 480px) and (min-width: 361px) {
   .footer {
@@ -472,6 +467,7 @@
   .footer-container {
     grid-template-columns: 1.3fr 0.65fr 1.2fr 1fr;
     gap: 10px;
+    align-items: start;
   }
 
   .footer-brand h2 {
@@ -490,7 +486,7 @@
   .footer-contact h3,
   .footer-download h3 {
     font-size: 11px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     padding-bottom: 6px;
   }
 
@@ -514,7 +510,7 @@
   }
 
   .footer-links li {
-    margin-bottom: 6px;
+    margin-bottom: 3px;          /* ← reduced */
   }
 
   .contact-item p,
@@ -581,6 +577,7 @@
   .footer-container {
     grid-template-columns: 1.3fr 0.6fr 1.2fr 1fr;
     gap: 8px;
+    align-items: start;
   }
 
   .footer-brand h2 {
@@ -598,7 +595,7 @@
   .footer-contact h3,
   .footer-download h3 {
     font-size: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     padding-bottom: 5px;
   }
 
@@ -622,7 +619,7 @@
   }
 
   .footer-links li {
-    margin-bottom: 5px;
+    margin-bottom: 2px;          /* ← reduced */
   }
 
   .contact-item p,
@@ -677,10 +674,8 @@
 }
 
 /* =====================
-   ≤425px: 3-column layout + copyright under logo + Swiggy bar
+   ≤425px: 3-column layout + Swiggy bar
    ===================== */
-
-/* Copyright under logo — hidden above 425px */
 @media (max-width: 425px) {
   .footer {
     padding: 26px 3% 0;
@@ -691,9 +686,9 @@
     display: none;
   }
 
-  /* 3 columns: Brand | Links | Contact */
+  /* 3 columns: Brand | Links | Contact — equal-ish widths, no wrapping */
   .footer-container {
-    grid-template-columns: 1.2fr 0.65fr 1.15fr;
+    grid-template-columns: 1.3fr 0.7fr 1.2fr; /* ← tightened ratios */
     gap: 10px;
     align-items: start;
   }
@@ -730,7 +725,8 @@
   .footer-links h3,
   .footer-contact h3 {
     font-size: 12px;
-    margin-bottom: 10px;
+    margin-top: 0;               /* ← ensure top-alignment with brand */
+    margin-bottom: 8px;
     padding-bottom: 6px;
   }
 
@@ -753,7 +749,7 @@
   }
 
   .footer-links li {
-    margin-bottom: 6px;
+    margin-bottom: 4px;          /* ← consistent tight spacing */
   }
 
   /* Contact */
@@ -792,7 +788,7 @@
   }
 
   .footer-container {
-    grid-template-columns: 1.1fr 0.6fr 1.1fr;
+    grid-template-columns: 1.2fr 0.65fr 1.1fr;
     gap: 7px;
   }
 
@@ -816,7 +812,7 @@
 
   .footer-links h3,
   .footer-contact h3 {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .footer-links a,
@@ -834,14 +830,19 @@
     width: 9px;
     height: 9px;
   }
+
+  .footer-links li {
+    margin-bottom: 2px;
+  }
 }
 
-/* The Swiggy-style bar — hidden above 425px, shown below */
+/* =====================
+   SWIGGY-STYLE BAR — hidden above 425px
+   ===================== */
 .footer-swiggy-bar {
   display: none;
 }
 
-/* Copyright in swiggy bar — hidden above 425px */
 .swiggy-bar-copyright {
   display: none;
 }
@@ -849,7 +850,7 @@
 @media (max-width: 425px) {
   .footer-swiggy-bar {
     display: flex;
-    flex-direction: column;        /* stack: [text + buttons row] then [copyright] */
+    flex-direction: column;
     border-top: 1px solid #2e2e2e;
     margin-top: 18px;
     padding: 12px 3% 10px;
@@ -864,7 +865,7 @@
     justify-content: space-between;
     width: 100%;
     gap: 8px;
-    flex-wrap: nowrap;             /* never wrap on this row */
+    flex-wrap: nowrap;
   }
 
   .footer-swiggy-bar p {
@@ -885,7 +886,7 @@
 
   .swiggy-bar-buttons {
     display: flex;
-    flex-direction: row;           /* always row, never column */
+    flex-direction: row;
     flex-wrap: nowrap;
     gap: 6px;
     flex-shrink: 0;
@@ -907,7 +908,6 @@
     opacity: 0.85;
   }
 
-  /* Copyright below the bar row */
   .swiggy-bar-copyright {
     display: block;
     font-size: 9.5px;

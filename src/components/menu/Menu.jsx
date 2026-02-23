@@ -1,6 +1,4 @@
 import { useState } from "react";
-// import idly       from "../assets/breakfast.jpg";
-// import poori      from "../assets/poori.webp";
 import tandoori from "/images/tandoori/tandoori_naan.jpg";
 import butter_naan from "/images/tandoori/butter_naan.png";
 import garlic_naan from "/images/tandoori/garlic_naan.png";
@@ -27,20 +25,10 @@ import mushroom_noodles from "/images/noodles/mushroom_noodles.png";
 import manchurian_noodles from "/images/noodles/manchurian_noodles.png";
 import curd_rice from "/images/meals/curd_rice.png";
 import south_meal from "/images/meals/south_meal.png";
-// import vada       from "../assets/vada.avif";
-// import dosa       from "../assets/dosa.png";
 import menu1       from "/images/menu/menu1.jpeg";
 import menu2       from "/images/menu/menu2.jpeg";
-// import paneer     from "../assets/paneer-manchurian.jpg";
-// import p_biryani  from "../assets/veg-biryani.jpg";
-import masalachai      from "/images/bevarages/masalachai.png";
-// import corn       from "../assets/corn.jpg";
-import lime       from "/images/bevarages/limesoda.png";
-import Horlicks       from "/images/bevarages/horlicks.png";
-import greentea     from "/images/bevarages/green_tea.png";
-import badham_milk      from "/images/bevarages/badham_milk.png";
 import "./styles/Menu.css";
-import { ImOpt } from "react-icons/im";
+// import { ImOpt } from "react-icons/im";
 
 function Menu() {
   const [activeCategory, setActiveCategory] = useState(null);
@@ -53,53 +41,97 @@ function Menu() {
 
   /* ── Categories with image instead of emoji ── */
   const categories = [
-    { key: "tiffins",   label: "Tiffins",    image: masalachai      },
-    { key: "dosa",      label: "Dosa",        image: masalachai      },
-    { key: "starters",  label: "Starters",    image: masalachai    },
-    { key: "soup",      label: "Soups",       image: masalachai  },
-    { key: "curries",   label: "Curries",     image: masalachai     },
-    { key: "friedrice", label: "Fried Rice",  image: masalachai },
-    { key: "biryani",   label: "Biryani",     image: masalachai  },
-    { key: "noodles",   label: "Noodles",     image: masalachai      },
-    { key: "tikkas",    label: "Tikkas",      image: masalachai   },
-    { key: "tandoori",  label: "Tandoori",    image: masalachai    },
-    { key: "beverages", label: "Beverages",   image: masalachai },
-    { key: "meals",     label: "Meals",       image: masalachai  },
+    { key: "idly",   label: "idly",    image: "images/Tiffins/Idly.png"      },
+    { key: "dosa",      label: "Dosa",        image:  "images/Tiffins/Set dosa.png "   },
+    { key: "pesarattu",  label: "Pesarattu",    image: "images/Tiffins/plain pesarattu.png "  },
+    { key: "soup",      label: "Soups",       image: "images/Soups/ClearSoup.png"  },
+    { key: "starters",      label: "Starters",       image: "images/Starters/BabyCorn65.png"  },
+    { key: "tikkas",    label: "Tikkas",      image: "images/Tikkas/PaneerTikka.png"   },
+    { key: "curries",   label: "Curries",     image: butter_masala    },
+    { key: "friedrice", label: "Fried Rice",  image: veg_fried },
+    { key: "biryani",   label: "Biryani",     image: veg_biryani  },
+    { key: "noodles",   label: "Noodles",     image: veg_noodles     },
+    { key: "tandoori",  label: "Tandoori",    image: tandoori   },
+    { key: "meals",     label: "Meals",       image: south_meal  },
   ];
 
   const menuData = {
-    // tiffins: [
-    //   { name: "Sambar Idly",   desc: "Soft idlies served with hot, flavorful sambar",            price: 60,  image: idly,      tag: "Bestseller" },
-    //   { name: "Poori (3pc)",   desc: "Crispy golden pooris served with flavorful potato masala", price: 60,  image: poori },
-    //   { name: "Vada (3pc)",    desc: "Crispy lentil vadas served with hot sambar and chutney",   price: 50,  image: vada },
-    //   { name: "Onion Dosa",    desc: "Crispy dosa topped with fresh onions and mild spices",     price: 65,  image: dosa,      tag: "Popular" },
-    //   { name: "Plain Dosa",    desc: "Classic thin crispy dosa with sambar and chutney",         price: 50,  image: dosa },
-    //   { name: "Masala Dosa",   desc: "Golden dosa stuffed with spiced potato filling",           price: 75,  image: dosa,      tag: "Must Try" },
-    // ],
-    // dosa: [
-    //   { name: "Onion Butter Dosa",   desc: "Crispy dosa with fresh onions and butter",           price: 70,  image: dosa },
-    //   { name: "Ghee Plain Dosa",     desc: "Classic dosa drizzled with pure ghee",               price: 60,  image: dosa },
-    //   { name: "Ghee Onion Dosa",     desc: "Buttery dosa topped with caramelised onions",        price: 70,  image: dosa },
-    //   { name: "Paneer Dosa",         desc: "Dosa stuffed with spiced paneer filling",            price: 90,  image: dosa,      tag: "Popular" },
-    //   { name: "Mushroom Dosa",       desc: "Dosa with savory mushroom filling",                  price: 90,  image: dosa },
-    //   { name: "Kaju Mushroom Dosa",  desc: "Premium dosa with cashew & mushroom",                price: 100, image: dosa,      tag: "Special" },
-    // ],
-    // starters: [
-    //   { name: "Paneer Manchurian",    desc: "Crispy paneer tossed in tangy Indo-Chinese sauce",  price: 200, image: paneer,    tag: "Bestseller" },
-    //   { name: "Crispy Corn",          desc: "Golden fried corn kernels with aromatic spices",    price: 180, image: corn,      tag: "Popular" },
-    //   { name: "Gobi Manchurian",      desc: "Crispy cauliflower in a spicy tangy sauce",         price: 180, image: paneer },
-    //   { name: "Veg Manchurian",       desc: "Mixed vegetable balls in Indo-Chinese gravy",       price: 180, image: paneer },
-    //   { name: "Baby Corn Manchurian", desc: "Tender baby corn in flavorful manchurian sauce",    price: 180, image: corn },
-    //   { name: "Chilli Paneer",        desc: "Spicy stir-fried paneer with bell peppers",         price: 200, image: paneer,    tag: "Must Try" },
-    // ],
-    // soup: [
-    //   { name: "Tomato Soup",     desc: "Classic creamy tomato soup with herbs",                  price: 100, image: p_biryani },
-    //   { name: "Cream of Tomato", desc: "Rich velvety tomato cream soup",                         price: 100, image: p_biryani, tag: "Popular" },
-    //   { name: "Hot & Sour Soup", desc: "Tangy spicy Indo-Chinese style soup",                    price: 100, image: p_biryani, tag: "Bestseller" },
-    //   { name: "Sweet Corn Soup", desc: "Warm soup with sweet corn and vegetables",               price: 100, image: p_biryani },
-    //   { name: "Manchow Soup",    desc: "Spicy thick soup with crispy noodles",                   price: 100, image: p_biryani },
-    //   { name: "Mushroom Soup",   desc: "Earthy creamy mushroom broth",                           price: 100, image: p_biryani },
-    // ],
+    idly: [
+      { name: "Idly",    desc: "Soft, fluffy steamed rice cakes served fresh and warm, perfect for a light and healthy meal.",     price: 30,  image: "images/Tiffins/Idly.png",      tag: "Popular" },
+      { name: "Sambar Idly",   desc: "Soft idlies served with hot, flavorful sambar",            price: 60,  image: "images/Tiffins/sambar idly.png",      tag: "Bestseller" },
+      { name: "Button Idly",    desc: "Mini soft idlies steamed to perfection, bite-sized and served with delicious chutney and sambar.",     price: 60,  image: "images/Tiffins/Button idly.png"},
+      { name: "Ghee karappodi idly",    desc: "Soft idlies tossed in aromatic ghee and spicy karappodi, offering a rich and flavorful traditional taste.",     price: 40,  image: "images/Tiffins/Ghee karappodi idly.png",      tag: "Must try" },
+    ],
+    dosa: [
+      { name: "Onion Butter Dosa",   desc: "Crispy dosa with fresh onions and butter",           price: 70,  image: "images/Tiffins/onion butter dosa.png" },
+      { name: "Ghee Plain Dosa",     desc: "Classic dosa drizzled with pure ghee",               price: 60,  image: "images/Tiffins/ghee plain dosa.png" },
+      { name: "Ghee Onion Dosa",     desc: "Buttery dosa topped with caramelised onions",        price: 70,  image: "images/Tiffins/GHee onion dosa.png" },
+      { name: "Paneer Dosa",         desc: "Dosa stuffed with spiced paneer filling",            price: 90,  image: "images/Tiffins/paneer dosa.png",      tag: "Popular" },
+      { name: "Mushroom Dosa",       desc: "Dosa with savory mushroom filling",                  price: 90,  image: "images/Tiffins/Mushroom dosa.png"},
+      { name: "Kaju Mushroom Dosa",  desc: "Premium dosa with cashew & mushroom",                price: 100, image: "images/Tiffins/Kaju Mushroom Dosa.png",      tag: "Special" },
+    ],
+    pesarattu: [
+  { 
+    name: "Plain Pesarratu",   
+    desc: "Traditional green gram crepe served hot and crispy",           
+    price: 55,  
+    image: "images/Tiffins/plain pesarattu.png" 
+  },
+  { 
+    name: "Ghee Plain Pesarratu",     
+    desc: "Crispy pesarratu drizzled with aromatic pure ghee",               
+    price: 65,  
+    image: "images/Tiffins/Ghee plain pesarattu.png" 
+  },
+  { 
+    name: "Onion Pesarratu",     
+    desc: "Pesarratu topped with fresh chopped onions and spices",        
+    price: 65,  
+    image: "images/Tiffins/Onion pesarttu.png" 
+  },
+  { 
+    name: "Ghee Onion Pesarratu",         
+    desc: "Flavorful pesarratu with onions and a rich ghee finish",            
+    price: 75,  
+    image: "images/Tiffins/Ghee onion pesarattu.png" 
+  },
+  { 
+    name: "Ghee Pesarratu Upma",  
+    desc: "Upma-filled pesarratu enriched with a generous drizzle of ghee",                
+    price: 90, 
+    image: "images/Tiffins/Ghee perarattu upma.png",      
+    tag: "Special"
+  },
+  { 
+    name: "Kakinada Chitti Pesarratu",  
+    desc: "Authentic small-sized crispy pesarratu from Kakinada style",                
+    price: 70, 
+    image: "images/Tiffins/kakinada chitti pesarattu.png"
+  },
+  { 
+    name: "Mixture Pesarratu",  
+    desc: "Crunchy pesarratu topped with spicy mixture for extra flavor",                
+    price: 90, 
+    image: "images/Tiffins/Mixture Pesarattu.png",
+    tag: "Chef's Choice"
+  }
+],
+    starters: [
+      { name: "Paneer Manchurian",    desc: "Crispy paneer tossed in tangy Indo-Chinese sauce",  price: 200, image: "images/Starters/PaneerMunchurian.png",    tag: "Bestseller" },
+      { name: "Crispy Corn",          desc: "Golden fried corn kernels with aromatic spices",    price: 180, image: "images/Starters/CrispyCorn.png",      tag: "Popular" },
+      { name: "Gobi Manchurian",      desc: "Crispy cauliflower in a spicy tangy sauce",         price: 180, image: "images/Starters/GobiManchurian.png"},
+      { name: "Veg Manchurian",       desc: "Mixed vegetable balls in Indo-Chinese gravy",       price: 180, image: "images/Starters/VegManchurian.png"},
+      { name: "Baby Corn Manchurian", desc: "Tender baby corn in flavorful manchurian sauce",    price: 180, image:  "images/Starters/BabyCornManchurian.png"},
+      { name: "Chilli Paneer",        desc: "Spicy stir-fried paneer with bell peppers",         price: 200, image: "images/Starters/ChilliPaneer.png",    tag: "Must Try" },
+    ],
+    soup: [
+      { name: "Tomato Soup",     desc: "Classic creamy tomato soup with herbs",                  price: 100, image: "images/Soups/TomatoSoup.png" },
+      { name: "Cream of Tomato", desc: "Rich velvety tomato cream soup",                         price: 100, image: "images/Soups/CreamTomatoSoup.png", tag: "Popular" },
+      { name: "Hot & Sour Soup", desc: "Tangy spicy Indo-Chinese style soup",                    price: 100, image: "images/Soups/HotAndSourSoup.png", tag: "Bestseller" },
+      { name: "Sweet Corn Soup", desc: "Warm soup with sweet corn and vegetables",               price: 100, image: "images/Soups/SweetCornSoup.png" },
+      { name: "Manchow Soup",    desc: "Spicy thick soup with crispy noodles",                   price: 100, image: "images/Soups/ManchowSoup.png" },
+      { name: "Mushroom Soup",   desc: "Earthy creamy mushroom broth",                           price: 100, image: "images/Soups/MushroomSoup.png" },
+    ],
     curries: [
       { name: "Paneer Butter Masala",  desc: "Rich creamy tomato-based curry with soft paneer", price: 200, image: butter_masala,    tag: "Bestseller" },
       { name: "Kadai Paneer Curry",    desc: "Paneer in aromatic kadai masala gravy",            price: 200, image: kadai_paneer,    tag: "Popular" },
@@ -115,7 +147,7 @@ function Menu() {
     ],
     biryani: [
       { name: "Veg Biryani",          desc: "Aromatic basmati rice with mixed vegetables",      price: 200, image: veg_biryani, tag: "Bestseller" },
-      { name: "Paneer Biryani",       desc: "Fragrant biryani with soft paneer pieces",         price: 220, image: veg_biryani, tag: "Popular" },
+      { name: "Paneer Biryani",       desc: "Fragrant biryani with soft paneer pieces",         price: 220, image: "images/biryani/paneer_biryani.png", tag: "Popular" },
       { name: "Gobi Biryani",         desc: "Biryani with tender cauliflower florets",          price: 200, image: gobi_biryani },
       { name: "Mushroom Biryani",     desc: "Earthy mushrooms in aromatic biryani",             price: 220, image: mushroom_biryani },
       { name: "Kaju Paneer Biryani",  desc: "Premium biryani with cashews and paneer",          price: 250, image: kaju_biryani, tag: "Special" },
@@ -127,13 +159,13 @@ function Menu() {
       { name: "Shezwan Noodles",     desc: "Spicy Schezwan-style noodles",                      price: 200, image: shezwaan_noodles },
       { name: "Mushroom Noodles",    desc: "Savory noodles with mushrooms",                     price: 200, image: mushroom_noodles },
     ],
-    // tikkas: [
-    //   { name: "Paneer Tikka",          desc: "Marinated paneer grilled to perfection",          price: 200, image: paneer,    tag: "Bestseller" },
-    //   { name: "Mushroom Tikka",        desc: "Tender mushrooms grilled with spices",            price: 200, image: corn },
-    //   { name: "Malai Paneer Tikka",    desc: "Creamy mild paneer tikka with cashew marinade",   price: 220, image: paneer,    tag: "Popular" },
-    //   { name: "Paneer Hariyali Tikka", desc: "Paneer in green herb marinade grilled",           price: 220, image: paneer },
-    //   { name: "Achari Paneer Tikka",   desc: "Tangy pickle-spiced paneer tikka",                price: 220, image: paneer,    tag: "Must Try" },
-    // ],
+    tikkas: [
+      { name: "Paneer Tikka",          desc: "Marinated paneer grilled to perfection",          price: 200, image: "images/Tikkas/PaneerTikka.png",    tag: "Bestseller" },
+      { name: "Mushroom Tikka",        desc: "Tender mushrooms grilled with spices",            price: 200, image: "images/Tikkas/MushroomTikka.png" },
+      { name: "Malai Paneer Tikka",    desc: "Creamy mild paneer tikka with cashew marinade",   price: 220, image: "images/Tikkas/MalaiPaneerTikka.png",    tag: "Popular" },
+      { name: "Paneer Hariyali Tikka", desc: "Paneer in green herb marinade grilled",           price: 220, image: "images/Tikkas/PannerHariyaliTikka.png" },
+      { name: "Achari Paneer Tikka",   desc: "Tangy pickle-spiced paneer tikka",                price: 220, image: "images/Tikkas/AchariPannerTikka.png",    tag: "Must Try" },
+    ],
     tandoori: [
       { name: "Butter Naan",           desc: "Soft naan brushed with butter",                   price: 60,  image: butter_naan, tag: "Bestseller" },
       { name: "Garlic Naan",           desc: "Naan topped with garlic and herbs",               price: 70,  image: garlic_naan, tag: "Popular" },
@@ -141,19 +173,12 @@ function Menu() {
       { name: "Paneer Kulcha",         desc: "Soft kulcha stuffed with paneer",                 price: 90,  image: paneer_kulcha },
       { name: "Aloo Parata With Curd", desc: "Potato-stuffed paratha served with curd",         price: 100, image: aloo_curd },
     ],
-    beverages: [
-      { name: "Masala Chai",     desc: "Traditional Indian spiced tea with aromatic herbs",      price: 40,  image: masalachai, tag: "Popular" },
-      { name: "Fresh Lime Soda", desc: "Refreshing citrus drink with a hint of mint",            price: 60,  image: lime },
-      { name: "Badam Milk",      desc: "Creamy almond milk with saffron and cardamom",           price: 50,  image: badham_milk, tag: "Bestseller" },
-      { name: "Green Tea",       desc: "Light antioxidant-rich green tea",                       price: 20,  image: greentea },
-      { name: "Horlicks",        desc: "Warm nutritious malt drink",                             price: 50,  image: Horlicks },
+    meals: [
+      { name: "Veg Meals (Parcel)", desc: "Full south Indian meal - parcel only",               price: 150, image: "images/meals/veg_meals.png", tag: "Value" },
+      { name: "Veg Combo",          desc: "Complete vegetarian combo meal",                     price: 120, image: "images/meals/veg_combo.png", tag: "Popular" },
+      { name: "Sambar Rice",        desc: "Comforting rice mixed with flavorful sambar",        price: 60,  image: "images/meals/sambar_rice.png" },
+      { name: "Curd Rice",          desc: "Cooling yogurt rice with tempering",                 price: 60,  image: curd_rice },
     ],
-    // meals: [
-    //   { name: "Veg Meals (Parcel)", desc: "Full south Indian meal - parcel only",               price: 150, image: p_biryani, tag: "Value" },
-    //   { name: "Veg Combo",          desc: "Complete vegetarian combo meal",                     price: 120, image: p_biryani, tag: "Popular" },
-    //   { name: "Sambar Rice",        desc: "Comforting rice mixed with flavorful sambar",        price: 60,  image: p_biryani },
-    //   { name: "Curd Rice",          desc: "Cooling yogurt rice with tempering",                 price: 60,  image: p_biryani },
-    // ],
   };
 
   const tagColors = {
