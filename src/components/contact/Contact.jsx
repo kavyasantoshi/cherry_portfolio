@@ -21,7 +21,7 @@ const Contact = () => {
             <a href="tel:+919000202206">Call Now</a>
           </button>
           <button className="call-btn">
-            <a href="mailto:cherriespureveg@gmail.com">Email Us</a>
+            <a href="mailto:support@cherriescafe.in">Email Us</a>
           </button>
         </div>
 

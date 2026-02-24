@@ -1,348 +1,609 @@
-/* =====================
-   DOWNLOAD SECTION
-   ===================== */
-.download-section {
-  padding: 80px 20px;
+/* ═══════════════════════════════════════════════════════════════
+   Playstore.css — Cherries Veg Restaurant
+   App Download Section · Warm orange theme
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* ── Design Tokens ── */
+:root {
+  --ps-orange:        #f97316;
+  --ps-orange-dark:   #e8600a;
+  --ps-orange-light:  #fb923c;
+  --ps-orange-pale:   #fff5eb;
+  --ps-dark:          #16090300;
+  --ps-text-dark:     #18100a;
+  --ps-text-mid:      #5c3d28;
+  --ps-text-soft:     #9a7060;
+  --ps-white:         #ffffff;
+  --ps-ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+  --ps-ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.download-container {
-  max-width: 1200px;
-  margin: auto;
-  background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 50%, #fce8e8 100%);
-  border: 1px solid #e8d5d5;
-  border-radius: 30px;
-  padding: 50px 70px;
+/* ═══════════════════════════════════════════════════════════════
+   ROOT SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.ps-root {
+  padding: 110px 8% 100px;
+  background:
+    radial-gradient(ellipse 70% 80% at 100% 50%, #fde5cc 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 0% 80%,   #fef0e4 0%, transparent 55%),
+    #fffaf6;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Top edge blend */
+.ps-root::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100px;
+  background: linear-gradient(to bottom, #ffffff, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+.ps-root::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 100px;
+  background: linear-gradient(to top, #ffffff, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   AMBIENT DECORATIONS
+   ═══════════════════════════════════════════════════════════════ */
+.ps-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(100px);
+}
+.ps-blob--1 {
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, #fbd09a 0%, transparent 70%);
+  top: -100px; right: -80px;
+  opacity: 0.3;
+  animation: ps-drift 20s ease-in-out infinite;
+}
+.ps-blob--2 {
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, #fdba74 0%, transparent 70%);
+  bottom: -80px; left: -60px;
+  opacity: 0.22;
+  animation: ps-drift 26s ease-in-out infinite reverse;
+}
+
+@keyframes ps-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(24px, 20px) scale(1.06); }
+}
+
+/* Subtle dot grid texture */
+.ps-dot-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(249, 115, 22, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTAINER
+   ═══════════════════════════════════════════════════════════════ */
+.ps-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+  gap: 72px;
   position: relative;
-  /* NO overflow:hidden here — we use a clip wrapper instead */
-  overflow: visible;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-/* =====================
-   LEFT SIDE
-   ===================== */
-.download-content {
+/* ═══════════════════════════════════════════════════════════════
+   LEFT — CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.ps-content {
   flex: 1;
   min-width: 0;
+  max-width: 580px;
+
+  opacity: 0;
+  transform: translateX(-52px);
+  transition: opacity 1s var(--ps-ease-out), transform 1s var(--ps-ease-out);
+}
+.ps-visible .ps-content {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.download-content h2 {
-  font-size: 38px;
+/* Eyebrow */
+.ps-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(249, 115, 22, 0.09);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  color: var(--ps-orange);
+  font-size: 11px;
   font-weight: 600;
-  margin-bottom: 14px;
-  line-height: 1.2;
-  color: #1a1a1a;
-    font-family: "Poppins", sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 7px 18px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.7s 0.2s var(--ps-ease-out), transform 0.7s 0.2s var(--ps-ease-out);
+}
+.ps-visible .ps-eyebrow { opacity: 1; transform: translateY(0); }
+
+.ps-eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ps-orange);
+  animation: ps-blink 2s ease-in-out infinite;
+}
+@keyframes ps-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.65); }
 }
 
-.download-content p {
-  font-size: 17px;
-  color: #666;
-  margin-bottom: 28px;
-  line-height: 1.6;
-    font-family: "Poppins", sans-serif;
+/* Headline */
+.ps-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 700;
+  color: var(--ps-text-dark);
+  line-height: 1.15;
+  margin: 0 0 20px;
+
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s 0.35s var(--ps-ease-out), transform 0.9s 0.35s var(--ps-ease-out);
+}
+.ps-visible .ps-headline { opacity: 1; transform: translateY(0); }
+
+.ps-headline-accent {
+  color: var(--ps-orange);
+  font-style: italic;
 }
 
-.store-buttons {
+/* Subtext */
+.ps-subtext {
+  font-size: clamp(14px, 1.35vw, 16.5px);
+  font-weight: 300;
+  color: var(--ps-text-mid);
+  line-height: 1.8;
+  margin: 0 0 36px;
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s 0.5s var(--ps-ease-out), transform 0.8s 0.5s var(--ps-ease-out);
+}
+.ps-visible .ps-subtext { opacity: 1; transform: translateY(0); }
+
+/* Feature pills */
+.ps-feature-pills {
   display: flex;
-  gap: 16px;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 38px;
+
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s 0.62s var(--ps-ease-out), transform 0.8s 0.62s var(--ps-ease-out);
+}
+.ps-visible .ps-feature-pills { opacity: 1; transform: translateY(0); }
+
+.ps-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: var(--ps-white);
+  border: 1px solid rgba(249, 115, 22, 0.15);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ps-text-dark);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s var(--ps-ease-in-out);
+  cursor: default;
+}
+.ps-pill:hover {
+  border-color: var(--ps-orange);
+  background: var(--ps-orange-pale);
+  color: var(--ps-orange-dark);
+  box-shadow: 0 4px 18px rgba(249, 115, 22, 0.14);
+  transform: translateY(-2px);
+}
+.ps-pill-icon {
+  display: flex;
+  align-items: center;
+  color: var(--ps-orange);
+  flex-shrink: 0;
 }
 
-.store-btn img {
-  height: 50px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Actions row */
+.ps-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s 0.78s var(--ps-ease-out), transform 0.8s 0.78s var(--ps-ease-out);
+}
+.ps-visible .ps-actions { opacity: 1; transform: translateY(0); }
+
+.ps-store-btn {
+  display: inline-block;
+  transition: transform 0.35s var(--ps-ease-out), filter 0.35s ease;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.16));
+}
+.ps-store-btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  filter: drop-shadow(0 10px 24px rgba(249, 115, 22, 0.28));
+}
+.ps-store-btn img {
+  height: 52px;
   border-radius: 10px;
+  display: block;
 }
 
-.store-btn img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+/* Rating */
+.ps-rating {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ps-rating-stars {
+  display: flex;
+  gap: 2px;
+}
+.ps-rating-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ps-text-soft);
 }
 
-/* =====================
-   RIGHT SIDE — PHONE MOCKUP
-   Top fully visible (overflows above card via section padding)
-   Bottom clipped by .phone-clip-box
-   ===================== */
-
-/* Outer wrapper: gives room for phone top to overflow above card */
-.phone-wrapper {
+/* ═══════════════════════════════════════════════════════════════
+   RIGHT — PHONE COLUMN
+   ═══════════════════════════════════════════════════════════════ */
+.ps-phone-col {
   flex: 0 0 auto;
   display: flex;
+  align-items: flex-end;
   justify-content: center;
-  align-items: flex-start;
-  /* Pull phone top above the card — section padding absorbs this */
-  margin-top: -130px;
-  /* No negative bottom margin needed — clip box handles bottom */
-  animation: phoneFallIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 0.2s;
+  position: relative;
+
+  opacity: 0;
+  transform: translateX(52px) translateY(20px);
+  transition: opacity 1s 0.2s var(--ps-ease-out), transform 1s 0.2s var(--ps-ease-out);
+}
+.ps-visible .ps-phone-col {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
 }
 
-/* The clip box: hides ONLY the bottom of the phone */
-.phone-clip-box {
-  /* Height controls how much of the phone is visible */
-  height: 380px;
+/* Glow behind the phone */
+.ps-phone-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.22), transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+  animation: ps-glow-pulse 5s ease-in-out infinite;
+}
+@keyframes ps-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50%       { transform: scale(1.15); opacity: 1; }
+}
+
+/* (notification cards removed — phone uses clean entrance only) */
+
+/* ── Phone device ── */
+.ps-phone-wrapper {
+  position: relative;
+  z-index: 5;
+
+  /* One-time smooth slide-up entrance — triggered by .ps-visible on the section */
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s 0.4s var(--ps-ease-out), transform 1s 0.4s var(--ps-ease-out);
+}
+.ps-visible .ps-phone-wrapper {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Clip bottom of phone */
+.ps-phone-clip {
+  height: 520px;
   overflow: hidden;
 }
 
-@keyframes phoneFallIn {
-  from {
-    opacity: 0;
-    transform: translateY(-90px) scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Section top padding must compensate for phone overflow above card */
-.download-section {
-  padding-top: 130px;
-}
-
-.phone-mockup {
+.ps-phone {
   position: relative;
-  width: 280px;
+  width: 270px;
 }
 
-/* Phone frame */
-.phone-frame {
+/* Screen */
+.ps-screen {
   position: relative;
   width: 100%;
-  aspect-ratio: 7 / 13;
-  background: #ffffff;
+  aspect-ratio: 9 / 19;
+  background: linear-gradient(160deg, #1a1118 0%, #0f0a08 100%);
   border-radius: 44px;
-  border: 8px solid #1a1a2e;
+  border: 8px solid #1a1118;
   box-shadow:
-    0 0 0 1px #2a2a3e,
-    0 30px 60px rgba(0, 0, 0, 0.25),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    0 0 0 1px #2a1f1a,
+    0 36px 80px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
 }
 
-/* Notch */
-.phone-notch {
+/* Dynamic island */
+.ps-island {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 36%;
-  height: 26px;
-  background: #1a1a2e;
-  border-bottom-left-radius: 18px;
-  border-bottom-right-radius: 18px;
+  width: 38%;
+  height: 28px;
+  background: #1a1118;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.phone-notch-inner {
-  width: 10px;
-  height: 10px;
-  background: #2a2a3e;
+.ps-island-inner {
+  width: 10px; height: 10px;
+  background: #2a1f1a;
   border-radius: 50%;
-  border: 2px solid #0a0a1e;
+  border: 2px solid #0f0a08;
 }
 
-/* Screen content */
-.phone-screen {
+/* Screen content area */
+.ps-screen-content {
+  width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 42px 16px 20px;
-  width: 100%;
+  justify-content: center;
+  padding: 48px 20px 16px;
+  gap: 0;
 }
 
-.qr-label {
-  font-size: 13px;
-  color: #555;
+.ps-qr-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 14px;
-  font-weight: 500;
-    font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+.ps-qr-label strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
 }
 
-.qr-wrapper {
-  background: #fff;
-  border: 1.5px solid #f0c8c8;
-  border-radius: 14px;
-  padding: 10px;
-  display: inline-flex;
+.ps-qr-box {
+  background: var(--ps-white);
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.2), 0 8px 32px rgba(0,0,0,0.2);
+  margin-bottom: 14px;
 }
-
-.qr-image {
-  width: 140px;
-  height: 140px;
+.ps-qr-img {
+  width: 130px;
+  height: 130px;
   display: block;
+  border-radius: 8px;
 }
 
-.phone-home-bar {
+.ps-qr-hint {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(249, 115, 22, 0.75);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Simulated nav bar */
+.ps-nav-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: auto;
+}
+.ps-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  transition: color 0.25s ease;
+}
+.ps-nav-item--active {
+  color: var(--ps-orange);
+  background: rgba(249, 115, 22, 0.1);
+}
+
+/* Home bar */
+.ps-home-bar {
   position: absolute;
   bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
   width: 34%;
   height: 4px;
-  background: #1a1a2e;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  opacity: 0.5;
 }
 
-.phone-btn-volume-up,
-.phone-btn-volume-down,
-.phone-btn-power {
+/* Physical buttons */
+.ps-btn-vol-up,
+.ps-btn-vol-down,
+.ps-btn-power {
   position: absolute;
-  background: #1a1a2e;
+  background: #1a1118;
   border-radius: 3px;
 }
+.ps-btn-vol-up   { left: -9px; top: 16%; width: 4px; height: 26px; }
+.ps-btn-vol-down { left: -9px; top: 26%; width: 4px; height: 26px; }
+.ps-btn-power    { right: -9px; top: 21%; width: 4px; height: 38px; }
 
-.phone-btn-volume-up   { left: -10px; top: 16%; width: 4px; height: 26px; }
-.phone-btn-volume-down { left: -10px; top: 25%; width: 4px; height: 26px; }
-.phone-btn-power       { right: -10px; top: 20%; width: 4px; height: 38px; }
-
-/* =====================
-   LARGE DESKTOP: 1440px+
-   ===================== */
-@media (min-width: 1440px) {
-  .download-section    { padding: 150px 20px 80px; }
-  .download-container  { max-width: 1320px; padding: 55px 90px; gap: 60px; }
-  .download-content h2 { font-size: 48px; }
-  .download-content p  { font-size: 20px; }
-  .store-btn img       { height: 56px; }
-  .phone-mockup        { width: 310px; }
-  .phone-wrapper       { margin-top: -145px; }
-  .phone-clip-box      { height: 420px; }
-  .qr-image            { width: 158px; height: 158px; }
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — 1281px – 1440px
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1440px) and (min-width: 1281px) {
+  .ps-root      { padding: 100px 7% 90px; }
+  .ps-container { gap: 64px; }
 }
 
-/* =====================
-   DESKTOP: 1200px – 1439px
-   ===================== */
-@media (max-width: 1439px) and (min-width: 1200px) {
-  .download-container  { padding: 52px 80px; gap: 50px; }
-  .download-content h2 { font-size: 42px; }
-  .download-content p  { font-size: 18px; }
-  .phone-mockup        { width: 285px; }
-  .phone-clip-box      { height: 390px; }
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — LAPTOP  (1025px – 1280px)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1280px) and (min-width: 1025px) {
+  .ps-root      { padding: 90px 6% 80px; }
+  .ps-container { gap: 52px; }
+
+  .ps-phone     { width: 240px; }
+  .ps-phone-clip { height: 460px; }
+  .ps-qr-img    { width: 115px; height: 115px; }
+
+  .ps-headline  { font-size: clamp(28px, 3.5vw, 46px); }
 }
 
-/* =====================
-   LAPTOP: 1025px – 1199px
-   ===================== */
-@media (max-width: 1199px) and (min-width: 1025px) {
-  .download-section    { padding: 120px 20px 80px; }
-  .download-container  { padding: 48px 55px; gap: 36px; }
-  .download-content h2 { font-size: 34px; }
-  .download-content p  { font-size: 16px; }
-  .store-btn img       { height: 46px; }
-  .phone-mockup        { width: 250px; }
-  .phone-wrapper       { margin-top: -115px; }
-  .phone-clip-box      { height: 345px; }
-  .qr-image            { width: 122px; height: 122px; }
-  .qr-label            { font-size: 12px; }
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET LANDSCAPE  (769px – 1024px)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .ps-root      { padding: 80px 5% 70px; }
+  .ps-container { gap: 36px; align-items: center; }
+
+  .ps-phone     { width: 210px; }
+  .ps-phone-clip { height: 400px; }
+  .ps-qr-img    { width: 100px; height: 100px; }
+  .ps-qr-box    { padding: 10px; }
+  .ps-qr-label  { font-size: 11px; margin-bottom: 10px; }
+  .ps-screen    { border-radius: 36px; border-width: 6px; }
+  .ps-island    { height: 24px; }
+
+  .ps-headline  { font-size: clamp(26px, 3.5vw, 38px); }
+  .ps-subtext   { font-size: 14px; }
+
+  .ps-store-btn img { height: 46px; }
+
+  .ps-blob--1, .ps-blob--2 { display: none; }
 }
 
-/* =====================
-   TABLET LANDSCAPE: 619px – 1024px
-   ===================== */
-@media (max-width: 1024px) and (min-width: 619px) {
-  .download-section    { padding: 110px 16px 60px; }
-  .download-container  { padding: 42px 40px; gap: 28px; border-radius: 24px; }
-  .download-content h2 { font-size: 26px; margin-bottom: 10px; }
-  .download-content p  { font-size: 14px; margin-bottom: 20px; }
-  .store-buttons       { gap: 12px; }
-  .store-btn img       { height: 40px; }
-  .phone-mockup        { width: 210px; }
-  .phone-wrapper       { margin-top: -105px; }
-  .phone-clip-box      { height: 300px; }
-  .qr-image            { width: 104px; height: 104px; }
-  .qr-label            { font-size: 11px; margin-bottom: 10px; }
-  .qr-wrapper          { padding: 8px; border-radius: 12px; }
-  .phone-frame         { border-width: 6px; border-radius: 34px; }
-  .phone-notch         { height: 22px; }
-}
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET PORTRAIT  (577px – 768px)  — STACKED
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .ps-root { padding: 80px 5% 70px; }
 
-/* =====================
-   STACKED: ≤618px — phone on top, content below
-   ===================== */
-@media (max-width: 618px) {
-  .download-section {
-    padding: 50px 14px 50px;
-  }
-
-  .download-container {
+  .ps-container {
     flex-direction: column;
-    text-align: center;
-    padding: 20px 22px 36px;
-    border-radius: 24px;
-    gap: 20px;
-    overflow: visible;
+    align-items: center;
+    gap: 0;
   }
 
-  .phone-wrapper {
+  /* Phone goes first */
+  .ps-phone-col {
     order: -1;
-    width: 100%;
-    justify-content: center;
-    margin-top: 0;               /* no overflow above in stacked — phone sits inside card */
-    animation-delay: 0.1s;
+    align-items: flex-end;
+    margin-bottom: -40px;
   }
 
-  .phone-clip-box {
-    height: 280px;
+  .ps-phone        { width: 230px; }
+  .ps-phone-clip   { height: 320px; }
+  .ps-qr-img       { width: 110px; height: 110px; }
+
+  /* Content centered */
+  .ps-content {
+    max-width: 100%;
+    text-align: center;
+    padding-top: 0;
   }
+  .ps-eyebrow       { margin-left: auto; margin-right: auto; }
+  .ps-feature-pills { justify-content: center; }
+  .ps-actions       { justify-content: center; }
+  .ps-rating        { align-items: center; }
 
-  .phone-mockup { width: 210px; margin: 0 auto; }
-  .qr-image     { width: 105px; height: 105px; }
-  .qr-label     { font-size: 11px; }
+  .ps-headline { font-size: clamp(28px, 6vw, 40px); }
 
-  .download-content    { width: 100%; order: 1; }
-  .download-content h2 { font-size: 24px; margin-bottom: 10px; }
-  .download-content p  { font-size: 13px; margin-bottom: 18px; }
-
-  .store-buttons { justify-content: center; flex-direction: row; flex-wrap: wrap; gap: 12px; }
-  .store-btn img { height: 44px; }
+  .ps-blob--1, .ps-blob--2 { display: none; }
+  .ps-dot-grid { opacity: 0.3; }
 }
 
-/* =====================
-   SMALL MOBILE: 361px – 480px
-   ===================== */
-@media (max-width: 480px) and (min-width: 361px) {
-  .download-section    { padding: 44px 12px 40px; }
-  .download-container  { padding: 16px 18px 28px; border-radius: 20px; }
-  .download-content h2 { font-size: 22px; }
-  .download-content p  { font-size: 13px; }
-  .store-btn img       { height: 42px; }
-  .phone-mockup        { width: 190px; }
-  .phone-clip-box      { height: 250px; }
-  .qr-image            { width: 94px; height: 94px; }
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE  (≤ 576px)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 576px) {
+  .ps-root { padding: 70px 5% 60px; }
+
+  .ps-phone      { width: 200px; }
+  .ps-phone-clip { height: 280px; }
+  .ps-screen     { border-radius: 34px; border-width: 6px; }
+  .ps-qr-img     { width: 95px; height: 95px; }
+  .ps-qr-box     { padding: 8px; border-radius: 12px; }
+  .ps-qr-label   { font-size: 10.5px; margin-bottom: 8px; }
+  .ps-island     { height: 22px; width: 36%; }
+
+  .ps-headline   { font-size: clamp(26px, 7vw, 34px); }
+  .ps-subtext    { font-size: 14px; }
+
+  .ps-pill       { font-size: 12px; padding: 8px 14px; }
+
+  .ps-store-btn img { height: 46px; }
+
+  .ps-feature-pills { gap: 8px; }
 }
 
-/* =====================
-   TINY MOBILE: ≤360px
-   ===================== */
-@media (max-width: 360px) {
-  .download-section    { padding: 40px 10px 36px; }
-  .download-container  { padding: 14px 14px 24px; border-radius: 16px; }
-  .download-content h2 { font-size: 20px; }
-  .download-content p  { font-size: 12px; }
-  .store-buttons       { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
-  .store-btn img       { height: 38px; }
-  .phone-mockup        { width: 168px; }
-  .phone-clip-box      { height: 220px; }
-  .qr-image            { width: 82px; height: 82px; }
-  .qr-label            { font-size: 10px; }
-  .phone-frame         { border-width: 5px; border-radius: 30px; }
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — TINY MOBILE  (≤ 380px)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 380px) {
+  .ps-root { padding: 60px 4% 50px; }
+
+  .ps-phone      { width: 180px; }
+  .ps-phone-clip { height: 250px; }
+  .ps-qr-img     { width: 82px; height: 82px; }
+
+  .ps-headline   { font-size: 24px; }
+
+  .ps-pill       { font-size: 11px; padding: 7px 12px; }
+
+  .ps-actions    { flex-direction: column; align-items: center; gap: 16px; }
+  .ps-store-btn img { height: 42px; }
 }

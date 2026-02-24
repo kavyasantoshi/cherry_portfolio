@@ -14,7 +14,7 @@ const Footer = () => {
 
           {/* Social Icons */}
           <div className="social-links">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon">
+            <a href="https://www.instagram.com/cherries__cafe__/" target="_blank" rel="noreferrer" aria-label="Instagram" className="social-icon">
               {/* Instagram */}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -32,7 +32,7 @@ const Footer = () => {
               </svg>
             </a>
 
-            <a href="mailto:cherrieskakinada@gmail.com" aria-label="Email" className="social-icon">
+            <a href="mailto:support@cherriescafe.in" aria-label="Email" className="social-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2"/>
                 <polyline points="2,4 12,13 22,4"/>
