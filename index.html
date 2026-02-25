@@ -2,22 +2,256 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- =============================================
+         TITLE — Most important SEO tag
+         ============================================= -->
+    <title>Cherries Cafe Kakinada | Best Pure Veg Restaurant, Food Delivery App & Online Order</title>
+
+    <!-- =============================================
+         PRIMARY SEO META TAGS
+         ============================================= -->
+    <meta name="description" content="Cherries Cafe – Kakinada's #1 Pure Vegetarian Restaurant  Hygiene & Quality since 2025. Dine-in, Takeaway & Fast Food Delivery via Cherries App. Order online from Jawahar Street, Suryaraopeta, Kakinada. Also on Zomato & Swiggy." />
+
+    <meta name="keywords" content="cherries cafe kakinada, cherries cafe, cherriescafe.in, best veg restaurant kakinada, pure veg restaurant kakinada, vegetarian restaurant kakinada, veg food delivery kakinada, kakinada veg food, veg cafe kakinada, kakinada food delivery, food delivery kakinada, online food order kakinada, cherries food delivery app, cherries app kakinada, cherries cafe app, veg food near me kakinada, best restaurant kakinada, kakinada multicuisine restaurant, pure veg multicuisine kakinada, suryaraopeta restaurant kakinada, jawahar street restaurant kakinada, kakinada dining, kakinada tiffin center, south indian veg restaurant kakinada, north indian veg food kakinada, chinese veg food kakinada, veg biryani kakinada, veg thali kakinada, kakinada snacks, kakinada breakfast, kakinada lunch, kakinada dinner, veg catering kakinada, event catering kakinada, kakinada cafe, kakinada pure veg cafe, kakinada food app, bhanugudi restaurant kakinada, rama rao peta restaurant kakinada, kakinada andhra pradesh restaurant, best food kakinada 2025, top rated restaurant kakinada, hygiene quality veg food kakinada" />
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="author" content="Cherries Cafe, Kakinada" />
+    <meta name="copyright" content="Cherries Cafe Kakinada" />
+    <meta name="rating" content="general" />
+    <meta name="revisit-after" content="3 days" />
+    <meta name="language" content="English" />
+
+    <!-- Local / Geo SEO — helps rank for "near me" and Kakinada searches -->
+    <meta name="geo.region" content="IN-AP" />
+    <meta name="geo.placename" content="Kakinada, Andhra Pradesh, India" />
+    <meta name="geo.position" content="16.9891;82.2475" />
+    <meta name="ICBM" content="16.9891, 82.2475" />
+
+    <!-- Canonical URL — prevents duplicate content issues -->
+    <link rel="canonical" href="https://cherriescafe.in/" />
+
+    <!-- =============================================
+         OPEN GRAPH — WhatsApp, Facebook, Instagram, LinkedIn, Telegram
+         This controls the preview card when someone shares your link.
+         ============================================= -->
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content="Cherries Cafe Kakinada" />
+    <meta property="og:title" content="Cherries Cafe Kakinada — Best Pure Veg Restaurant & Food Delivery App" />
+    <meta property="og:description" content="Fresh. Hygienic. 100% Pure Vegetarian. 🌿 Dine-in, Takeaway & Home Delivery in Kakinada. Order now via the Cherries App or on Zomato & Swiggy. Rated 4.1★ by 1800+ happy customers." />
+    <meta property="og:url" content="https://cherriescafe.in/" />
+    <!-- IMPORTANT: Replace og-image.jpg with your actual restaurant storefront photo (1200x630px) -->
+    <meta property="og:image" content="https://www.cherriescafe.in/images/cafe/cafe.webp" />
+    <meta property="og:image:secure_url" content="https://www.cherriescafe.in/images/cafe/cafe.webp" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="840" />
+    <meta property="og:image:alt" content="Cherries Cafe Kakinada - Pure Veg Restaurant & Food Delivery App" />
+    <meta property="og:locale" content="en_IN" />
+    <!-- Restaurant-specific Open Graph -->
+    <meta property="restaurant:contact_info:street_address" content="D 12-1-30, Jawahar Street, Suryaraopeta" />
+    <meta property="restaurant:contact_info:locality" content="Kakinada" />
+    <meta property="restaurant:contact_info:region" content="Andhra Pradesh" />
+    <meta property="restaurant:contact_info:postal_code" content="533001" />
+    <meta property="restaurant:contact_info:country_name" content="India" />
+    <meta property="restaurant:menu" content="https://cherriescafe.in/menu" />
+
+    <!-- =============================================
+         TWITTER / X CARD
+         ============================================= -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@cherries__cafe__" />
+    <meta name="twitter:creator" content="@cherries__cafe__" />
+    <meta name="twitter:title" content="🍒 Cherries Cafe Kakinada — Best Pure Veg Restaurant & Food Delivery" />
+    <meta name="twitter:description" content="Fresh. Hygienic. 100% Pure Veg. Order online via Cherries App, Zomato & Swiggy. Kakinada's most loved vegetarian cafe. Rated 4.1★ by 1800+ customers." />
+    <meta name="twitter:image" content="https://www.cherriescafe.in/images/cafe/cafe.webp" />
+    <meta name="twitter:image:alt" content="Cherries Cafe Kakinada storefront - Pure Veg Restaurant" />
+
+    <!-- =============================================
+         STRUCTURED DATA — JSON-LD
+         Makes Google show sub-links, star ratings, FAQ answers,
+         and app prompts directly in search results.
+         ============================================= -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://cherriescafe.in/restaurant",
+          "name": "Cherries Cafe",
+          "alternateName": ["Cherries Pure Veg Cafe","Cherries Restaurant Kakinada","Cherries Cafe Kakinada","Cherries Food Delivery Kakinada"],
+          "description": "Cherries Cafe is Kakinada's best 100% pure vegetarian restaurant. We serve fresh, hygienic, quality food — South Indian, North Indian, Chinese, and Fast Food. Dine-in, takeaway and home delivery via Cherries App, Zomato and Swiggy.",
+          "url": "https://cherriescafe.in/",
+          "logo": { "@type": "ImageObject", "url": "https://cherriescafe.in/logos/cherry_logo.png", "width": 512, "height": 512 },
+          "image": ["https://www.cherriescafe.in/images/cafe/cafe.webp"],
+          "telephone": "+91-9000202206",
+          "email": "support@cherriescafe.in",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "D 12-1-30, Jawahar Street, Suryaraopeta",
+            "addressLocality": "Kakinada",
+            "addressRegion": "Andhra Pradesh",
+            "postalCode": "533001",
+            "addressCountry": "IN"
+          },
+          "geo": { "@type": "GeoCoordinates", "latitude": 16.9891, "longitude": 82.2475 },
+          "hasMap": "https://maps.google.com/?q=Cherries+Cafe+Kakinada",
+          "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "06:00",
+            "closes": "22:30"
+          }],
+          "servesCuisine": ["Indian Vegetarian","South Indian","North Indian","Chinese","Fast Food","Multicuisine","Veg Biryani","Veg Snacks"],
+          "priceRange": "₹₹",
+          "hasMenu": "https://cherriescafe.in/menu",
+          "acceptsReservations": true,
+          "currenciesAccepted": "INR",
+          "paymentAccepted": "Cash, UPI, Credit Card, Debit Card",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.1",
+            "reviewCount": "1803",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "sameAs": [
+            "https://www.zomato.com/kakinada/cherries-cafe-kakinada-locality",
+            "https://www.swiggy.com/restaurants/cherries-cafe",
+            "https://www.instagram.com/cherries__cafe__",
+            "https://fuddo.in/local/cherries-cafe-kakinada"
+          ],
+          "amenityFeature": [
+            {"@type": "LocationFeatureSpecification", "name": "Pure Vegetarian", "value": true},
+            {"@type": "LocationFeatureSpecification", "name": "Home Delivery", "value": true},
+            {"@type": "LocationFeatureSpecification", "name": "Takeaway", "value": true},
+            {"@type": "LocationFeatureSpecification", "name": "Dine-in", "value": true},
+            {"@type": "LocationFeatureSpecification", "name": "Online Ordering App", "value": true},
+            {"@type": "LocationFeatureSpecification", "name": "Catering", "value": true},
+            {"@type": "LocationFeatureSpecification", "name": "UPI Payments", "value": true}
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://cherriescafe.in/website",
+          "url": "https://cherriescafe.in/",
+          "name": "Cherries Cafe Kakinada",
+          "description": "Official website of Cherries Cafe — Kakinada's best pure vegetarian restaurant and food delivery app",
+          "inLanguage": "en-IN",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": { "@type": "EntryPoint", "urlTemplate": "https://cherriescafe.in/?s={search_term_string}" },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://cherriescafe.in/webpage",
+          "url": "https://cherriescafe.in/",
+          "name": "Cherries Cafe Kakinada | Best Pure Veg Restaurant, Food Delivery App & Online Order",
+          "description": "Cherries Cafe – Kakinada's #1 Pure Vegetarian Restaurant. Hygiene & Quality since 2025. Dine-in, Takeaway & Fast Delivery via Cherries App.",
+          "isPartOf": { "@id": "https://cherriescafe.in/website" },
+          "about": { "@id": "https://cherriescafe.in/restaurant" },
+          "inLanguage": "en-IN",
+          "datePublished": "2025-01-01",
+          "dateModified": "2025-02-01"
+        },
+        {
+          "@type": "MobileApplication",
+          "@id": "https://cherriescafe.in/app",
+          "name": "Cherries Cafe App – Veg Food Delivery Kakinada",
+          "alternateName": "Cherries Food Delivery App",
+          "description": "Order pure veg food online from Cherries Cafe Kakinada. Fast delivery, easy ordering, exclusive app-only offers. Download the Cherries App now on Android & iOS.",
+          "applicationCategory": "FoodOrderingApplication",
+          "operatingSystem": "Android, iOS",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+          "author": { "@id": "https://cherriescafe.in/restaurant" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home",         "item": "https://cherriescafe.in/"},
+            {"@type": "ListItem", "position": 2, "name": "Menu",         "item": "https://cherriescafe.in/menu"},
+            {"@type": "ListItem", "position": 4, "name": "Cherries App", "item": "https://cherriescafe.in/app"},
+            {"@type": "ListItem", "position": 5, "name": "Contact Us",   "item": "https://cherriescafe.in/contact"},
+            {"@type": "ListItem", "position": 6, "name": "Location",     "item": "https://cherriescafe.in/contact"}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is Cherries Cafe Kakinada a pure vegetarian restaurant?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes, Cherries Cafe is 100% pure vegetarian. No non-veg items are prepared or served. We are Kakinada's most trusted pure veg dining destination." }
+            },
+            {
+              "@type": "Question",
+              "name": "How to order food online from Cherries Cafe Kakinada?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Order from Cherries Cafe via the Cherries App (Android & iOS), Zomato, or Swiggy. We deliver across Kakinada with fast and fresh food." }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is Cherries Cafe located in Kakinada?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Cherries Cafe is at D 12-1-30, Jawahar Street, Suryaraopeta, Kakinada 533001, Andhra Pradesh. Also near Temple Street, Rama Rao Peta, Kakinada." }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the best pure veg restaurant in Kakinada?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Cherries Cafe is the best pure vegetarian restaurant in Kakinada, rated 4.1 stars by over 1,800 customers on Zomato. Known for hygiene, quality and multicuisine veg food." }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Cherries Cafe have a food delivery app?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes! Cherries Cafe has its own food delivery app called the Cherries App available on Android and iOS. Order pure veg food with fast delivery across Kakinada." }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Cherries Cafe offer catering in Kakinada?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes, Cherries Cafe offers pure vegetarian catering for parties, events, and functions in Kakinada. Contact us for catering bookings." }
+            },
+            {
+              "@type": "Question",
+              "name": "What are the timings of Cherries Cafe Kakinada?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Cherries Cafe Kakinada is open every day from 6:00 AM to 10:30 PM including weekends and public holidays." }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- =============================================
+         FAVICONS
+         ============================================= -->
     <link rel="icon" type="image/svg+xml" href="/logos/cherry_logo.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/logos/cherry_logo.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/logos/cherry_logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/logos/cherry_logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/logos/cherry_logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#e63946" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Cherries Cafe" />
+    <meta name="application-name" content="Cherries Cafe" />
+    <meta name="msapplication-TileColor" content="#e63946" />
+    <meta name="msapplication-TileImage" content="/logos/cherry_logo.png" />
 
-<!-- Apple Touch Icon (for iOS home screen) -->
-<link rel="apple-touch-icon" sizes="180x180" href="/logos/cherry_logo.png" />
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <style>
-      html {
-        scroll-behavior: smooth;
-      }
+    <!-- =============================================
+         FONTS
+         ============================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+      html { scroll-behavior: smooth; }
     </style>
-    <title>cherries cafe</title>
+
   </head>
   <body>
     <div id="root"></div>
