@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./styles/About.css";
-import cafe from "/images/cafe/cafe.jpg";
+import cafe from "/images/cafe/cafe.webp";
 
 /* ═══════════════════════════════════════════════
    About.jsx — Cherries Veg Restaurant

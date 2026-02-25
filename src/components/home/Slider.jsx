@@ -1,21 +1,22 @@
 import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import "../home/styles/Slider.css";
 
 const slides = [
   {
-    image: "/images/hero/idly_sambar.png",
+    image: "/images/hero/idly_sambar.webp",
     label: "Breakfast Special",
     title: "WELCOME!",
     subtitle: "Cherries Veg Restaurant",
   },
   {
-    image: "/images/hero/starter.png",
+    image: "/images/hero/starter.webp",
     label: "Starters & Snacks",
     title: "Authentic Taste",
     subtitle: "Pure Veg Delicious",
   },
   {
-    image: "/images/hero/panner-biryani.png",
+    image: "/images/hero/panner-biryani.webp",
     label: "Main Course",
     title: "Fresh & Flavorful",
     subtitle: "Made With Love",
@@ -123,14 +124,14 @@ function Slider() {
             </svg>
             Call Now
           </a>
-          <a href="/menu" className="hs-btn-secondary">
+          <Link to="/menu" className="hs-btn-secondary">
             View Menu
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth="2"
               strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         <div className="hs-store-badge">
