@@ -4,6 +4,8 @@
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
 
 /* ── CSS Variables ── */
 :root {
@@ -1062,6 +1064,711 @@
   border-radius: 100px;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(249, 115, 22, 0.45);
+  animation: cs-tag-bounce 2s ease-in-out infinite;
+  font-family: "Poppins", sans-serif;
+}
+@keyframes cs-tag-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+/* ================================================================
+   ANNIVERSARY SCRATCH SLIDE — append to bottom of Slider.css
+   1-Year Anniversary · Dark luxury gold · Epic animations
+   ================================================================ */
+
+
+/* ── Slide container ── */
+.hs-slide--scratch {
+  background: #000 !important;
+}
+
+.ann-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ================================================================
+   BACKGROUND LAYERS
+   ================================================================ */
+.ann-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Deep radial glows */
+.ann-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+.ann-glow--1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,135,10,0.28), transparent 70%);
+  top: -200px; left: -150px;
+  animation: ann-glow-pulse 6s ease-in-out infinite;
+}
+.ann-glow--2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(249,115,22,0.18), transparent 70%);
+  bottom: -150px; right: -100px;
+  animation: ann-glow-pulse 8s ease-in-out infinite reverse;
+}
+.ann-glow--3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(247,215,116,0.12), transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ann-glow-pulse 5s ease-in-out infinite 1s;
+}
+@keyframes ann-glow-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.15); }
+}
+
+/* Grid */
+.ann-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(247,215,116,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247,215,116,0.04) 1px, transparent 1px);
+  background-size: 52px 52px;
+  animation: ann-grid-drift 30s linear infinite;
+}
+@keyframes ann-grid-drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(52px, 52px); }
+}
+
+/* Stars */
+.ann-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: ann-star-twinkle ease-in-out infinite;
+}
+@keyframes ann-star-twinkle {
+  0%, 100% { opacity: 0.1; transform: scale(0.8); }
+  50%       { opacity: 0.9; transform: scale(1.2); }
+}
+
+/* Firework dots */
+.ann-fw-dot {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: ann-fw-burst ease-out forwards;
+}
+@keyframes ann-fw-burst {
+  0%   { opacity: 0;   transform: scale(0) translate(0, 0); }
+  20%  { opacity: 1;   transform: scale(1.4); }
+  60%  { opacity: 0.8; }
+  100% { opacity: 0;   transform: scale(0.3) translate(
+    calc((var(--dx, 1) * 60px)),
+    calc((var(--dy, 1) * -80px))
+  ); }
+}
+
+/* Light rays */
+.ann-ray {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom,
+    transparent,
+    rgba(247,215,116,0.07) 30%,
+    rgba(247,215,116,0.12) 50%,
+    rgba(247,215,116,0.07) 70%,
+    transparent);
+  transform-origin: top center;
+  animation: ann-ray-sweep 8s ease-in-out infinite;
+}
+.ann-ray--1 { left: 20%; animation-delay: 0s;   transform: rotate(-15deg); }
+.ann-ray--2 { left: 50%; animation-delay: 2.5s; transform: rotate(0deg);   width: 3px; opacity: 0.6; }
+.ann-ray--3 { left: 78%; animation-delay: 5s;   transform: rotate(12deg); }
+@keyframes ann-ray-sweep {
+  0%, 100% { opacity: 0; }
+  20%, 80%  { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ================================================================
+   MAIN CONTENT LAYOUT
+   ================================================================ */
+.ann-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 0 7% 40px;
+  flex: 1;
+}
+
+/* ================================================================
+   LEFT — ANNIVERSARY BADGE + TEXT
+   ================================================================ */
+.ann-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  flex-shrink: 0;
+}
+
+/* ── Rotating Ring Ornament ── */
+.ann-ring-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+}
+.ann-ring {
+  position: absolute;
+  border-radius: 50%;
+  border-style: solid;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ann-ring--outer {
+  width: 160px; height: 160px;
+  border-width: 1.5px;
+  border-color: rgba(247,215,116,0.35) rgba(247,215,116,0.08) rgba(247,215,116,0.35) rgba(247,215,116,0.08);
+  animation: ann-ring-spin 12s linear infinite;
+}
+.ann-ring--mid {
+  width: 124px; height: 124px;
+  border-width: 1px;
+  border-color: rgba(247,215,116,0.2) transparent rgba(247,215,116,0.2) transparent;
+  animation: ann-ring-spin 8s linear infinite reverse;
+}
+.ann-ring--inner {
+  width: 90px; height: 90px;
+  border-width: 2px;
+  border-color: rgba(247,215,116,0.5);
+  border-style: dashed;
+  animation: ann-ring-spin 20s linear infinite;
+}
+@keyframes ann-ring-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.ann-ring-core {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #2a1500, #0e0800);
+  border: 1.5px solid rgba(247,215,116,0.5);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow:
+    0 0 0 4px rgba(247,215,116,0.06),
+    0 0 30px rgba(247,215,116,0.25),
+    inset 0 0 20px rgba(247,215,116,0.08);
+  z-index: 2;
+}
+.ann-ring-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #f7d774;
+  text-shadow: 0 0 20px rgba(247,215,116,0.7);
+  line-height: 1;
+  animation: ann-year-glow 2s ease-in-out infinite;
+}
+@keyframes ann-year-glow {
+  0%, 100% { text-shadow: 0 0 16px rgba(247,215,116,0.6); }
+  50%       { text-shadow: 0 0 32px rgba(247,215,116,1), 0 0 64px rgba(249,115,22,0.4); }
+}
+
+/* ── Text block ── */
+.ann-text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  max-width: 320px;
+}
+
+.ann-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(247,215,116,0.6);
+  animation: ann-fade-in 0.8s 0.2s ease both;
+}
+.ann-eyebrow-line {
+  flex: 1;
+  height: 1px;
+  width: 32px;
+  background: linear-gradient(to right, transparent, rgba(247,215,116,0.4));
+}
+.ann-eyebrow-line:last-child {
+  background: linear-gradient(to left, transparent, rgba(247,215,116,0.4));
+}
+
+.ann-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  animation: ann-rise 1s 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+.ann-heading-line1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.ann-heading-line2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.ann-heading-line2 em {
+  font-style: italic;
+  background: linear-gradient(135deg, #f7d774 20%, #f97316 60%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(247,215,116,0.4));
+}
+
+.ann-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(12px, 1.4vw, 14px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  margin: 0;
+  animation: ann-fade-in 0.8s 0.7s ease both;
+}
+
+.ann-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(247,215,116,0.05);
+  border: 1px solid rgba(247,215,116,0.15);
+  border-radius: 100px;
+  padding: 10px 22px;
+  animation: ann-fade-in 0.8s 0.9s ease both;
+}
+.ann-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.ann-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #f7d774;
+  line-height: 1;
+}
+.ann-stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+.ann-stat-div {
+  width: 1px; height: 28px;
+  background: rgba(247,215,116,0.2);
+}
+
+/* ================================================================
+   RIGHT — SCRATCH CARD
+   ================================================================ */
+.ann-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+  animation: ann-rise 1s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* Halo glow behind card */
+.ann-card-halo {
+  position: absolute;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(247,215,116,0.18), transparent 70%);
+  filter: blur(30px);
+  animation: ann-halo-pulse 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+@keyframes ann-halo-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.8; }
+  50%       { transform: scale(1.15); opacity: 1; }
+}
+
+/* Card itself */
+.ann-scratch-card {
+  position: relative;
+  width: 240px;
+  background: linear-gradient(150deg, #1c1000 0%, #2d1a00 40%, #1a0c00 100%);
+  border-radius: 22px;
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(247,215,116,0.25);
+  box-shadow:
+    0 0 0 1px rgba(247,215,116,0.1),
+    0 20px 50px rgba(0,0,0,0.7),
+    0 0 60px rgba(201,135,10,0.15);
+  animation: ann-card-float 5s ease-in-out infinite;
+}
+@keyframes ann-card-float {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%       { transform: translateY(-10px) rotate(1deg); }
+}
+
+/* Card shine sweep */
+.ann-card-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+    transparent 25%,
+    rgba(255,255,255,0.04) 45%,
+    rgba(255,255,255,0.09) 50%,
+    rgba(255,255,255,0.04) 55%,
+    transparent 75%);
+  border-radius: 22px;
+  animation: ann-shine-sweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes ann-shine-sweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  40%  { transform: translateX(200%)  skewX(-15deg); }
+  100% { transform: translateX(200%)  skewX(-15deg); }
+}
+
+.ann-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(247,215,116,0.12);
+}
+.ann-card-cherry { font-size: 20px; }
+.ann-card-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+}
+.ann-card-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f7d774;
+  letter-spacing: 0.3px;
+}
+.ann-card-anniv {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: rgba(249,115,22,0.8);
+}
+.ann-card-badge {
+  font-size: 22px;
+  animation: ann-badge-spin 4s ease-in-out infinite;
+}
+@keyframes ann-badge-spin {
+  0%, 100% { transform: rotate(-8deg) scale(1); }
+  50%       { transform: rotate(8deg) scale(1.15); }
+}
+
+.ann-card-body { margin-bottom: 14px; }
+
+.ann-card-occasion {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(247,215,116,0.55);
+  text-align: center;
+  margin: 0 0 10px;
+}
+
+.ann-card-scratch-zone {
+  background: linear-gradient(135deg, #2a1800, #3d2400);
+  border: 1px dashed rgba(247,215,116,0.3);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.ann-card-scratch-zone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(247,215,116,0.02) 0px,
+    rgba(247,215,116,0.02) 2px,
+    transparent 2px,
+    transparent 10px
+  );
+}
+
+.ann-scratch-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+.ann-scratch-line {
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(247,215,116,0.2) 20%,
+    rgba(247,215,116,0.45) 50%,
+    rgba(247,215,116,0.2) 80%,
+    transparent);
+  animation: ann-line-pulse 2s ease-in-out infinite;
+}
+.ann-scratch-line:nth-child(2) { animation-delay: 0.2s; width: 85%; align-self: center; }
+.ann-scratch-line:nth-child(3) { animation-delay: 0.4s; width: 90%; }
+.ann-scratch-line:nth-child(4) { animation-delay: 0.6s; width: 75%; align-self: center; }
+@keyframes ann-line-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+.ann-scratch-hint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(247,215,116,0.45);
+  position: relative;
+  z-index: 1;
+}
+
+.ann-card-footer {
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(247,215,116,0.45);
+}
+
+/* ── CTA Button ── */
+.ann-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #c9870a, #f7d774, #e8b820);
+  color: #1a0800;
+  text-decoration: none;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:
+    0 8px 28px rgba(201,135,10,0.5),
+    0 0 0 0 rgba(247,215,116,0.3);
+  animation: ann-cta-pulse 3s ease-in-out infinite;
+}
+@keyframes ann-cta-pulse {
+  0%, 100% { box-shadow: 0 8px 28px rgba(201,135,10,0.5); }
+  50%       { box-shadow: 0 8px 28px rgba(201,135,10,0.5), 0 0 0 8px rgba(247,215,116,0.1); }
+}
+.ann-cta-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.25), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.ann-cta:hover .ann-cta-glow { opacity: 1; }
+.ann-cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 16px 40px rgba(201,135,10,0.65);
+}
+.ann-cta:active { transform: scale(0.97); }
+.ann-cta-text, .ann-cta svg { position: relative; z-index: 1; }
+
+/* ── Trust pills ── */
+.ann-trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.ann-trust span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+
+/* ================================================================
+   BOTTOM RIBBON (marquee)
+   ================================================================ */
+.ann-ribbon {
+  position: relative;
+  z-index: 3;
+  height: 32px;
+  background: linear-gradient(90deg, #c9870a, #e8b820, #f7d774, #e8b820, #c9870a);
+  background-size: 300% 100%;
+  animation: ann-ribbon-shimmer 4s linear infinite;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+@keyframes ann-ribbon-shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.ann-ribbon span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #1a0800;
+  white-space: nowrap;
+  padding: 0 24px;
+  flex-shrink: 0;
+  animation: ann-ribbon-scroll 18s linear infinite;
+}
+@keyframes ann-ribbon-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ================================================================
+   ENTRY ANIMATIONS
+   ================================================================ */
+@keyframes ann-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ann-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Thumb for scratch slide ── */
+.hs-thumb--scratch {
+  background: linear-gradient(135deg, #1a0e00, #c9870a, #f7d774);
+  display: flex; align-items: center; justify-content: center;
+}
+.hs-thumb--scratch::after { content: '🎂'; font-size: 18px; }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 960px) {
+  .ann-content {
+    flex-direction: column;
+    gap: 28px;
+    padding: 16px 6% 0;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+  .ann-left {
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+  }
+  .ann-ring-wrap { width: 100px; height: 100px; flex-shrink: 0; }
+  .ann-ring--outer { width: 100px; height: 100px; }
+  .ann-ring--mid   { width: 76px;  height: 76px; }
+  .ann-ring--inner { width: 54px;  height: 54px; }
+  .ann-ring-core   { width: 42px;  height: 42px; }
+  .ann-ring-year   { font-size: 24px; }
+  .ann-text-block  { align-items: flex-start; text-align: left; }
+  .ann-eyebrow     { justify-content: flex-start; }
+  .ann-heading     { align-items: flex-start; }
+  .ann-stats       { padding: 8px 14px; gap: 12px; }
+  .ann-scratch-card { width: 210px; }
+  .ann-card-halo   { width: 180px; height: 180px; }
+}
+
+@media (max-width: 600px) {
+  .ann-content { gap: 20px; padding: 12px 5% 0; }
+  .ann-left { gap: 14px; }
+  .ann-ring-wrap { width: 80px; height: 80px; }
+  .ann-ring--outer { width: 80px; height: 80px; }
+  .ann-ring--mid   { width: 60px; height: 60px; }
+  .ann-ring--inner { width: 44px; height: 44px; }
+  .ann-ring-core   { width: 34px; height: 34px; }
+  .ann-ring-year   { font-size: 20px; }
+  .ann-heading-line1, .ann-heading-line2 { font-size: 28px; }
+  .ann-tagline { display: none; }
+  .ann-stats   { display: none; }
+  .ann-scratch-card { width: 190px; }
+  .ann-cta { padding: 12px 24px; font-size: 14px; }
+  .ann-trust span { font-size: 10px; padding: 4px 10px; }
+  .ann-ribbon { height: 26px; }
+  .ann-ribbon span { font-size: 9px; letter-spacing: 2px; }
+}
+
+/* ── Coming Soon badge ── */
+.cs-badge-tag {
+  position: absolute;
+  top: -10px; right: -10px;
+  background: #f97316;
+  color: #fff;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(249,115,22,0.45);
   animation: cs-tag-bounce 2s ease-in-out infinite;
   font-family: "Poppins", sans-serif;
 }

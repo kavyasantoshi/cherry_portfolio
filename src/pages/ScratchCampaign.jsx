@@ -7,10 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import ScratchCard from "../components/scratch/ScratchCard";
 import "./styles/ScratchCampaign.css";
 
-// ─────────────────────────────────────────
-//  Particles — generated ONCE outside component
-//  Math.random() is NOT allowed inside render/component body
-// ─────────────────────────────────────────
 const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   id:       i,
   x:        Math.random() * 100,
@@ -19,26 +15,22 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   size:     6 + Math.random() * 14,
 }));
 
-// ─────────────────────────────────────────
-//  Config
-// ─────────────────────────────────────────
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const KEY_COUPON    = "cherries_coupon";
 const KEY_DEVICE    = "cherries_device_id";
-const KEY_SCRATCHED = "cherries_scratched";
+const KEY_SCRATCHED = "cherries_scratched";  // true = card was scratched today
+const KEY_REVEALED  = "cherries_revealed";   // true = code was fully revealed
 const KEY_DATE      = "cherries_date";
 
 const STATES = {
   LOADING:           "loading",
-  ELIGIBLE:          "eligible",
-  ALREADY_SCRATCHED: "already_scratched",
+  ELIGIBLE:          "eligible",          // unscratched card
+  REVEALED:          "revealed",          // already scratched, show code directly
+  ALREADY_SCRATCHED: "already_scratched", // scratched but no code (edge case)
   ERROR:             "error",
 };
 
-// ─────────────────────────────────────────
-//  Pure helper functions — outside component
-// ─────────────────────────────────────────
 const getTodayIST = () =>
   new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
 
@@ -48,25 +40,39 @@ const clearIfNewDay = () => {
   if (savedDate !== today) {
     sessionStorage.removeItem(KEY_COUPON);
     sessionStorage.removeItem(KEY_SCRATCHED);
+    sessionStorage.removeItem(KEY_REVEALED);
     sessionStorage.setItem(KEY_DATE, today);
   }
 };
 
-// ─────────────────────────────────────────
-//  Component
-// ─────────────────────────────────────────
 function ScratchCampaign() {
   const [coupon,       setCoupon]       = useState(null);
   const [state,        setState]        = useState(STATES.LOADING);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // ── declare initScratch BEFORE useEffect that calls it ──
   const initScratch = async () => {
     try {
-      // 1. Wipe stale data from yesterday
       clearIfNewDay();
 
-      // 2. Coupon saved this session → show instantly, no API call
+      // ── 1. Already revealed → show the code card directly on reload ──
+      if (sessionStorage.getItem(KEY_REVEALED) === "true") {
+        const savedCoupon = sessionStorage.getItem(KEY_COUPON);
+        if (savedCoupon) {
+          setCoupon(savedCoupon);
+          setState(STATES.REVEALED);
+          return;
+        }
+        setState(STATES.ALREADY_SCRATCHED);
+        return;
+      }
+
+      // ── 2. Scratched but not revealed → come back tomorrow ──
+      if (sessionStorage.getItem(KEY_SCRATCHED) === "true") {
+        setState(STATES.ALREADY_SCRATCHED);
+        return;
+      }
+
+      // ── 3. Coupon fetched but card not yet scratched → show unscratched card ──
       const savedCoupon = sessionStorage.getItem(KEY_COUPON);
       if (savedCoupon) {
         setCoupon(savedCoupon);
@@ -74,13 +80,7 @@ function ScratchCampaign() {
         return;
       }
 
-      // 3. Already scratched today (session flag) → show instantly, no API call
-      if (sessionStorage.getItem(KEY_SCRATCHED) === "true") {
-        setState(STATES.ALREADY_SCRATCHED);
-        return;
-      }
-
-      // 4. Get / cache deviceId
+      // ── 4. Fresh visit — get deviceId ──
       let deviceId = sessionStorage.getItem(KEY_DEVICE);
       if (!deviceId) {
         const fp     = await FingerprintJS.load();
@@ -89,7 +89,7 @@ function ScratchCampaign() {
         sessionStorage.setItem(KEY_DEVICE, deviceId);
       }
 
-      // 5. Ask backend if already scratched (cheap GET, no side effects)
+      // ── 5. Check backend status ──
       const statusRes = await axios.get(`${API}/api/scratch/status`, {
         params: { deviceId },
       });
@@ -100,7 +100,7 @@ function ScratchCampaign() {
         return;
       }
 
-      // 6. Eligible — get coupon
+      // ── 6. Eligible — fetch coupon ──
       const scratchRes = await axios.post(`${API}/api/scratch`, { deviceId });
 
       if (scratchRes.data.success) {
@@ -138,10 +138,16 @@ function ScratchCampaign() {
     }
   };
 
-  // ── useEffect comes AFTER initScratch ──
   useEffect(() => {
     initScratch();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Called by ScratchCard when user finishes scratching
+  const handleScratched = () => {
+    sessionStorage.setItem(KEY_SCRATCHED, "true");
+    sessionStorage.setItem(KEY_REVEALED,  "true");
+    setState(STATES.REVEALED);
+  };
 
   const handleRetry = () => {
     setState(STATES.LOADING);
@@ -153,13 +159,8 @@ function ScratchCampaign() {
     "@context": "https://schema.org",
     "@type": "Event",
     name: "Cherries Cafe Scratch & Win Combo Offer",
-    description:
-      "Scratch your card and win exclusive combo offers at Cherries Cafe Kakinada. One lucky scratch per day — valid for dine-in and takeaway orders.",
-    organizer: {
-      "@type": "Restaurant",
-      name: "Cherries Cafe",
-      url: "https://cherriescafe.in",
-    },
+    description: "Scratch your card and win exclusive combo offers at Cherries Cafe Kakinada. One lucky scratch per day — valid for dine-in and takeaway orders.",
+    organizer: { "@type": "Restaurant", name: "Cherries Cafe", url: "https://cherriescafe.in" },
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
   };
@@ -186,40 +187,30 @@ function ScratchCampaign() {
 
         <div className="sc-particles" aria-hidden="true">
           {PARTICLES.map((p) => (
-            <span
-              key={p.id}
-              className="sc-particle"
-              style={{
-                left:             `${p.x}%`,
-                width:            p.size,
-                height:           p.size,
-                animationDelay:   `${p.delay}s`,
-                animationDuration:`${p.duration}s`,
-              }}
-            />
+            <span key={p.id} className="sc-particle" style={{
+              left: `${p.x}%`, width: p.size, height: p.size,
+              animationDelay: `${p.delay}s`, animationDuration: `${p.duration}s`,
+            }} />
           ))}
         </div>
 
         <div className="sc-inner">
 
           <motion.div className="sc-badge"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}>
             <span className="sc-badge-dot" />
             Limited Daily Offer
           </motion.div>
 
           <motion.h1 className="sc-title"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}>
             Scratch &amp; <span className="sc-title-accent">Win</span>
           </motion.h1>
 
           <motion.p className="sc-subtitle"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}>
             One lucky scratch a day — reveal your exclusive combo offer and save
             on your next meal at Cherries.
@@ -237,20 +228,24 @@ function ScratchCampaign() {
 
             {state === STATES.ELIGIBLE && coupon && (
               <motion.div key="card"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}>
-                <ScratchCard coupon={coupon} />
+                initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+                <ScratchCard coupon={coupon} onScratched={handleScratched} alreadyRevealed={false} />
+              </motion.div>
+            )}
+
+            {state === STATES.REVEALED && coupon && (
+              <motion.div key="revealed"
+                initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+                <ScratchCard coupon={coupon} onScratched={handleScratched} alreadyRevealed={true} />
               </motion.div>
             )}
 
             {state === STATES.ALREADY_SCRATCHED && (
               <motion.div key="used" className="sc-state-box sc-state-used"
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}>
+                initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
                 <div className="sc-state-icon">⏰</div>
                 <h2 className="sc-state-heading">Come Back Tomorrow!</h2>
                 <p className="sc-state-text">
@@ -263,32 +258,27 @@ function ScratchCampaign() {
 
             {state === STATES.ERROR && (
               <motion.div key="error" className="sc-state-box sc-state-error"
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}>
+                initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
                 <div className="sc-state-icon">⚠️</div>
                 <h2 className="sc-state-heading">Oops, Something Went Wrong</h2>
                 <p className="sc-state-text">
                   {errorMessage || "We couldn't load your scratch card right now."}
                 </p>
-                <button className="sc-cta-btn" onClick={handleRetry}>
-                  Try Again
-                </button>
+                <button className="sc-cta-btn" onClick={handleRetry}>Try Again</button>
               </motion.div>
             )}
 
           </AnimatePresence>
 
           <motion.div className="sc-trust"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}>
-            <span className="sc-trust-item">One scratch per day</span>
+            <span className="sc-trust-item">🎯 One scratch per day</span>
             <span className="sc-trust-divider" />
-            <span className="sc-trust-item">Valid on dine-in &amp; takeaway</span>
+            <span className="sc-trust-item">✅ Valid on dine-in &amp; takeaway</span>
             <span className="sc-trust-divider" />
-            <span className="sc-trust-item">No account needed</span>
+            <span className="sc-trust-item">🔒 No account needed</span>
           </motion.div>
 
         </div>
