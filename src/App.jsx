@@ -10,6 +10,7 @@ import "./pages/Home.css";
 import "./index.css";
 import Contact from "./components/contact/Contact";
 import Playstore from "./components/app/Playstore";
+import ScratchCampaign from './pages/ScratchCampaign';
 // import "./script.js";
 // import "./script1.js";
 function App() {
@@ -32,9 +33,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/scratch-and-win" element={<ScratchCampaign />} />
+        <Route path="/cherries-app" element={<Playstore/>} />
       </Routes>
       </main>
-      <Playstore/>
       <Footer />
     </BrowserRouter>
 

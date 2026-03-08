@@ -148,3 +148,46 @@
     display: none;
   }
 }
+
+/* ============================================================
+   Add these rules to your existing header.css
+   ============================================================ */
+
+/* Scratch & Win nav pill — matches site orange theme */
+.nav-scratch-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px !important;
+  border-radius: 30px !important;           /* matches .order-btn radius */
+  background: #f97316 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.2s ease !important;
+  box-shadow: 0 3px 14px rgba(249, 115, 22, 0.3);
+}
+
+/* Override the default underline animation for this link */
+.nav-scratch-link::after {
+  display: none !important;
+}
+
+.nav-scratch-link:hover {
+  background: #ea6c0c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.45) !important;
+  color: #ffffff !important;
+}
+
+.nav-scratch-link.active {
+  background: #ea6c0c !important;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.4) !important;
+}
+
+/* Active underline for regular nav links */
+.nav-links a.active::after {
+  width: 100%;
+}

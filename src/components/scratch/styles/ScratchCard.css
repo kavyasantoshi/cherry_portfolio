@@ -1,0 +1,245 @@
+/* ============================================================
+   ScratchCard.css — Cherries Restaurant
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@700&display=swap");
+
+.sc-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+/* ── Instruction ── */
+.sc-instruction {
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.6px;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+/* ── Card Shell ── */
+.sc-card {
+  position: relative;
+  width: 340px;
+  height: 210px;
+  border-radius: 20px;
+  overflow: hidden;
+
+  /* Outer glow ring */
+  box-shadow:
+    0 0 0 1px rgba(247, 215, 116, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(201, 162, 39, 0.15);
+}
+
+/* ── Reward Background ── */
+.sc-reward-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1a0e00 0%, #2d1a00 50%, #1a0e00 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Decorative corner marks */
+.sc-reward-bg::before,
+.sc-reward-bg::after {
+  content: "✦";
+  position: absolute;
+  color: rgba(247, 215, 116, 0.15);
+  font-size: 64px;
+  line-height: 1;
+}
+.sc-reward-bg::before { top: -10px; left: -10px; }
+.sc-reward-bg::after  { bottom: -10px; right: -10px; }
+
+.sc-reward-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+  padding: 16px;
+}
+
+.sc-reward-label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  color: rgba(247, 215, 116, 0.7);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.sc-coupon-code {
+  font-family: "Space Mono", monospace;
+  font-size: 32px;
+  font-weight: 700;
+  color: #f7d774;
+  letter-spacing: 5px;
+  text-shadow:
+    0 0 20px rgba(247, 215, 116, 0.5),
+    0 0 40px rgba(247, 215, 116, 0.2);
+  line-height: 1;
+}
+
+.sc-reward-sub {
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0;
+  letter-spacing: 0.6px;
+}
+
+/* ── Canvas Overlay ── */
+.sc-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+  /* Subtle shimmer on idle */
+  animation: sc-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes sc-shimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.08); }
+}
+
+/* ── Progress Bar ── */
+.sc-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 340px;
+}
+
+.sc-progress-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.sc-progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, #c9a227, #f7d774);
+  box-shadow: 0 0 6px rgba(247, 215, 116, 0.5);
+  min-width: 4px;
+}
+
+.sc-progress-label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
+  min-width: 82px;
+  text-align: right;
+}
+
+/* ── Actions (post-reveal) ── */
+.sc-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.sc-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #f7d774, #c9a227);
+  color: #1a0e00;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(201, 162, 39, 0.4);
+}
+
+.sc-copy-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 28px rgba(201, 162, 39, 0.55);
+}
+
+.sc-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: 1px solid rgba(247, 215, 116, 0.3);
+  background: rgba(247, 215, 116, 0.06);
+  color: #f7d774;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.sc-menu-btn:hover {
+  background: rgba(247, 215, 116, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ── Validity note ── */
+.sc-validity {
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 0.3px;
+  margin: 0;
+}
+
+/* ── Confetti dots ── */
+.sc-confetti-dot {
+  position: absolute;
+  bottom: 50%;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sc-confetti-burst ease-out forwards;
+  z-index: 10;
+}
+
+@keyframes sc-confetti-burst {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-180px) rotate(540deg) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 400px) {
+  .sc-card,
+  .sc-progress-wrap {
+    width: 300px;
+  }
+
+  .sc-coupon-code {
+    font-size: 26px;
+    letter-spacing: 3px;
+  }
+}

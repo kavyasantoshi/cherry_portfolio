@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
+import sitemap from 'vite-plugin-sitemap'
 
 export default defineConfig({
   plugins: [
@@ -33,5 +34,9 @@ export default defineConfig({
       // Show compression stats in terminal
       logStats: true
     }),
+     sitemap({
+      hostname: 'https://cherriescafe.in',
+      dynamicRoutes: ['/', '/menu', '/about', '/contact', '/scratch-and-win']
+    })
   ],
 })
