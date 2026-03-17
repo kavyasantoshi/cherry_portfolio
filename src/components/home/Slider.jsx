@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import "../home/styles/Slider.css";
 
 const slides = [
-  { type: "scratch" },
+  { type: "rewards" },
   {
     type: "image",
     image: "/images/hero/idly_sambar.webp",
@@ -27,240 +28,247 @@ const slides = [
   },
 ];
 
-/* ── Coming Soon Modal ── */
-function ComingSoonModal({ onClose }) {
-  const handleBackdrop = (e) => { if (e.target === e.currentTarget) onClose(); };
-  useEffect(() => {
-    const handler = (e) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", handler);
-    document.body.style.overflow = "hidden";
-    return () => { window.removeEventListener("keydown", handler); document.body.style.overflow = ""; };
-  }, [onClose]);
-  return (
-    <div className="cs-backdrop" onClick={handleBackdrop} role="dialog" aria-modal="true">
-      <div className="cs-modal">
-        <button className="cs-close" onClick={onClose} aria-label="Close">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-        <div className="cs-icon-wrap" aria-hidden="true"><span className="cs-rocket">🚀</span><div className="cs-icon-ring" /></div>
-        <h3 className="cs-title">Coming Soon!</h3>
-        <p className="cs-body">The <strong>Cherries Cafe App</strong> is currently in development. Stay tuned!</p>
-        <div className="cs-progress-wrap">
-          <div className="cs-progress-label"><span>Development progress</span><span className="cs-progress-pct">72%</span></div>
-          <div className="cs-progress-track"><div className="cs-progress-fill" /></div>
-        </div>
-        <a href="/menu" className="cs-menu-btn" onClick={onClose}>Browse Our Menu Instead →</a>
-        <p className="cs-fine">We'll notify you once it's live on Google Play</p>
-      </div>
-    </div>
-  );
+/* ================================================================
+   REWARDS SLIDE  — light cream/orange, matches site theme
+   ================================================================ */
+
+const WHEEL_SEGMENTS = [
+  { color: "#fff3e0", deg: 0,   sweep: 144 },
+  { color: "#ffe0c2", deg: 144, sweep: 108 },
+  { color: "#f97316", deg: 252, sweep: 54  },
+  { color: "#ea580c", deg: 306, sweep: 36  },
+  { color: "#fb923c", deg: 342, sweep: 14  },
+  { color: "#ffffff", deg: 356, sweep: 4   },
+];
+
+const WHEEL_LABELS = [
+  { mid: 72,  text: "1 pt",   color: "#c2410c" },
+  { mid: 198, text: "2 pts",  color: "#c2410c" },
+  { mid: 279, text: "5 pts",  color: "#fff"    },
+  { mid: 324, text: "10 pts", color: "#fff"    },
+  { mid: 349, text: "50 pts", color: "#fff"    },
+  { mid: 358, text: "100",    color: "#ea580c" },
+];
+
+function buildWheelGradient() {
+  return `conic-gradient(${WHEEL_SEGMENTS.map(
+    (s) => `${s.color} ${s.deg}deg ${s.deg + s.sweep}deg`
+  ).join(", ")})`;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ANNIVERSARY SCRATCH SLIDE
-   ═══════════════════════════════════════════════════════════ */
-
-// Firework burst dots — pre-generated outside component
-const FIREWORKS = Array.from({ length: 24 }, (_, i) => ({
-  id: i,
-  x: 15 + Math.random() * 70,
-  y: 10 + Math.random() * 55,
-  delay: Math.random() * 4,
-  duration: 1.8 + Math.random() * 2,
-  size: 3 + Math.random() * 5,
-  color: ["#f7d774","#f97316","#fff","#fbbf24","#fed7aa","#fde68a"][i % 6],
-}));
-
-const STARS = Array.from({ length: 30 }, (_, i) => ({
-  id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  size: 1 + Math.random() * 2.5,
-  delay: Math.random() * 5,
-  duration: 2 + Math.random() * 3,
-}));
-
-function AnniversaryScratchSlide() {
-  const [tick, setTick] = useState(0);
-
-  // Drive periodic firework re-triggers
-  useEffect(() => {
-    const id = setInterval(() => setTick(t => t + 1), 3200);
-    return () => clearInterval(id);
-  }, []);
+function RewardsSlide() {
+  const { user } = useAuth();
+  const ctaPath = user ? "/rewards" : "/login";
 
   return (
-    <div className="ann-slide">
-
-      {/* ── Deep space background ── */}
-      <div className="ann-bg" aria-hidden="true">
-        {/* Radial glow layers */}
-        <div className="ann-glow ann-glow--1" />
-        <div className="ann-glow ann-glow--2" />
-        <div className="ann-glow ann-glow--3" />
-
-        {/* Star field */}
-        {STARS.map(s => (
-          <div key={s.id} className="ann-star" style={{
-            left: `${s.x}%`, top: `${s.y}%`,
-            width: s.size, height: s.size,
-            animationDelay: `${s.delay}s`,
-            animationDuration: `${s.duration}s`,
-          }} />
-        ))}
-
-        {/* Animated grid lines */}
-        <div className="ann-grid" />
-
-        {/* Firework dots */}
-        {FIREWORKS.map(f => (
-          <div key={`${f.id}-${tick}`} className="ann-fw-dot" style={{
-            left: `${f.x}%`, top: `${f.y}%`,
-            width: f.size, height: f.size,
-            background: f.color,
-            animationDelay: `${f.delay}s`,
-            animationDuration: `${f.duration}s`,
-          }} />
-        ))}
-
-        {/* Diagonal light rays */}
-        <div className="ann-ray ann-ray--1" />
-        <div className="ann-ray ann-ray--2" />
-        <div className="ann-ray ann-ray--3" />
+    <div className="rsl-root">
+      {/* ── Warm background matching hero gradient ── */}
+      <div className="rsl-bg" aria-hidden="true">
+        <div className="rsl-bg-blob rsl-bg-blob--1" />
+        <div className="rsl-bg-blob rsl-bg-blob--2" />
+        <div className="rsl-bg-blob rsl-bg-blob--3" />
+        <div className="rsl-bg-dots" />
       </div>
 
-      {/* ── Main content ── */}
-      <div className="ann-content">
+      {/* ── Layout ── */}
+      <div className="rsl-inner">
 
-        {/* Left — Anniversary badge + text */}
-        <div className="ann-left">
+        {/* Left — copy */}
+        <div className="rsl-left">
+          <div className="rsl-pill">
+            <div className="rsl-pill-dot" />
+            Cherries Rewards
+          </div>
 
-          {/* Rotating ring ornament */}
-          <div className="ann-ring-wrap" aria-hidden="true">
-            <div className="ann-ring ann-ring--outer" />
-            <div className="ann-ring ann-ring--mid" />
-            <div className="ann-ring ann-ring--inner" />
-            <div className="ann-ring-core">
-              <span className="ann-ring-year">1</span>
+          <h2 className="rsl-heading">
+            Spin Daily,<br />
+            <em>Save Every Visit</em>
+          </h2>
+
+          <p className="rsl-body">
+            One free spin every day. Win points,
+            unlock dining offers and redeem at the counter.
+          </p>
+
+          <div className="rsl-stats">
+            <div className="rsl-stat">
+              <span className="rsl-stat-num">1×</span>
+              <span className="rsl-stat-label">Free spin daily</span>
+            </div>
+            <div className="rsl-stat-sep" />
+            <div className="rsl-stat">
+              <span className="rsl-stat-num">100</span>
+              <span className="rsl-stat-label">Max pts / spin</span>
+            </div>
+            <div className="rsl-stat-sep" />
+            <div className="rsl-stat">
+              <span className="rsl-stat-num">₹60</span>
+              <span className="rsl-stat-label">Top offer value</span>
             </div>
           </div>
 
-          {/* Anniversary text block */}
-          <div className="ann-text-block">
-            <div className="ann-eyebrow">
-              <span className="ann-eyebrow-line" />
-              <span>Celebrating</span>
-              <span className="ann-eyebrow-line" />
-            </div>
-
-            <h2 className="ann-heading">
-              <span className="ann-heading-line1">One Year</span>
-              <span className="ann-heading-line2">of <em>Cherries</em></span>
-            </h2>
-
-            <p className="ann-tagline">
-              A year of flavours, love &amp; memories.<br />
-              Thank you for being part of our journey.
-            </p>
-
-            {/* Anniversary stat pills */}
-            <div className="ann-stats">
-              <div className="ann-stat">
-                <span className="ann-stat-num">365</span>
-                <span className="ann-stat-label">Days</span>
-              </div>
-              <div className="ann-stat-div" />
-              <div className="ann-stat">
-                <span className="ann-stat-num">∞</span>
-                <span className="ann-stat-label">Smiles</span>
-              </div>
-              <div className="ann-stat-div" />
-              <div className="ann-stat">
-                {/* <span className="ann-stat-num">🍒</span> */}
-                <span className="ann-stat-label">Cherries</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right — Scratch card offer */}
-        <div className="ann-right">
-
-          {/* Card glow halo */}
-          <div className="ann-card-halo" aria-hidden="true" />
-
-          {/* Scratch card */}
-          <div className="ann-scratch-card">
-            <div className="ann-card-shine" aria-hidden="true" />
-
-            <div className="ann-card-header">
-              {/* <span className="ann-card-cherry">🍒</span> */}
-              <div className="ann-card-header-text">
-                <span className="ann-card-brand">Cherries Cafe</span>
-                <span className="ann-card-anniv">1st Anniversary</span>
-              </div>
-              <div className="ann-card-badge">🎂</div>
-            </div>
-
-            <div className="ann-card-body">
-              <p className="ann-card-occasion">Anniversary Special Offer</p>
-              <div className="ann-card-scratch-zone">
-                <div className="ann-scratch-lines">
-                  {[0,1,2,3].map(i => <div key={i} className="ann-scratch-line" />)}
-                </div>
-                <span className="ann-scratch-hint">✦ scratch to reveal ✦</span>
-              </div>
-            </div>
-
-            <div className="ann-card-footer">
-              WIN A COMBO DEAL · FREE DAILY
-            </div>
-          </div>
-
-          {/* CTA */}
-          <Link to="/scratch-and-win" className="ann-cta">
-            <span className="ann-cta-glow" aria-hidden="true" />
-            <span className="ann-cta-text">
-              🎁 Claim Your Gift
-            </span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+          <Link to={ctaPath} className="rsl-cta">
+            {user ? "Open Dashboard" : "Start Earning — Free"}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth="2.5"
               strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </Link>
 
-          {/* Micro trust pills */}
-          <div className="ann-trust">
-            <span>🎯 1 per day</span>
-            <span>🔒 No login</span>
-            <span>🍽️ Dine-in &amp; Takeaway</span>
+          <div className="rsl-trust">
+            <span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              No app needed
+            </span>
+            <span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Free to join
+            </span>
+            <span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Dine-in &amp; Takeaway
+            </span>
+          </div>
+        </div>
+
+        {/* Right — decorative spin wheel */}
+        <div className="rsl-right" aria-hidden="true">
+          <div className="rsl-wheel-halo" />
+
+          <div className="rsl-wheel-wrap">
+            {/* Dashed outer ring */}
+            <div className="rsl-ring rsl-ring--outer" />
+            <div className="rsl-ring rsl-ring--inner" />
+
+            {/* Pointer triangle */}
+            <div className="rsl-pointer">
+              <svg width="22" height="30" viewBox="0 0 22 30" fill="none">
+                <path d="M11 30L1 2h20L11 30z" fill="#f97316" />
+                <path d="M11 26L3 6h16L11 26z" fill="#ea580c" />
+                <circle cx="11" cy="6" r="2.5" fill="rgba(255,255,255,0.5)" />
+              </svg>
+            </div>
+
+            {/* Wheel disc */}
+            <div className="rsl-wheel" style={{ background: buildWheelGradient() }}>
+              {WHEEL_SEGMENTS.map((s, i) => (
+                <div key={i} className="rsl-spoke"
+                  style={{ transform: `rotate(${s.deg}deg)` }} />
+              ))}
+              {WHEEL_LABELS.map((l, i) => (
+                <span key={i} className="rsl-wheel-label" style={{
+                  transform: `rotate(${l.mid}deg) translateY(-52px)`,
+                  color: l.color,
+                }}>
+                  {l.text}
+                </span>
+              ))}
+            </div>
+
+            {/* Center hub */}
+            <div className="rsl-hub">
+              <span>SPIN</span>
+            </div>
+          </div>
+
+          {/* Floating result pills */}
+          <div className="rsl-float-card rsl-float-card--a">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2"
+              strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            +10 pts earned
+          </div>
+          <div className="rsl-float-card rsl-float-card--b">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2"
+              strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 12V22H4V12" /><path d="M22 7H2v5h20V7z" />
+              <path d="M12 22V7" />
+              <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z" />
+              <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z" />
+            </svg>
+            ₹60 offer unlocked
           </div>
         </div>
 
       </div>
 
-      {/* ── Bottom ribbon ── */}
-      <div className="ann-ribbon" aria-hidden="true">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <span key={i}>✦ 1 YEAR ANNIVERSARY ✦ CHERRIES CAFE KAKINADA</span>
+      {/* ── Bottom marquee strip — orange matches hero ── */}
+      <div className="rsl-strip" aria-hidden="true">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <span key={i}>
+            CHERRIES REWARDS &middot; SPIN DAILY &middot; EARN POINTS &middot; UNLOCK OFFERS &middot;
+          </span>
         ))}
       </div>
-
     </div>
   );
 }
 
-/* ── Main Slider ── */
+/* ================================================================
+   COMING SOON MODAL  (unchanged)
+   ================================================================ */
+function ComingSoonModal({ onClose }) {
+  const handleBackdrop = (e) => { if (e.target === e.currentTarget) onClose(); };
+  useEffect(() => {
+    const handler = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div className="cs-backdrop" onClick={handleBackdrop} role="dialog" aria-modal="true">
+      <div className="cs-modal">
+        <button className="cs-close" onClick={onClose} aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <div className="cs-icon-wrap" aria-hidden="true">
+          <span className="cs-rocket">🚀</span>
+          <div className="cs-icon-ring" />
+        </div>
+        <h3 className="cs-title">Coming Soon!</h3>
+        <p className="cs-body">
+          The <strong>Cherries Cafe App</strong> is currently in development. Stay tuned!
+        </p>
+        <div className="cs-progress-wrap">
+          <div className="cs-progress-label">
+            <span>Development progress</span>
+            <span className="cs-progress-pct">72%</span>
+          </div>
+          <div className="cs-progress-track">
+            <div className="cs-progress-fill" />
+          </div>
+        </div>
+        <a href="/menu" className="cs-menu-btn" onClick={onClose}>
+          Browse Our Menu Instead →
+        </a>
+        <p className="cs-fine">We'll notify you once it's live on Google Play</p>
+      </div>
+    </div>
+  );
+}
+
+/* ================================================================
+   MAIN SLIDER
+   ================================================================ */
 function Slider() {
-  const [current, setCurrent]               = useState(0);
-  const [prev, setPrev]                     = useState(null);
-  const [direction, setDirection]           = useState("next");
+  const [current, setCurrent]                 = useState(0);
+  const [prev, setPrev]                       = useState(null);
+  const [direction, setDirection]             = useState("next");
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [progress, setProgress]             = useState(0);
-  const [showModal, setShowModal]           = useState(false);
+  const [progress, setProgress]               = useState(0);
+  const [showModal, setShowModal]             = useState(false);
   const progressRef = useRef(null);
   const DURATION    = 6000;
 
@@ -275,7 +283,10 @@ function Slider() {
     };
     progressRef.current = requestAnimationFrame(tick);
     const timer = setTimeout(() => goNext(), DURATION);
-    return () => { clearTimeout(timer); cancelAnimationFrame(progressRef.current); };
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(progressRef.current);
+    };
   }, [current]);
 
   const goNext = () => {
@@ -293,12 +304,13 @@ function Slider() {
   const goTo = (index) => {
     if (isTransitioning || index === current) return;
     setIsTransitioning(true);
-    setDirection(index > current ? "next" : "prev"); setPrev(current); setCurrent(index);
+    setDirection(index > current ? "next" : "prev");
+    setPrev(current); setCurrent(index);
     setTimeout(() => { setPrev(null); setIsTransitioning(false); }, 1000);
   };
 
   const openModal  = (e) => { e.preventDefault(); setShowModal(true); };
-  const closeModal = ()  => setShowModal(false);
+  const closeModal = () => setShowModal(false);
   const currentSlide = slides[current];
 
   return (
@@ -314,13 +326,16 @@ function Slider() {
           if (isActive) cls += prev !== null ? ` hs-slide--enter-${direction}` : " hs-slide--idle";
           if (isPrev)   cls += ` hs-slide--leave-${direction}`;
 
-          if (slide.type === "scratch") {
+          /* ── Rewards slide ── */
+          if (slide.type === "rewards") {
             return (
-              <div key={i} className={`${cls} hs-slide--scratch`}>
-                <AnniversaryScratchSlide />
+              <div key={i} className={`${cls} hs-slide--rewards`}>
+                <RewardsSlide />
               </div>
             );
           }
+
+          /* ── Image slides ── */
           return (
             <div key={i} className={cls}
               style={{ backgroundImage: `url(${slide.image})` }} />
@@ -336,71 +351,101 @@ function Slider() {
             <span className="hs-label">{currentSlide.label}</span>
             <h1 className="hs-title">
               {currentSlide.title.split(" ").map((word, wi) =>
-                wi % 2 === 1 ? <em key={wi}> {word}</em> : <span key={wi}>{word} </span>
+                wi % 2 === 1
+                  ? <em key={wi}> {word}</em>
+                  : <span key={wi}>{word} </span>
               )}
             </h1>
             <p className="hs-subtitle">{currentSlide.subtitle}</p>
             <div className="hs-divider" />
             <div className="hs-actions">
               <a href="tel:+919000202206" className="hs-btn-primary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2.5"
+                  strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                 </svg>
                 Call Now
               </a>
               <Link to="/menu" className="hs-btn-secondary">
                 View Menu
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2"
+                  strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </Link>
             </div>
             <div className="hs-store-badge">
-              <a href="#" onClick={openModal} aria-label="Cherries Cafe App — Coming Soon"
+              <a href="#" onClick={openModal}
+                aria-label="Cherries Cafe App — Coming Soon"
                 style={{ position: "relative", display: "inline-block" }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play — Coming Soon" />
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                  alt="Get it on Google Play — Coming Soon"
+                />
                 <span className="cs-badge-tag">Coming Soon</span>
               </a>
             </div>
           </div>
         )}
 
+        {/* Thumbnails */}
         <div className="hs-thumbs">
           {slides.map((slide, i) => (
             <div key={i}
-              className={`hs-thumb${i === current ? " hs-thumb--active" : ""}${slide.type === "scratch" ? " hs-thumb--scratch" : ""}`}
+              className={`hs-thumb${i === current ? " hs-thumb--active" : ""}${slide.type === "rewards" ? " hs-thumb--rewards" : ""}`}
               style={slide.type === "image" ? { backgroundImage: `url(${slide.image})` } : {}}
-              onClick={() => goTo(i)} role="button"
-              aria-label={slide.type === "scratch" ? "Anniversary Offer" : `Slide ${i + 1}`}
+              onClick={() => goTo(i)}
+              role="button"
+              aria-label={slide.type === "rewards" ? "Rewards Program" : `Slide ${i + 1}`}
             />
           ))}
         </div>
 
+        {/* Counter */}
         <div className="hs-counter">
           <span className="hs-counter-current">0{current + 1}</span>
           <span className="hs-counter-sep">/</span>
           <span className="hs-counter-total">0{slides.length}</span>
         </div>
 
-        <button className="hs-arrow hs-arrow--left" onClick={goPrev} disabled={isTransitioning} aria-label="Previous slide">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+        {/* Arrows */}
+        <button className="hs-arrow hs-arrow--left" onClick={goPrev}
+          disabled={isTransitioning} aria-label="Previous slide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" strokeWidth="2.5"
+            strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
         </button>
-        <button className="hs-arrow hs-arrow--right" onClick={goNext} disabled={isTransitioning} aria-label="Next slide">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+        <button className="hs-arrow hs-arrow--right" onClick={goNext}
+          disabled={isTransitioning} aria-label="Next slide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" strokeWidth="2.5"
+            strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
         </button>
 
+        {/* Dots */}
         <div className="hs-dots">
           {slides.map((_, i) => (
-            <button key={i} className={`hs-dot${i === current ? " hs-dot--active" : ""}`}
-              onClick={() => goTo(i)} aria-label={`Go to slide ${i + 1}`} />
+            <button key={i}
+              className={`hs-dot${i === current ? " hs-dot--active" : ""}`}
+              onClick={() => goTo(i)}
+              aria-label={`Go to slide ${i + 1}`}
+            />
           ))}
         </div>
 
+        {/* Scroll hint */}
         <div className="hs-scroll-hint">
           <div className="hs-scroll-mouse"><div className="hs-scroll-wheel" /></div>
           <span className="hs-scroll-text">Scroll</span>
         </div>
 
+        {/* Progress bar */}
         <div className="hs-progress" style={{ width: `${progress}%` }} />
       </section>
 
