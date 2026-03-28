@@ -316,8 +316,26 @@ export default function Rewards() {
           </div>
         </div>
 
-        {/* Right: points + logout */}
+        {/* Right: points + catering + logout */}
         <div className="rewards-header-right">
+          {/* Catering link */}
+          <button
+            className="rewards-catering-btn"
+            onClick={() => navigate("/catering")}
+            aria-label="Go to Catering"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.5"
+              strokeLinecap="round" strokeLinejoin="round">
+              <line x1="8" y1="6" x2="8" y2="12" />
+              <path d="M6 6a2 2 0 014 0v2H6V6z" />
+              <line x1="8" y1="12" x2="8" y2="20" />
+              <line x1="16" y1="6" x2="16" y2="20" />
+              <path d="M14 6c0 0 2-1 2 3s-2 3-2 3" />
+            </svg>
+            <span className="rewards-catering-label">Catering</span>
+          </button>
+
           <div className="rewards-points-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth="2"

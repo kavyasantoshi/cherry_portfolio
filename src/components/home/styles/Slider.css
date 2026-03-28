@@ -815,3 +815,10 @@
   .rsl-heading { font-size: 34px; }
   .rsl-stats { display: none; }
 }
+.hs-thumb--catering {
+  background: linear-gradient(135deg, #fff3e0, #f97316, #ea580c);
+}
+
+.hs-slide--catering {
+  background: linear-gradient(135deg, #ffffff 0%, #fff5ec 45%, #ffe8d0 100%);
+}

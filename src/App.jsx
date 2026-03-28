@@ -1,3 +1,4 @@
+// src/App.jsx — updated with /catering route (no header/footer)
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -12,6 +13,8 @@ import Contact from "./components/contact/Contact";
 import Playstore from "./components/app/Playstore";
 import Login from "./pages/Login";
 import Rewards from "./pages/Rewards";
+import Catering from "./pages/Catering";      
+import PreviousOrders from "./pages/PreviousOrders";
 import "./pages/Home.css";
 import "./index.css";
 
@@ -42,7 +45,16 @@ function AppContent() {
 
   return (
     <BrowserRouter>
-      <Toaster position="top-center" toastOptions={{ style: { background: "#1c1000", color: "#f7d774", border: "1px solid rgba(247,215,116,0.2)" } }} />
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: "#1c1000",
+            color: "#f7d774",
+            border: "1px solid rgba(247,215,116,0.2)",
+          },
+        }}
+      />
       <Routes>
         {/* Auth page — no header/footer */}
         <Route
@@ -64,6 +76,26 @@ function AppContent() {
           }
         />
 
+        {/* Catering — protected, no header/footer */}
+        <Route
+          path="/catering"
+          element={
+            <ProtectedRoute>
+              <Catering />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catering Orders — protected, no header/footer */}
+        <Route
+          path="/catering/orders"
+          element={
+            <ProtectedRoute>
+              <PreviousOrders />
+            </ProtectedRoute>
+          }
+        />
+
         {/* All other routes — with Header + Footer */}
         <Route
           path="/*"
@@ -72,11 +104,11 @@ function AppContent() {
               <Header />
               <main className="page-content">
                 <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/menu" element={<Menu />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/cherries-app" element={<Playstore />} />
+                  <Route path="/"              element={<Home />} />
+                  <Route path="/about"         element={<About />} />
+                  <Route path="/menu"          element={<Menu />} />
+                  <Route path="/contact"       element={<Contact />} />
+                  <Route path="/cherries-app"  element={<Playstore />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </main>
