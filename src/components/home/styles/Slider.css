@@ -3,29 +3,13 @@
    Theme: Dark cinematic · warm orange #f97316 · Playfair serif
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-  --hs-orange:        #f97316;
-  --hs-orange-dark:   #e8600a;
-  --hs-orange-light:  #fb923c;
-  --hs-white:         #ffffff;
-  --hs-black:         #0a0a0a;
-  --hs-duration:      6000ms;
-  --hs-transition:    1s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-/* ================================================================
-   ROOT
-   ================================================================ */
 .hs-root {
   position: relative;
   height: 100vh;
   width: 100%;
   overflow: hidden;
   background: var(--hs-black);
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* ================================================================
@@ -134,15 +118,15 @@
 }
 
 .hs-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(44px, 8vw, 96px);
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 6.5vw, 92px);
   font-weight: 700;
-  color: var(--hs-white);
   line-height: 1.05;
-  letter-spacing: -1px;
-  margin: 0 0 16px;
+  color: var(--hs-white);
+  margin-bottom: 20px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
   opacity: 0;
-  animation: hs-rise 0.9s 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation: hs-rise 1s 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 .hs-title em { font-style: italic; color: var(--hs-orange); }
 
@@ -284,6 +268,17 @@
 /* Rewards thumbnail */
 .hs-thumb--rewards {
   background: linear-gradient(135deg, #fff3e0, #fb923c, #f97316);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Catering thumbnail */
+.hs-thumb--catering {
+  background: linear-gradient(135deg, #fff3e0, #f97316, #ea580c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ================================================================
@@ -810,8 +805,181 @@
   .rsl-strip { height: 26px; }
   .rsl-strip span { font-size: 9px; }
 }
+
+@media (max-width: 1024px) {
+  .rsl-bg-blob { display: none !important; }
+}
+
+@media (max-width: 768px) {
+  .hs-arrow { width: 40px; height: 40px; }
+  .hs-arrow--left { left: 16px; }
+  .hs-arrow--right { right: 16px; }
+  .hs-thumbs { right: 20px; gap: 10px; }
+  .hs-thumb { width: 44px; height: 44px; }
+  .hs-counter { right: 24px; bottom: 40px; }
+  .hs-counter-current { font-size: 28px; }
+}
+
 @media (max-width: 600px) {
   .rsl-right { display: none; }
   .rsl-heading { font-size: 34px; }
   .rsl-stats { display: none; }
+  .hs-title { font-size: 48px; }
+  .hs-label { font-size: 10px; padding: 4px 14px; }
+}
+.hs-thumb--catering {
+  background: linear-gradient(135deg, #fff3e0, #f97316, #ea580c);
+}
+
+.hs-slide--catering {
+  background: linear-gradient(135deg, #ffffff 0%, #fff5ec 45%, #ffe8d0 100%);
+}
+
+/* Intro thumbnail */
+.hs-thumb--intro {
+  background: linear-gradient(135deg, #2d1b2f, #f97316);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================================================================
+   INTRO SLIDE
+   ================================================================ */
+.hs-slide--intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.hs-intro-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+  z-index: 1;
+}
+
+.hs-intro-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+  max-width: 800px;
+}
+
+.hs-intro-logo-wrap {
+  width: 100px;
+  height: 100px;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  opacity: 0;
+  animation: 
+    hs-fade-down 1s 0.3s ease forwards,
+    hs-logo-blob 8s ease-in-out infinite alternate;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  overflow: hidden;
+}
+
+@keyframes hs-logo-blob {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+.hs-intro-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.hs-intro-title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 7vw, 64px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: hs-rise 1s 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.hs-intro-subtitle {
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: hs-fade-up 0.8s 0.9s ease forwards;
+}
+
+.hs-intro-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--hs-orange);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: hs-line-grow 1s 1.2s ease forwards;
+}
+
+.hs-intro-actions {
+  opacity: 0;
+  animation: hs-fade-up 0.8s 1.5s ease forwards;
+}
+
+.hs-intro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  background: var(--hs-orange);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 32px rgba(249, 115, 22, 0.4);
+  transition: all 0.3s ease;
+}
+
+.hs-intro-btn:hover {
+  background: var(--hs-orange-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 44px rgba(249, 115, 22, 0.6);
+}
+
+.hs-intro-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.hs-intro-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Mobile-first adjustments */
+@media (max-width: 600px) {
+  .hs-intro-logo-wrap {
+    width: 80px;
+    height: 80px;
+  }
+  .hs-intro-logo {
+    width: 50px;
+    height: 50px;
+  }
+  .hs-intro-btn {
+    padding: 12px 28px;
+    font-size: 13px;
+  }
 }

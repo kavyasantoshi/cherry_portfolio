@@ -1,0 +1,417 @@
+/* ================================================================
+   CateringSlide.css — Cherries Catering Slide
+   Matches: Slider.css theme — orange #f97316, Playfair + Poppins
+   Mobile-first
+   ================================================================ */
+
+/* ── Root ── */
+.csl-root {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ffffff 0%, #fff5ec 45%, #ffe8d0 100%);
+}
+
+/* ── Background blobs ── */
+.csl-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.csl-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+.csl-bg-blob--1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(249,115,22,0.16), transparent 70%);
+  top: -160px; right: -100px;
+  animation: csl-blob 11s ease-in-out infinite;
+}
+.csl-bg-blob--2 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(251,146,60,0.12), transparent 70%);
+  bottom: -80px; left: -60px;
+  animation: csl-blob 14s ease-in-out infinite reverse;
+}
+@keyframes csl-blob {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  50%       { transform: scale(1.1) translate(18px, 12px); }
+}
+.csl-bg-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(249,115,22,0.1) 1.5px, transparent 1.5px);
+  background-size: 30px 30px;
+}
+
+/* ── Inner layout ── */
+.csl-inner {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  padding: 0 8% 28px;
+}
+
+/* ── LEFT COPY ── */
+.csl-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 400px;
+}
+
+/* Pill */
+.csl-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #f97316;
+  background: rgba(249,115,22,0.1);
+  border: 1.5px solid rgba(249,115,22,0.28);
+  padding: 7px 18px;
+  border-radius: 100px;
+  animation: csl-fade-up 0.6s 0.1s ease both;
+  box-shadow: 0 2px 10px rgba(249,115,22,0.1);
+}
+.csl-pill-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #f97316;
+  box-shadow: 0 0 10px rgba(249,115,22,0.7);
+  animation: csl-dot-pulse 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes csl-dot-pulse {
+  0%, 100% { transform: scale(1);   box-shadow: 0 0 4px rgba(249,115,22,0.5); }
+  50%       { transform: scale(1.5); box-shadow: 0 0 16px rgba(249,115,22,1);  }
+}
+
+/* Heading */
+.csl-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 4.5vw, 58px);
+  font-weight: 700;
+  color: #2d1b2f;
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  margin: 0;
+  animation: csl-rise 0.9s 0.25s cubic-bezier(0.22,1,0.36,1) both;
+}
+.csl-heading em {
+  font-style: italic;
+  color: #f97316;
+}
+
+/* Body */
+.csl-body {
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 400;
+  color: #7a5c5c;
+  line-height: 1.75;
+  margin: 0;
+  animation: csl-fade-up 0.7s 0.4s ease both;
+}
+
+/* Plans row */
+.csl-plans {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  animation: csl-fade-up 0.7s 0.5s ease both;
+}
+.csl-plan-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(255,255,255,0.85);
+  border: 1.5px solid rgba(249,115,22,0.22);
+  border-radius: 14px;
+  padding: 10px 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(249,115,22,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  min-width: 80px;
+}
+.csl-plan-chip:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(249,115,22,0.18);
+}
+.csl-plan-name {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9c7070;
+}
+.csl-plan-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #f97316;
+  line-height: 1;
+}
+.csl-plan-desc {
+  font-size: 9px;
+  font-weight: 500;
+  color: #b08080;
+  letter-spacing: 0.3px;
+}
+
+/* CTA */
+.csl-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 38px;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 100px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 10px 32px rgba(249,115,22,0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: csl-fade-up 0.7s 0.6s ease both;
+  position: relative;
+  overflow: hidden;
+}
+.csl-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.csl-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(249,115,22,0.55);
+}
+.csl-cta:hover::before { opacity: 1; }
+.csl-cta svg { position: relative; z-index: 1; }
+
+/* Trust strip */
+.csl-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  animation: csl-fade-up 0.7s 0.72s ease both;
+}
+.csl-trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #9c7070;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(249,115,22,0.15);
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+.csl-trust span svg { color: #f97316; flex-shrink: 0; }
+
+/* ── RIGHT — food grid ── */
+.csl-right {
+  position: relative;
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.csl-wheel-halo {
+  position: absolute;
+  inset: -24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.12) 40%, transparent 70%);
+  filter: blur(24px);
+  animation: csl-halo 3.5s ease-in-out infinite;
+}
+@keyframes csl-halo {
+  0%, 100% { transform: scale(1);    opacity: 0.8; }
+  50%       { transform: scale(1.15); opacity: 1;   }
+}
+
+.csl-food-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+}
+.csl-food-card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  border: 1.5px solid rgba(249,115,22,0.18);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.csl-food-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 14px 36px rgba(249,115,22,0.2);
+}
+
+/* Staggered float animations */
+.csl-food-card--0 { animation: csl-float-a 4.5s ease-in-out infinite; }
+.csl-food-card--1 { animation: csl-float-b 5s   ease-in-out infinite 0.8s; }
+.csl-food-card--2 { animation: csl-float-a 4s   ease-in-out infinite 1.6s; }
+.csl-food-card--3 { animation: csl-float-b 5.5s ease-in-out infinite 0.4s; }
+
+@keyframes csl-float-a {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes csl-float-b {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+.csl-food-img-wrap {
+  flex: 1;
+  overflow: hidden;
+}
+.csl-food-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.csl-food-card:hover .csl-food-img-wrap img {
+  transform: scale(1.08);
+}
+.csl-food-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7a5c5c;
+  text-align: center;
+  padding: 6px 0;
+  background: rgba(255,255,255,0.95);
+  border-top: 1px solid rgba(249,115,22,0.1);
+}
+
+/* Floating badge */
+.csl-float-badge {
+  position: absolute;
+  bottom: -10px;
+  right: -55px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2d1b2f;
+  background: #fff;
+  border: 1.5px solid rgba(249,115,22,0.25);
+  padding: 10px 16px;
+  border-radius: 100px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12), 0 2px 8px rgba(249,115,22,0.1);
+  white-space: nowrap;
+  z-index: 10;
+  animation: csl-float-badge 4s ease-in-out infinite;
+}
+.csl-float-badge svg { color: #f97316; flex-shrink: 0; }
+@keyframes csl-float-badge {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── Bottom strip ── */
+.csl-strip {
+  position: relative;
+  z-index: 3;
+  height: 34px;
+  background: linear-gradient(90deg, #ea580c, #f97316, #fb923c, #f97316, #ea580c);
+  background-size: 300% 100%;
+  animation: csl-strip-shimmer 4s linear infinite;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 -2px 12px rgba(249,115,22,0.2);
+}
+@keyframes csl-strip-shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+.csl-strip span {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  padding: 0 24px;
+  flex-shrink: 0;
+  animation: csl-strip-scroll 22s linear infinite;
+}
+@keyframes csl-strip-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ── Entry animations ── */
+@keyframes csl-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes csl-rise {
+  from { opacity: 0; transform: translateY(32px) skewY(0.5deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .csl-inner {
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px 6% 0;
+    text-align: center;
+  }
+  .csl-left { align-items: center; max-width: 100%; }
+  .csl-plans { justify-content: center; }
+  .csl-trust { justify-content: center; }
+  .csl-right { width: 240px; height: 240px; }
+  .csl-float-badge { right: -20px; bottom: -8px; }
+  .csl-strip { height: 26px; }
+  .csl-strip span { font-size: 9px; }
+}
+
+@media (max-width: 1024px) {
+  .csl-bg-blob { display: none !important; }
+}
+
+@media (max-width: 600px) {
+  .csl-right { display: none; }
+  .csl-heading { font-size: 32px; }
+  .csl-plans { gap: 8px; }
+  .csl-plan-chip { padding: 8px 12px; min-width: 70px; }
+  .csl-plan-price { font-size: 18px; }
+}
