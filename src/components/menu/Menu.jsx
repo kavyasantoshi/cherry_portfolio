@@ -11,6 +11,27 @@ import "./styles/Menu.css";
 
 const API = import.meta.env.VITE_API_URL;
 
+const VegIcon = () => (
+  <div style={{
+    width: '14px',
+    height: '14px',
+    border: '1.5px solid #0f8a3c',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '2px',
+    marginRight: '6px',
+    flexShrink: 0
+  }}>
+    <div style={{
+      width: '6px',
+      height: '6px',
+      backgroundColor: '#0f8a3c',
+      borderRadius: '50%'
+    }} />
+  </div>
+);
+
 function Menu() {
   const [categories,     setCategories]     = useState([]);
   const [menuItems,      setMenuItems]      = useState({});
@@ -159,7 +180,10 @@ function Menu() {
                   </div>
                   <div className="food-card__body">
                     <div className="food-card__info">
-                      <h4 className="food-card__name">{item.name}</h4>
+                      <div className="food-card__name-row">
+                        <VegIcon />
+                        <h4 className="food-card__name">{item.name}</h4>
+                      </div>
                       <p className="food-card__desc">{item.description || item.desc}</p>
                     </div>
                     <div className="food-card__footer">

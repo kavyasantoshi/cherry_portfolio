@@ -1,15 +1,17 @@
-/* :root {
-  --bg-main: #d9ebe2;
-  --bg-card: #2e3a27;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-  --green-primary: #2E7D32;
-  --red-accent: #C62828;
+:root {
+  --font-serif: 'Playfair Display', serif;
+  --font-sans:  'Poppins', sans-serif;
+  --hs-orange: #f97316;
+  --hs-orange-dark: #ea580c;
+  --hs-orange-light: #fb923c;
+  --hs-white: #ffffff;
+  --hs-black: #0a0a0a;
+  --hs-duration: 6000ms;
+  --hs-transition: 1s cubic-bezier(0.76, 0, 0.24, 1);
+}
 
-  --cream-primary: #E9DFC9;
-  --text-body: #B9C2B8;
-
-  --border-soft: #2F3A33;
-} */
 * {
     margin: 0;
     padding: 0;
@@ -17,10 +19,15 @@
 }
 
 body {
-    font-family: 'Playfair Display', serif; /* Use a Serif font for the headings */
+    font-family: var(--font-sans);
     background-color: #fff;
     color: #333;
     overflow-x: hidden;
+    line-height: 1.5;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-serif);
 }
 #about,
 #menu,

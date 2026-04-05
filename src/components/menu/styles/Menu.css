@@ -27,13 +27,13 @@
   color: #111827;
   letter-spacing: -0.5px;
   margin-bottom: 0.75rem;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-serif);
 }
 
 .menu-title-divider {
   width: 5rem;
   height: 4px;
-  background: #f97316;
+  background: var(--hs-orange);
   margin: 0 auto;
   border-radius: 9999px;
 }
@@ -42,7 +42,7 @@
   margin-top: 0.875rem;
   color: #6b7280;
   font-size: clamp(0.875rem, 1.5vw, 1.1rem);
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* ============================================================
@@ -101,9 +101,9 @@
 }
 
 .cat-btn:hover .cat-circle {
-  border-color: #f97316;
-  box-shadow: 0 4px 18px rgba(249,115,22,0.22);
-  transform: scale(1.07);
+  border-color: var(--hs-orange);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.25);
+  transform: scale(1.1) translateY(-2px);
 }
 
 /* Image fills the circle */
@@ -130,7 +130,7 @@
   line-height: 1.2;
   white-space: nowrap;
   transition: color 0.2s ease;
-   font-family: "Poppins", sans-serif;
+  font-family: var(--font-sans);
 }
 
 .cat-btn:hover .cat-label { color: #ea580c; }
@@ -173,7 +173,7 @@
 }
 
 .back-arrow { font-size: 1rem; line-height: 1; }
-.back-text  { line-height: 1;   font-family: "Poppins", sans-serif;}
+.back-text  { line-height: 1;   font-family: var(--font-serif); }
 
 /* Breadcrumb pill with image */
 .breadcrumb {
@@ -236,8 +236,9 @@
 }
 
 .food-card:hover {
-  box-shadow: 0 8px 28px rgba(0,0,0,0.13);
-  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  border-color: rgba(249, 115, 22, 0.2);
 }
 
 /* Image — 16:10 aspect ratio */
@@ -286,17 +287,23 @@
 
 .food-card__info { flex: 1; }
 
+.food-card__name-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
 .food-card__name {
   font-size: 0.95rem;
   font-weight: 700;
   color: #111827;
-  margin: 0 0 0.3rem;
+  margin: 0;
   line-height: 1.3;
   transition: color 0.2s ease;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-sans);
 }
 
-.food-card:hover .food-card__name { color: #ea580c; }
+.food-card:hover .food-card__name { color: var(--hs-orange); }
 
 .food-card__desc {
   font-size: 0.77rem;
@@ -305,8 +312,9 @@
   line-height: 1.45;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
-   font-family: "Poppins", sans-serif;
+  font-family: var(--font-sans);
   overflow: hidden;
 }
 
@@ -321,7 +329,7 @@
   font-size: 1rem;
   font-weight: 800;
   color: #111827;
-   font-family: "Poppins", sans-serif;
+  font-family: var(--font-sans);
 }
 
 .food-card__add {
@@ -365,7 +373,7 @@
   box-shadow: 0 6px 20px rgba(234,88,12,0.3);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
-   font-family: "Poppins", sans-serif;
+   font-family: var(--font-sans);
 }
 
 .view-menu-btn::before {

@@ -40,7 +40,7 @@
   border: 1.5px solid rgba(249,115,22,0.2);
   border-radius: 100px;
   color: #7a5c5c;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
@@ -71,7 +71,7 @@
   flex-shrink: 0;
 }
 .cat-header-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   font-size: 16px; font-weight: 700;
   color: #2d1b2f; letter-spacing: -0.2px;
   white-space: nowrap;
@@ -96,7 +96,7 @@
   border: 1.5px solid rgba(249,115,22,0.2);
   border-radius: 100px;
   color: #f97316;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -125,7 +125,7 @@
 }
 .cat-points-badge svg { display: none; flex-shrink: 0; }
 .cat-points-num {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   font-size: 16px; font-weight: 700;
   line-height: 1; color: #f97316;
 }
@@ -141,7 +141,7 @@
   border: 1.5px solid rgba(239,68,68,0.2);
   border-radius: 100px;
   color: #9c7070;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
@@ -165,7 +165,7 @@
   border: 1.5px solid #f97316;
   border-radius: 100px;
   color: #fff;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -191,7 +191,7 @@
   color: #f97316;
   border: 1.5px solid rgba(249,115,22,0.3);
   border-radius: 100px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
@@ -229,7 +229,7 @@
   border: 2px solid rgba(249,115,22,0.25);
   background: #fff;
   color: #b08080;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 700;
   display: flex;
@@ -250,7 +250,7 @@
   color: #fff;
 }
 .cat-step-label {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
   color: #b08080;
@@ -282,14 +282,14 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 .cat-section-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   font-size: 22px;
   font-weight: 700;
   color: #2d1b2f;
   margin: 0 0 6px;
 }
 .cat-section-sub {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: #9c7070;
   margin: 0 0 24px;
@@ -338,7 +338,7 @@
   color: #fff;
 }
 .cat-plan-name {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -346,20 +346,20 @@
   color: #9c7070;
 }
 .cat-plan-price {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   font-size: 32px;
   font-weight: 700;
   color: #f97316;
   line-height: 1;
 }
 .cat-plan-price span {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 400;
   color: #b08080;
 }
 .cat-plan-desc {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: #7a5c5c;
   line-height: 1.5;
@@ -388,7 +388,7 @@
   margin-bottom: 14px;
 }
 .cat-category-name {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   font-size: 16px;
   font-weight: 700;
   color: #2d1b2f;
@@ -400,7 +400,7 @@
   flex-wrap: wrap;
 }
 .cat-required-badge {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -411,7 +411,7 @@
   border-radius: 100px;
 }
 .cat-optional-badge {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 600;
   color: #9c7070;
@@ -421,7 +421,7 @@
   border-radius: 100px;
 }
 .cat-max-badge {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 600;
   color: #7a5c5c;
@@ -430,7 +430,7 @@
   border-radius: 100px;
 }
 .cat-chosen-count {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 600;
   color: #f97316;
@@ -455,7 +455,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: #2d1b2f;
   min-height: 44px;
@@ -506,7 +506,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
   color: #7a5c5c;
@@ -523,7 +523,7 @@
   background: #fafafa;
   border: 1.5px solid rgba(249,115,22,0.15);
   border-radius: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: #2d1b2f;
   resize: vertical;
@@ -646,7 +646,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.15s ease;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: #2d1b2f;
 }
@@ -681,7 +681,7 @@
 }
 
 .cat-field-error {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: #ef4444;
   margin-top: 8px;
@@ -703,7 +703,7 @@
   gap: 14px;
 }
 .cat-first-time-note {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: #7a5c5c;
   line-height: 1.6;
@@ -719,7 +719,7 @@
   gap: 5px;
 }
 .cat-field label {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
   color: #2d1b2f;
@@ -734,7 +734,7 @@
   background: #fff;
   border: 1.5px solid rgba(249,115,22,0.2);
   border-radius: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: #2d1b2f;
   outline: none;
@@ -752,7 +752,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: #7a5c5c;
   background: rgba(249,115,22,0.06);
@@ -775,7 +775,7 @@
 .cat-summary-row {
   display: flex;
   justify-content: space-between;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: #7a5c5c;
 }
@@ -805,7 +805,7 @@
 }
 
 .cat-summary-note {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: #ea580c;
   font-weight: 500;
@@ -832,7 +832,7 @@
   color: #fff;
   border: none;
   border-radius: 100px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -858,7 +858,7 @@
   color: #7a5c5c;
   border: 1.5px solid rgba(249,115,22,0.22);
   border-radius: 100px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -902,14 +902,14 @@
   box-shadow: 0 10px 28px rgba(249,115,22,0.4);
 }
 .cat-success-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
   font-size: 28px;
   font-weight: 700;
   color: #2d1b2f;
   margin: 0 0 12px;
 }
 .cat-success-body {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: #7a5c5c;
   line-height: 1.7;
