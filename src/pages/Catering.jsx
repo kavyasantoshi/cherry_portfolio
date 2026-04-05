@@ -40,51 +40,62 @@ function CateringHeader({ user, onLogout }) {
           <img src="/logos/cherry_logo.png" alt="Cherries" className="cat-logo" />
           <div>
             <div className="cat-header-title">Catering</div>
-            <div className="cat-header-user">{user?.email}</div>
+            <div className="cat-header-user">{user ? user.email : "Guest Order"}</div>
           </div>
         </div>
 
         {/* Right: rewards + points + logout */}
-        <div className="cat-header-right">
-          {/* Rewards link */}
-          <button
-            className="cat-rewards-btn"
-            onClick={() => navigate("/rewards")}
-            aria-label="Go to Rewards"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2.5"
-              strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-            </svg>
-            <span className="cat-rewards-label">Rewards</span>
-          </button>
+        {user ? (
+          <div className="cat-header-right">
+            {/* Rewards link */}
+            <button
+              className="cat-rewards-btn"
+              onClick={() => navigate("/rewards")}
+              aria-label="Go to Rewards"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2.5"
+                strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span className="cat-rewards-label">Rewards</span>
+            </button>
 
-          <div className="cat-points-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2"
-              strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-            </svg>
-            <span className="cat-points-num">{user?.points ?? 0}</span>
-            <span className="cat-points-label">pts</span>
+            <div className="cat-points-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2"
+                strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span className="cat-points-num">{user?.points ?? 0}</span>
+              <span className="cat-points-label">pts</span>
+            </div>
+
+            <button
+              className="cat-logout-btn"
+              onClick={() => setShowLogoutConfirm(true)}
+              aria-label="Logout"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2"
+                strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              <span className="cat-logout-label">Logout</span>
+            </button>
           </div>
-
-          <button
-            className="cat-logout-btn"
-            onClick={() => setShowLogoutConfirm(true)}
-            aria-label="Logout"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2"
-              strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-              <polyline points="16 17 21 12 16 7"/>
-              <line x1="21" y1="12" x2="9" y2="12"/>
-            </svg>
-            <span className="cat-logout-label">Logout</span>
-          </button>
-        </div>
+        ) : (
+          <div className="cat-header-right">
+            <button
+              className="cat-login-btn"
+              onClick={() => navigate("/login", { state: { from: "/catering" } })}
+            >
+              Sign In
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Logout confirm modal */}
@@ -176,6 +187,97 @@ function StepPlan({ plans, loading, selected, onSelect }) {
   );
 }
 
+// ── Category Dropdown Component ─────────────────────────────────────────
+function CategoryDropdown({ category, selectedIds, onToggle, customSelections, onCustomToggle }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredItems = category.items.filter(item => 
+    item.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
+  );
+
+  const handleCustomAdd = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      onCustomToggle(searchTerm.trim());
+      setSearchTerm("");
+      setIsOpen(false);
+    }
+  };
+
+  return (
+    <div className={`cat-dropdown ${isOpen ? "cat-dropdown--open" : ""}`} style={{ marginBottom: '8px' }}>
+      <div className="cat-dropdown-trigger-content" style={{ width: '100%', padding: '0 12px', display: 'flex', alignItems: 'center' }}>
+        <input
+          type="text"
+          className="cat-dropdown-search"
+          placeholder="Search items or request custom..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={() => setIsOpen(true)}
+          onBlur={() => setTimeout(() => setIsOpen(false), 200)}
+          style={{ width: '100%', border: 'none', outline: 'none', background: 'transparent', height: '40px', color: 'inherit', fontSize: '1rem' }}
+        />
+        <svg
+          className={`cat-dropdown-chevron ${isOpen ? "cat-dropdown-chevron--open" : ""}`}
+          onClick={() => setIsOpen(!isOpen)}
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor" strokeWidth="2.5"
+          strokeLinecap="round" strokeLinejoin="round"
+          style={{ cursor: 'pointer', marginLeft: '8px', zIndex: 2 }}
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </div>
+
+      {isOpen && (
+        <div className="cat-dropdown-menu">
+          {filteredItems.map((item) => {
+            const isSelected = selectedIds.includes(item._id);
+            return (
+              <div
+                key={item._id}
+                className={`cat-dropdown-item ${isSelected ? "cat-dropdown-item--selected" : ""}`}
+                onMouseDown={() => onToggle(item._id)}
+              >
+                <div className="cat-item-checkbox">
+                  {isSelected && (
+                    <svg
+                      width="10" height="10" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" strokeWidth="3"
+                      strokeLinecap="round" strokeLinejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
+                </div>
+                <span>{item.name}</span>
+              </div>
+            );
+          })}
+          {searchTerm.trim() && (
+            <div 
+              className="cat-dropdown-item"
+              onMouseDown={handleCustomAdd}
+            >
+              <div className="cat-item-checkbox"></div>
+              <span>Request: "{searchTerm.trim()}"</span>
+            </div>
+          )}
+          {filteredItems.length === 0 && !searchTerm.trim() && (
+            <div className="cat-dropdown-item cat-dropdown-item--disabled">
+              <span>No items available. Type to request one.</span>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Step 2: Item Selection ─────────────────────────────────────────────
 function StepItems({ planDetail, loading, selections, onChange, customNotes, onCustomNoteChange }) {
   if (loading) return <div className="cat-loader"><div className="cat-spinner" /></div>;
@@ -196,85 +298,79 @@ function StepItems({ planDetail, loading, selections, onChange, customNotes, onC
     onChange(catId, newSelection);
   };
 
+  const handleCustomToggle = (catId, customName) => {
+    let currentCustom = customNotes[catId] ? customNotes[catId].split(", ").map(s => s.trim()).filter(Boolean) : [];
+    if (currentCustom.includes(customName)) {
+      currentCustom = currentCustom.filter(name => name !== customName);
+    } else {
+      currentCustom.push(customName);
+    }
+    onCustomNoteChange(catId, currentCustom.join(", "));
+  };
+  
+  const removeCustomItem = (catId, customName) => {
+    let currentCustom = customNotes[catId] ? customNotes[catId].split(", ").map(s => s.trim()).filter(Boolean) : [];
+    currentCustom = currentCustom.filter(name => name !== customName);
+    onCustomNoteChange(catId, currentCustom.join(", "));
+  };
+
   return (
     <div className="cat-section">
       <h2 className="cat-section-title">Select Your Items</h2>
       <p className="cat-section-sub">
-        Choose your items from each category.
-        {" "}Categories marked <span className="cat-required-badge">Required</span> need at least one selection.
+        Choose your items or search to request a custom item.
       </p>
       <div className="cat-categories">
         {categories.map((cat) => {
           const chosen = selections[cat._id] || [];
-          const isError = !cat.isOptional && chosen.length < cat.minItems;
-          const atMax = cat.maxItems && chosen.length >= cat.maxItems;
+          const customChosen = customNotes[cat._id] ? customNotes[cat._id].split(", ").map(s => s.trim()).filter(Boolean) : [];
           
           return (
-            <div key={cat._id} className={`cat-category ${isError ? "cat-category--error" : ""}`}>
+            <div key={cat._id} className="cat-category">
               <div className="cat-category-header">
                 <span className="cat-category-name">{cat.name}</span>
                 <div className="cat-category-meta">
-                  {!cat.isOptional && (
-                    <span className="cat-required-badge">Required · min {cat.minItems}</span>
-                  )}
-                  {cat.isOptional && (
-                    <span className="cat-optional-badge">Optional</span>
-                  )}
-                  {cat.maxItems && (
-                    <span className="cat-max-badge">max {cat.maxItems}</span>
-                  )}
-                  <span className="cat-chosen-count">{chosen.length} selected</span>
+                  <span className="cat-chosen-count">
+                    {chosen.length + customChosen.length} selected
+                  </span>
                 </div>
               </div>
-              
-              <div className="cat-items-grid">
-                {cat.items.map((item) => {
-                  const isSelected = chosen.includes(item._id);
-                  const disabled = !isSelected && atMax;
-                  
-                  return (
-                    <button
-                      key={item._id}
-                      className={`cat-item-card ${isSelected ? "cat-item-card--selected" : ""} ${disabled ? "cat-item-card--disabled" : ""}`}
-                      onClick={() => !disabled && handleSelect(cat._id, item._id)}
-                      disabled={disabled}
-                    >
-                      <div className="cat-item-check">
-                        {isSelected && (
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                        )}
-                      </div>
-                      <span className="cat-item-name">{item.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
 
-              {/* Custom options text field for each category */}
-              <div className="cat-custom-note">
-                <label className="cat-custom-note-label">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                  </svg>
-                  Any other options for {cat.name}?
-                </label>
-                <textarea
-                  className="cat-custom-note-input"
-                  placeholder={`E.g. Extra quantity, specific preferences...`}
-                  value={customNotes[cat._id] || ""}
-                  onChange={(e) => onCustomNoteChange(cat._id, e.target.value)}
-                  rows={2}
-                />
-              </div>
-              
-              {isError && (
-                <p className="cat-field-error">
-                  Please select at least {cat.minItems} item{cat.minItems > 1 ? "s" : ""} from {cat.name}.
-                </p>
+              {/* Custom Multi-select Dropdown / Autocomplete */}
+              <CategoryDropdown
+                category={cat}
+                selectedIds={chosen}
+                onToggle={(itemId) => handleSelect(cat._id, itemId)}
+                customSelections={customChosen}
+                onCustomToggle={(name) => handleCustomToggle(cat._id, name)}
+              />
+
+              {/* Display selected items below the dropdown */}
+              {(chosen.length > 0 || customChosen.length > 0) && (
+                <div className="cat-selected-tags" style={{ marginTop: '12px', minHeight: '36px' }}>
+                  {cat.items.filter(item => chosen.includes(item._id)).map((item) => (
+                    <span key={item._id} className="cat-selected-tag">
+                      {item.name}
+                      <span
+                        className="cat-tag-remove"
+                        onClick={() => handleSelect(cat._id, item._id)}
+                      >
+                        ×
+                      </span>
+                    </span>
+                  ))}
+                  {customChosen.map((customName, idx) => (
+                    <span key={`custom-${cat._id}-${idx}`} className="cat-selected-tag" style={{ border: '1px dashed rgba(247, 215, 116, 0.4)' }}>
+                      {customName}
+                      <span
+                        className="cat-tag-remove"
+                        onClick={() => removeCustomItem(cat._id, customName)}
+                      >
+                        ×
+                      </span>
+                    </span>
+                  ))}
+                </div>
               )}
             </div>
           );
@@ -290,7 +386,8 @@ function StepForm({ user, form, onChange, planDetail }) {
   const pricePerPerson = planDetail?.plan?.pricePerPerson || 0;
   const total = totalPersons * pricePerPerson;
 
-  const needsProfile = !user?.name || !user?.phone;
+  const isGuest = !user;
+  const needsProfile = isGuest || !user?.name || !user?.phone;
 
   const minDate = new Date();
   minDate.setDate(minDate.getDate() + 1);
@@ -305,7 +402,10 @@ function StepForm({ user, form, onChange, planDetail }) {
         {needsProfile && (
           <div className="cat-form-group cat-form-group--highlight">
             <p className="cat-first-time-note">
-              👋 Looks like this is your first catering booking. Please fill in your details below.
+              {isGuest 
+                ? "👋 Provide your contact details to place the order."
+                : "👋 Looks like this is your first catering booking. Please fill in your details below."
+              }
             </p>
             <div className="cat-form-row">
               <div className="cat-field">
@@ -318,6 +418,17 @@ function StepForm({ user, form, onChange, planDetail }) {
                 />
               </div>
               <div className="cat-field">
+                <label>Email Address *</label>
+                <input
+                  type="email"
+                  placeholder="email@example.com"
+                  value={form.bookingEmail}
+                  onChange={(e) => onChange("bookingEmail", e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="cat-form-row">
+              <div className="cat-field">
                 <label>Phone Number *</label>
                 <input
                   type="tel"
@@ -326,15 +437,15 @@ function StepForm({ user, form, onChange, planDetail }) {
                   onChange={(e) => onChange("bookingPhone", e.target.value)}
                 />
               </div>
-            </div>
-            <div className="cat-field">
-              <label>Alternative Phone <span className="cat-optional-text">(optional)</span></label>
-              <input
-                type="tel"
-                placeholder="+91 00000 00000"
-                value={form.bookingAlternativePhone}
-                onChange={(e) => onChange("bookingAlternativePhone", e.target.value)}
-              />
+              <div className="cat-field">
+                <label>Alternative Phone <span className="cat-optional-text">(optional)</span></label>
+                <input
+                  type="tel"
+                  placeholder="+91 00000 00000"
+                  value={form.bookingAlternativePhone}
+                  onChange={(e) => onChange("bookingAlternativePhone", e.target.value)}
+                />
+              </div>
             </div>
           </div>
         )}
@@ -396,13 +507,15 @@ function StepForm({ user, form, onChange, planDetail }) {
               <span>{totalPersons}</span>
             </div>
             <div className="cat-summary-divider" />
-            <div className="cat-summary-row cat-summary-row--total">
-              <span>Estimated Total</span>
+            <div className="cat-summary-row cat-summary-row--approx">
+              <span>Approximate Value</span>
               <span>₹{total.toLocaleString("en-IN")}</span>
             </div>
-            <p className="cat-summary-note">
-              * Final amount confirmed by admin. Payment handled manually after confirmation.
-            </p>
+            <div className="cat-summary-highlight-box">
+              <p className="cat-summary-note">
+                * Admin will handle the payments and confirm the total. Final amount will be shared after confirmation.
+              </p>
+            </div>
           </div>
         )}
       </div>
@@ -429,6 +542,7 @@ export default function Catering() {
 
   const [form, setForm] = useState({
     bookingName:             user?.name  || "",
+    bookingEmail:            user?.email || "",
     bookingPhone:            user?.phone || "",
     bookingAlternativePhone: "",
     deliveryDate:            "",
@@ -477,20 +591,32 @@ export default function Catering() {
   };
 
   const validateSelections = () => {
-    if (!planDetail) return false;
-    for (const cat of planDetail.categories) {
-      const chosen = selections[cat._id] || [];
-      if (!cat.isOptional && chosen.length < cat.minItems) {
-        toast.error(`Select at least ${cat.minItems} item(s) from "${cat.name}"`);
-        return false;
-      }
+    // Check if at least one item is selected across all categories
+    const hasSelection = Object.values(selections).some(items => items.length > 0);
+    const hasCustomNote = Object.values(customNotes).some(note => note.trim().length > 0);
+    
+    if (!hasSelection && !hasCustomNote) {
+      toast.error("Please select at least one item from the menu or request a custom item.");
+      return false;
     }
     return true;
   };
 
   const validateForm = () => {
     if (!form.bookingName.trim()) { toast.error("Name is required."); return false; }
+    if (!form.bookingEmail.trim()) { toast.error("Email is required."); return false; }
+    // Stricter email regex
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(form.bookingEmail)) {
+      toast.error("Please enter a valid email address.");
+      return false;
+    }
     if (!form.bookingPhone.trim()) { toast.error("Phone is required."); return false; }
+    // Phone regex (Indian 10-digit)
+    const cleanPhone = form.bookingPhone.replace(/\s+/g, "").replace("+91", "");
+    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+      toast.error("Please enter a valid 10-digit mobile number.");
+      return false;
+    }
     if (!form.deliveryDate) { toast.error("Please select a delivery date."); return false; }
     if (!form.persons || parseInt(form.persons) < 1) { toast.error("Please enter number of persons."); return false; }
     return true;
@@ -515,21 +641,17 @@ export default function Catering() {
     }));
 
     const token = localStorage.getItem("cherry_token");
-    
-    if (!token) {
-      toast.error("Please login to continue");
-      navigate("/login", { state: { from: "/catering" } });
-      setSubmitting(false);
-      return;
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
     }
 
     try {
       const res = await fetch(`${API}/catering/orders`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify({
           planId:                  selectedPlan._id,
           persons:                 parseInt(form.persons),
@@ -538,6 +660,7 @@ export default function Catering() {
           note:                    form.note,
           selectedItems,
           bookingName:             form.bookingName,
+          bookingEmail:            form.bookingEmail,
           bookingPhone:            form.bookingPhone,
           bookingAlternativePhone: form.bookingAlternativePhone || undefined,
         }),

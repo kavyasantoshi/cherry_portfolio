@@ -403,6 +403,11 @@
   .csl-strip { height: 26px; }
   .csl-strip span { font-size: 9px; }
 }
+
+@media (max-width: 1024px) {
+  .csl-bg-blob { display: none !important; }
+}
+
 @media (max-width: 600px) {
   .csl-right { display: none; }
   .csl-heading { font-size: 32px; }

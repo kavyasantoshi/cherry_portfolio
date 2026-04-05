@@ -54,29 +54,14 @@ export default function CateringSlide() {
             ))}
           </div>
 
-          <Link to={ctaPath} className="csl-cta">
-            {user ? "Book a Catering Slot" : "Login to Book"}
+          <Link to="/catering" className="csl-cta">
+            View Catering Plans
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth="2.5"
               strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </Link>
-
-          <div className="csl-trust">
-            <span>
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              Pure Veg Menu
-            </span>
-            <span>
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              Custom Item Selection
-            </span>
-            <span>
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              Any Occasion
-            </span>
-          </div>
         </div>
 
         {/* Right — decorative food icons grid */}

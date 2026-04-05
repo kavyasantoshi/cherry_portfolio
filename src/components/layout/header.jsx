@@ -12,7 +12,7 @@ function Header() {
 
   const close = () => setMenuOpen(false);
   const rewardsPath  = user ? "/rewards" : "/login";
-  const cateringPath = user ? "/catering" : "/login";
+  const cateringPath = "/catering";
 
   return (
     <nav className="navbar" role="navigation" aria-label="Main navigation">

@@ -79,11 +79,7 @@ function AppContent() {
         {/* Catering — protected, no header/footer */}
         <Route
           path="/catering"
-          element={
-            <ProtectedRoute>
-              <Catering />
-            </ProtectedRoute>
-          }
+          element={<Catering />}
         />
 
         {/* Catering Orders — protected, no header/footer */}

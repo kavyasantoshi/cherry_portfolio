@@ -1,33 +1,41 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Trophy, UtensilsCrossed } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import "../home/styles/Slider.css";
 import CateringSlide from "./CateringSlide";
 import "./styles/CateringSlide.css";
 
 const slides = [
+  {
+    type: "intro",
+    image: "/images/cafe/cafe.webp",
+    logo: "/logos/cherry_logo.png",
+    title: "WELCOME TO CHERRIES",
+    subtitle: "Your Favorite Pure Veg Spot in Kakinada",
+  },
   { type: "rewards" },
   { type: "catering" },
   {
     type: "image",
     image: "/images/hero/idly_sambar.webp",
     label: "Breakfast Special",
-    title: "WELCOME!",
-    subtitle: "Cherries Veg Restaurant",
+    title: "Delicious South Indian Tiffins",
+    subtitle: "Soft idlis, crispy dosas & hot sambar served fresh every morning",
   },
   {
     type: "image",
     image: "/images/hero/starter.webp",
     label: "Starters & Snacks",
-    title: "Authentic Taste",
-    subtitle: "Pure Veg Delicious",
+    title: "Crispy & Tasty Bites",
+    subtitle: "Savor our crunchy snacks and flavorful starters made to delight every craving",
   },
   {
     type: "image",
     image: "/images/hero/panner-biryani.webp",
     label: "Main Course",
-    title: "Fresh & Flavorful",
-    subtitle: "Made With Love",
+    title: "Hearty Meals & Main Course",
+    subtitle: "Rich curries, aromatic biryanis, and wholesome meals prepared with love",
   },
 ];
 
@@ -125,54 +133,6 @@ function RewardsSlide() {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </Link>
-
-          <div className="rsl-trust">
-            <span>
-              <svg
-                width="11"
-                height="11"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              No app needed
-            </span>
-            <span>
-              <svg
-                width="11"
-                height="11"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Free to join
-            </span>
-            <span>
-              <svg
-                width="11"
-                height="11"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Dine-in &amp; Takeaway
-            </span>
-          </div>
         </div>
 
         {/* Right — decorative spin wheel */}
@@ -356,24 +316,46 @@ function Slider() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const timerRef = useRef(null);
   const progressRef = useRef(null);
   const DURATION = 5000;
 
-  useEffect(() => {
-    setProgress(0);
+  // Automatic transition logic
+  const startTimer = () => {
+    stopTimer();
     const start = Date.now();
-    const tick = () => {
+
+    // Timer for next slide
+    timerRef.current = setTimeout(() => {
+      // If we are currently transitioning (e.g. manual click), 
+      // wait a bit longer instead of skipping entirely.
+      if (isTransitioning) {
+        startTimer();
+      } else {
+        goNext();
+      }
+    }, DURATION);
+
+    // Progress animation
+    let frame;
+    const animate = () => {
       const elapsed = Date.now() - start;
       const pct = Math.min((elapsed / DURATION) * 100, 100);
       setProgress(pct);
-      if (pct < 100) progressRef.current = requestAnimationFrame(tick);
+      if (pct < 100) frame = requestAnimationFrame(animate);
     };
-    progressRef.current = requestAnimationFrame(tick);
-    const timer = setTimeout(() => goNext(), DURATION);
-    return () => {
-      clearTimeout(timer);
-      cancelAnimationFrame(progressRef.current);
-    };
+    frame = requestAnimationFrame(animate);
+    progressRef.current = frame;
+  };
+
+  const stopTimer = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (progressRef.current) cancelAnimationFrame(progressRef.current);
+  };
+
+  useEffect(() => {
+    startTimer();
+    return () => stopTimer();
   }, [current]);
 
   const goNext = () => {
@@ -387,6 +369,7 @@ function Slider() {
       setIsTransitioning(false);
     }, 1000);
   };
+
   const goPrev = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
@@ -398,6 +381,7 @@ function Slider() {
       setIsTransitioning(false);
     }, 1000);
   };
+
   const goTo = (index) => {
     if (isTransitioning || index === current) return;
     setIsTransitioning(true);
@@ -445,6 +429,35 @@ function Slider() {
             return (
               <div key={i} className={`${cls} hs-slide--catering`}>
                 <CateringSlide />
+              </div>
+            );
+          }
+
+          /* ── Intro slide ── */
+          if (slide.type === "intro") {
+            return (
+              <div
+                key={i}
+                className={`${cls} hs-slide--intro`}
+                style={{ backgroundImage: `url(${slide.image})` }}
+              >
+                <div className="hs-intro-overlay" />
+                <div className="hs-intro-content">
+                  <div className="hs-intro-logo-wrap">
+                    <img src={slide.logo} alt="Cherries Logo" className="hs-intro-logo" />
+                  </div>
+                  <h1 className="hs-intro-title">{slide.title}</h1>
+                  <p className="hs-intro-subtitle">{slide.subtitle}</p>
+                  <div className="hs-intro-divider" />
+                  <div className="hs-intro-actions">
+                    <button className="hs-intro-btn" onClick={goNext}>
+                      Explore Now
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
               </div>
             );
           }
@@ -536,18 +549,22 @@ function Slider() {
           {slides.map((slide, i) => (
             <div
               key={i}
-              className={`hs-thumb${i === current ? " hs-thumb--active" : ""}${slide.type === "rewards" ? " hs-thumb--rewards" : ""}${slide.type === "catering" ? " hs-thumb--catering" : ""}`}
+              className={`hs-thumb${i === current ? " hs-thumb--active" : ""}${slide.type === "intro" ? " hs-thumb--intro" : ""}${slide.type === "rewards" ? " hs-thumb--rewards" : ""}${slide.type === "catering" ? " hs-thumb--catering" : ""}`}
               style={
-                slide.type === "image"
+                (slide.type === "image")
                   ? { backgroundImage: `url(${slide.image})` }
                   : {}
               }
               onClick={() => goTo(i)}
-              role="button"
-              aria-label={
-                slide.type === "rewards" ? "Rewards Program" : `Slide ${i + 1}`
-              }
-            />
+              onMouseEnter={() => stopTimer()}
+              onMouseLeave={() => startTimer()}
+            >
+              {slide.type === "intro" && (
+                <img src={slide.logo} alt="Logo" style={{ width: '70%', height: '70%', objectFit: 'contain' }} />
+              )}
+              {slide.type === "rewards" && <Trophy size={20} color="#fff" />}
+              {slide.type === "catering" && <UtensilsCrossed size={20} color="#fff" />}
+            </div>
           ))}
         </div>
 
