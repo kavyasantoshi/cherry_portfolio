@@ -6,6 +6,10 @@ import "./styles/Playstore.css";
    App download promotion section
    ═══════════════════════════════════════════════ */
 
+const PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=com.cherriescafe.app&pcampaignid=web_share";
+const PLAY_STORE_QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(PLAY_STORE_URL)}&color=1c0f07&bgcolor=ffffff`;
+
 const APP_FEATURES = [
   {
     icon: (
@@ -48,72 +52,9 @@ const APP_FEATURES = [
   },
 ];
 
-/* ── Coming Soon Modal ── */
-function ComingSoonModal({ onClose }) {
-  // Close on backdrop click
-  const handleBackdrop = (e) => {
-    if (e.target === e.currentTarget) onClose();
-  };
-
-  // Close on Escape key
-  useEffect(() => {
-    const handler = (e) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [onClose]);
-
-  return (
-    <div className="cs-backdrop" onClick={handleBackdrop} role="dialog" aria-modal="true" aria-label="App coming soon">
-      <div className="cs-modal">
-        {/* Close button */}
-        <button className="cs-close" onClick={onClose} aria-label="Close">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-
-        {/* Rocket icon */}
-        <div className="cs-icon-wrap" aria-hidden="true">
-          <span className="cs-rocket">🚀</span>
-          <div className="cs-icon-ring" />
-        </div>
-
-        {/* Text */}
-        <h3 className="cs-title">Coming Soon!</h3>
-        <p className="cs-body">
-          The <strong>Cherries Cafe App</strong> is currently in development.
-          We're working hard to bring you the best food ordering experience.
-          Stay tuned!
-        </p>
-
-        {/* Progress bar (decorative) */}
-        <div className="cs-progress-wrap">
-          <div className="cs-progress-label">
-            <span>Development progress</span>
-            <span className="cs-progress-pct">72%</span>
-          </div>
-          <div className="cs-progress-track">
-            <div className="cs-progress-fill" />
-          </div>
-        </div>
-
-        {/* CTA — go to menu instead */}
-        <a href="/menu" className="cs-menu-btn" onClick={onClose}>
-          Browse Our Menu Instead →
-        </a>
-
-        <p className="cs-fine">We'll notify you once it's live on Google Play</p>
-      </div>
-    </div>
-  );
-}
-
 export default function Playstore() {
   const sectionRef = useRef(null);
-  const [visible, setVisible]       = useState(false);
-  const [showModal, setShowModal]   = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -123,15 +64,6 @@ export default function Playstore() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    document.body.style.overflow = showModal ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [showModal]);
-
-  const openModal  = (e) => { e.preventDefault(); setShowModal(true); };
-  const closeModal = ()  => setShowModal(false);
 
   return (
     <>
@@ -180,19 +112,17 @@ export default function Playstore() {
 
             {/* Store button + rating */}
             <div className="ps-actions">
-              {/* ── Intercept click — app not live yet ── */}
               <a
-                href="#"
-                onClick={openModal}
+                href={PLAY_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="ps-store-btn"
-                aria-label="Cherries Cafe App — Coming Soon on Google Play"
+                aria-label="Get Cherries Cafe App on Google Play"
               >
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
                   alt="Get it on Google Play"
                 />
-                {/* Coming soon badge on the button */}
-                <span className="ps-coming-tag">Coming Soon</span>
               </a>
 
               <div className="ps-rating">
@@ -233,31 +163,23 @@ export default function Playstore() {
                         <strong>Cherries Cafe App</strong>
                       </p>
 
-                      {/* QR tap also opens modal */}
-                      <div
-                        className="ps-qr-box ps-qr-coming"
-                        onClick={openModal}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => e.key === "Enter" && openModal(e)}
-                        aria-label="App coming soon — tap to learn more"
-                        title="App coming soon!"
+                      <a
+                        href={PLAY_STORE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ps-qr-box"
+                        aria-label="Scan to get Cherries Cafe App on Google Play"
+                        title="Scan to download on Google Play"
                       >
-                        {/* Blurred placeholder QR */}
                         <img
-                          src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://example.com/cherries-cafe-app&color=1c0f07&bgcolor=ffffff"
-                          alt="QR code — app coming soon"
-                          className="ps-qr-img ps-qr-blurred"
+                          src={PLAY_STORE_QR_URL}
+                          alt="QR code — download Cherries Cafe App on Google Play"
+                          className="ps-qr-img"
                           loading="lazy"
                         />
-                        {/* Overlay */}
-                        <div className="ps-qr-overlay">
-                          <span className="ps-qr-overlay-icon">🚀</span>
-                          <span className="ps-qr-overlay-text">Coming<br/>Soon</span>
-                        </div>
-                      </div>
+                      </a>
 
-                      <p className="ps-qr-hint">· Launching Soon ·</p>
+                      <p className="ps-qr-hint">· Available on Google Play ·</p>
 
                       <div className="ps-nav-bar" aria-hidden="true">
                         <div className="ps-nav-item ps-nav-item--active">
@@ -298,9 +220,6 @@ export default function Playstore() {
 
         </div>
       </section>
-
-      {/* Coming Soon Modal — rendered outside section so it overlays everything */}
-      {showModal && <ComingSoonModal onClose={closeModal} />}
     </>
   );
 }

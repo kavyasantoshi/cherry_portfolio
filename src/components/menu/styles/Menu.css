@@ -120,6 +120,18 @@
   transform: scale(1.12);
 }
 
+/* Emoji fallback when a category has no image */
+.cat-emoji {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  background: linear-gradient(135deg, #fff7ed, #ffe4c4);
+  line-height: 1;
+}
+
 /* Label */
 .cat-label {
   font-size: clamp(0.64rem, 1vw, 0.82rem);
@@ -195,6 +207,20 @@
   flex-shrink: 0;
 }
 
+.breadcrumb__emoji {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #fdba74;
+  background: #fff7ed;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+
 .breadcrumb__label {
   font-size: 0.875rem;
   font-weight: 700;
@@ -261,6 +287,18 @@
 }
 
 .food-card:hover .food-card__img { transform: scale(1.07); }
+
+/* Emoji fallback when an item has no image */
+.food-card__emoji {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  background: linear-gradient(135deg, #fff7ed, #ffe4c4);
+  line-height: 1;
+}
 
 /* Badge */
 .food-card__badge {

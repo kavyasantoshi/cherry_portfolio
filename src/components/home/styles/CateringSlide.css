@@ -232,8 +232,8 @@
 .csl-right {
   position: relative;
   flex-shrink: 0;
-  width: 300px;
-  height: 300px;
+  width: min(300px, 78vw);
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,18 +254,18 @@
 .csl-food-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: clamp(10px, 2vw, 14px);
   width: 100%;
   height: 100%;
 }
 .csl-food-card {
+  position: relative;
   border-radius: 18px;
   overflow: hidden;
+  aspect-ratio: 1 / 1;
   background: #fff;
   border: 1.5px solid rgba(249,115,22,0.18);
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .csl-food-card:hover {
@@ -289,7 +289,8 @@
 }
 
 .csl-food-img-wrap {
-  flex: 1;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
 }
 .csl-food-img-wrap img {
@@ -303,16 +304,20 @@
   transform: scale(1.08);
 }
 .csl-food-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
   font-family: 'Poppins', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #7a5c5c;
+  color: #fff;
   text-align: center;
-  padding: 6px 0;
-  background: rgba(255,255,255,0.95);
-  border-top: 1px solid rgba(249,115,22,0.1);
+  padding: 18px 6px 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
 }
 
 /* Floating badge */
@@ -398,7 +403,7 @@
   .csl-left { align-items: center; max-width: 100%; }
   .csl-plans { justify-content: center; }
   .csl-trust { justify-content: center; }
-  .csl-right { width: 240px; height: 240px; }
+  .csl-right { width: min(240px, 70vw); }
   .csl-float-badge { right: -20px; bottom: -8px; }
   .csl-strip { height: 26px; }
   .csl-strip span { font-size: 9px; }
@@ -409,7 +414,8 @@
 }
 
 @media (max-width: 600px) {
-  .csl-right { display: none; }
+  .csl-right { width: min(200px, 62vw); }
+  .csl-float-badge { display: none; }
   .csl-heading { font-size: 32px; }
   .csl-plans { gap: 8px; }
   .csl-plan-chip { padding: 8px 12px; min-width: 70px; }

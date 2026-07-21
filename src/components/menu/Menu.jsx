@@ -1,15 +1,30 @@
 import { useState, useEffect } from "react";
-import tandoori from "/images/tandoori/tandoori_naan.webp";
-import butter_masala from "/images/curries/paneer_butter_masala.webp";
-import veg_biryani from "/images/biryani/veg_biryani.webp";
-import veg_fried from "/images/friedrice/veg_friedrice.webp";
-import veg_noodles from "/images/noodles/veg_noodles.webp";
-import south_meal from "/images/meals/south_meal.webp";
 import menu1       from "/images/menu/menu1.webp";
 import menu2       from "/images/menu/menu2.webp";
 import "./styles/Menu.css";
 
-const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL || "https://cherries-backend.onrender.com";
+
+const CATEGORY_EMOJI = [
+  { match: /biryani/i, emoji: "🍛" },
+  { match: /curr(y|ies)/i, emoji: "🍲" },
+  { match: /tiffin|idly|dosa|vada/i, emoji: "🥞" },
+  { match: /starter/i, emoji: "🍢" },
+  { match: /noodle/i, emoji: "🍜" },
+  { match: /fried ?rice/i, emoji: "🍚" },
+  { match: /meal/i, emoji: "🍽️" },
+  { match: /tandoori|naan|roti|bread/i, emoji: "🫓" },
+  { match: /dessert|sweet|ice ?cream/i, emoji: "🍨" },
+  { match: /beverage|drink|juice|shake/i, emoji: "🥤" },
+  { match: /soup/i, emoji: "🍵" },
+  { match: /pizza/i, emoji: "🍕" },
+  { match: /paneer/i, emoji: "🧀" },
+];
+
+function emojiFor(name = "") {
+  const found = CATEGORY_EMOJI.find((c) => c.match.test(name));
+  return found ? found.emoji : "🍽️";
+}
 
 const VegIcon = () => (
   <div style={{
@@ -120,11 +135,13 @@ function Menu() {
                   aria-label={`Explore ${cat.name}`}
                 >
                   <div className="cat-circle">
-                    <img
-                      src={cat.img || "images/Tiffins/Idly.webp"}
-                      alt={cat.name}
-                      className="cat-img"
-                    />
+                    {cat.img ? (
+                      <img src={cat.img} alt={cat.name} className="cat-img" />
+                    ) : (
+                      <span className="cat-emoji" role="img" aria-label={cat.name}>
+                        {emojiFor(cat.name)}
+                      </span>
+                    )}
                   </div>
                   <span className="cat-label">{cat.name}</span>
                 </button>
@@ -146,11 +163,17 @@ function Menu() {
                 <span className="back-text">All Categories</span>
               </button>
               <div className="breadcrumb">
-                <img
-                  src={activeCatMeta?.img || activeCatMeta?.image || "images/Tiffins/Idly.webp"}
-                  alt={activeCatMeta?.name}
-                  className="breadcrumb__img"
-                />
+                {(activeCatMeta?.img || activeCatMeta?.image) ? (
+                  <img
+                    src={activeCatMeta.img || activeCatMeta.image}
+                    alt={activeCatMeta?.name}
+                    className="breadcrumb__img"
+                  />
+                ) : (
+                  <span className="breadcrumb__emoji" role="img" aria-label={activeCatMeta?.name}>
+                    {emojiFor(activeCatMeta?.name)}
+                  </span>
+                )}
                 <span className="breadcrumb__label">{activeCatMeta?.name}</span>
               </div>
               <span className="breadcrumb__count">{activeItems.length} items</span>
@@ -165,7 +188,13 @@ function Menu() {
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div className="food-card__img-wrap">
-                    <img src={item.images?.[0] || item.img || "images/Tiffins/Idly.webp"} alt={item.name} className="food-card__img" />
+                    {(item.images?.[0] || item.img) ? (
+                      <img src={item.images?.[0] || item.img} alt={item.name} className="food-card__img" />
+                    ) : (
+                      <span className="food-card__emoji" role="img" aria-label={item.name}>
+                        {emojiFor(item.name || activeCatMeta?.name)}
+                      </span>
+                    )}
                     {(item.isPopular || item.tag) && (
                       <span
                         className="food-card__badge"
