@@ -3,7 +3,9 @@ import menu1       from "/images/menu/menu1.webp";
 import menu2       from "/images/menu/menu2.webp";
 import "./styles/Menu.css";
 
-const API = import.meta.env.VITE_API_URL || "https://cherries-backend.onrender.com";
+// Menu data lives on the main Cherries backend (same one the Android app talks
+// to), not the rewards/catering backend used by the rest of this site.
+const MENU_API = import.meta.env.VITE_MENU_API_URL || "https://cherries-backend.onrender.com";
 
 const CATEGORY_EMOJI = [
   { match: /biryani/i, emoji: "🍛" },
@@ -62,12 +64,24 @@ function Menu() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${API}/menu`);
-        const result = await res.json();
-        
-        if (result.success) {
-          setCategories(result.data.categories || []);
-          setMenuItems(result.data.itemsByCategory || {});
+        const [catRes, itemRes] = await Promise.all([
+          fetch(`${MENU_API}/categories`),
+          fetch(`${MENU_API}/menu`),
+        ]);
+        const catResult = await catRes.json();
+        const itemResult = await itemRes.json();
+
+        if (catResult.success) {
+          setCategories((catResult.data || []).filter((c) => c.isActive));
+        }
+        if (itemResult.success) {
+          const grouped = (itemResult.data || [])
+            .filter((item) => item.isActive)
+            .reduce((acc, item) => {
+              (acc[item.categoryId] ||= []).push(item);
+              return acc;
+            }, {});
+          setMenuItems(grouped);
         }
       } catch (error) {
         console.error("Error fetching menu data:", error);

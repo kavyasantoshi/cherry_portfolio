@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { PLAY_STORE_URL } from "../../constants/links";
 import "./styles/Playstore.css";
 
 /* ═══════════════════════════════════════════════
@@ -6,8 +7,7 @@ import "./styles/Playstore.css";
    App download promotion section
    ═══════════════════════════════════════════════ */
 
-const PLAY_STORE_URL =
-  "https://play.google.com/store/apps/details?id=com.cherriescafe.app&pcampaignid=web_share";
+const API = import.meta.env.VITE_API_URL || "https://backend.rewards.cherriescafe.in/api";
 const PLAY_STORE_QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(PLAY_STORE_URL)}&color=1c0f07&bgcolor=ffffff`;
 
 const APP_FEATURES = [
@@ -55,6 +55,7 @@ const APP_FEATURES = [
 export default function Playstore() {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
+  const [appInfo, setAppInfo] = useState(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,6 +64,19 @@ export default function Playstore() {
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const fetchAppInfo = async () => {
+      try {
+        const res = await fetch(`${API}/playstore/info`);
+        const result = await res.json();
+        if (result.success) setAppInfo(result.data);
+      } catch (error) {
+        console.error("Error fetching Play Store info:", error);
+      }
+    };
+    fetchAppInfo();
   }, []);
 
   return (
@@ -125,19 +139,47 @@ export default function Playstore() {
                 />
               </a>
 
-              <div className="ps-rating">
-                <div className="ps-rating-stars">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} width="14" height="14" viewBox="0 0 24 24"
-                      fill="#f59e0b" stroke="#f59e0b" strokeWidth="1"
-                      strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
+              {appInfo?.score ? (
+                <div className="ps-rating">
+                  <div className="ps-rating-stars">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} width="14" height="14" viewBox="0 0 24 24"
+                        fill={i < Math.round(appInfo.score) ? "#f59e0b" : "none"}
+                        stroke="#f59e0b" strokeWidth="1"
+                        strokeLinecap="round" strokeLinejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    ))}
+                  </div>
+                  <span className="ps-rating-text">
+                    {appInfo.score.toFixed(1)} · {appInfo.reviewsCount || appInfo.ratings || 0}+ reviews
+                  </span>
                 </div>
-                <span className="ps-rating-text">4.8 · 2,400+ reviews</span>
-              </div>
+              ) : (
+                <div className="ps-rating">
+                  <span className="ps-rating-text ps-rating-text--new">
+                    Now live on Google Play — be the first to review!
+                  </span>
+                </div>
+              )}
             </div>
+
+            {/* Live reviews from Google Play */}
+            {appInfo?.reviews?.length > 0 && (
+              <div className="ps-reviews">
+                {appInfo.reviews.slice(0, 3).map((r) => (
+                  <div key={r.id} className="ps-review-card">
+                    <div className="ps-review-head">
+                      <span className="ps-review-name">{r.userName}</span>
+                      <span className="ps-review-stars">
+                        {"★".repeat(r.score)}{"☆".repeat(5 - r.score)}
+                      </span>
+                    </div>
+                    <p className="ps-review-text">{r.text}</p>
+                  </div>
+                ))}
+              </div>
+            )}
 
           </div>
 

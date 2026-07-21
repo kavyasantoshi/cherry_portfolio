@@ -1,12 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { UtensilsCrossed } from "lucide-react";
+import { PLAY_STORE_URL } from "../../constants/links";
 import "../home/styles/Slider.css";
 import CateringSlide from "./CateringSlide";
 import "./styles/CateringSlide.css";
-
-const PLAY_STORE_URL =
-  "https://play.google.com/store/apps/details?id=com.cherriescafe.app&pcampaignid=web_share";
 
 const slides = [
   {
