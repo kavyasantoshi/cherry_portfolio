@@ -207,70 +207,134 @@
 }
 .cat-view-orders-link svg { flex-shrink: 0; }
 
-/* ── Step bar ── */
-.cat-steps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  margin-bottom: 32px;
-  padding: 0 8px;
+/* ── Modern Curved Wave Step Bar ── */
+.cat-curved-nav {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto 36px;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
-.cat-step {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+
+.cat-curved-track {
   position: relative;
+  width: 100%;
+  height: 52px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #f1e6de;
+  box-shadow: 0 4px 20px -2px rgba(45, 27, 47, 0.05), 0 2px 6px -1px rgba(249, 115, 22, 0.04);
+  display: flex;
+  overflow: hidden;
+  user-select: none;
 }
-.cat-step-num {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid rgba(249,115,22,0.25);
-  background: #fff;
-  color: #b08080;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 700;
+
+.cat-curved-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33.3333%;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(249, 115, 22, 0.28));
+}
+
+.cat-curved-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+}
+
+.cat-curved-step-btn {
+  position: relative;
+  z-index: 2;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-.cat-step--active .cat-step-num {
-  background: #f97316;
-  border-color: #f97316;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(249,115,22,0.4);
-}
-.cat-step--done .cat-step-num {
-  background: #f97316;
-  border-color: #f97316;
-  color: #fff;
-}
-.cat-step-label {
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 13.5px;
   font-weight: 600;
-  color: #b08080;
+  color: #786565;
+  transition: color 0.3s ease, transform 0.15s ease;
+  padding: 0 8px;
   white-space: nowrap;
-  transition: color 0.3s ease;
+  outline: none;
 }
-.cat-step--active .cat-step-label,
-.cat-step--done .cat-step-label {
+
+.cat-curved-step-btn:hover:not(:disabled):not(.cat-curved-step-btn--active) {
   color: #2d1b2f;
 }
-.cat-step-line {
-  width: 24px;
-  height: 2px;
-  background: rgba(249,115,22,0.2);
-  flex-shrink: 0;
-  margin: 0 4px;
+
+.cat-curved-step-btn:active:not(:disabled) {
+  transform: scale(0.97);
 }
-.cat-step--done + .cat-step .cat-step-line,
-.cat-step--done .cat-step-line {
+
+.cat-curved-step-btn:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.cat-curved-step-btn--active {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.cat-curved-step-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(148, 163, 184, 0.16);
+  color: #786565;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.cat-curved-step-btn--active .cat-curved-step-badge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cat-curved-step-btn--done:not(.cat-curved-step-btn--active) .cat-curved-step-badge {
   background: #f97316;
+  color: #ffffff;
+}
+
+.cat-curved-step-label {
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 600px) {
+  .cat-curved-nav {
+    margin-bottom: 24px;
+    padding: 0 8px;
+  }
+  .cat-curved-track {
+    height: 44px;
+    border-radius: 13px;
+  }
+  .cat-curved-step-btn {
+    font-size: 11.5px;
+    gap: 5px;
+    padding: 0 4px;
+  }
+  .cat-curved-step-badge {
+    width: 19px;
+    height: 19px;
+    font-size: 10px;
+  }
 }
 
 /* ── Section ── */

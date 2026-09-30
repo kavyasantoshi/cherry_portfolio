@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import "./styles/Catering.css";
 
 import { Search, X, Check, Plus, UtensilsCrossed, CalendarDays, Users, ArrowRight, ClipboardList, HeartHandshake, Info } from "lucide-react";
+import { motion } from "framer-motion";
 
 const earliestDate = () => {
   const date = new Date();
@@ -154,25 +155,93 @@ function CateringHeader({ user, onLogout }) {
   );
 }
 
-// ── Step indicator ─────────────────────────────────────────────────────
+// ── Step indicator (Curved Wave Tab Bar) ───────────────────────────────
 function StepBar({ step, onBack, disabled }) {
-  const steps = ["Choose Plan", "Select Items", "Your Details"];
+  const steps = [
+    { label: "Choose Plan", icon: CalendarDays },
+    { label: "Select Items", icon: UtensilsCrossed },
+    { label: "Your Details", icon: Users },
+  ];
+
+  // SVG wave paths for 3 steps in viewBox 0 0 100 52
+  // Step 1: left edge is flush/rounded, right edge has S-curve sloping down into step 2
+  // Step 2: left edge has S-curve rising from step 1, right edge has S-curve sloping down into step 3
+  // Step 3: left edge has S-curve rising from step 2, right edge is flush/rounded
+  const wavePaths = {
+    1: "M 0 0 L 86 0 C 100 0, 102 52, 116 52 L 0 52 Z",
+    2: "M -16 52 C -2 52, 0 0, 14 0 L 86 0 C 100 0, 102 52, 116 52 L -16 52 Z",
+    3: "M -16 52 C -2 52, 0 0, 14 0 L 100 0 L 100 52 L -16 52 Z",
+  };
+
   return (
-    <nav className="cat-steps" aria-label="Booking progress">
-      {steps.map((label, i) => (
-        <button type="button" key={i} disabled={disabled || i + 1 > step} onClick={() => onBack(i + 1)} aria-current={i + 1 === step ? "step" : undefined} className={`cat-step ${i + 1 === step ? "cat-step--active" : ""} ${i + 1 < step ? "cat-step--done" : ""}`}>
-          <div className="cat-step-num">
-            {i + 1 < step ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            ) : i + 1}
-          </div>
-          <span className="cat-step-label">{label}</span>
-          {i < steps.length - 1 && <div className="cat-step-line" />}
-        </button>
-      ))}
+    <nav className="cat-curved-nav" aria-label="Booking progress">
+      <div className="cat-curved-track">
+        {/* Animated Sliding Background with Organic S-Curve Wave */}
+        <motion.div
+          className="cat-curved-indicator"
+          initial={false}
+          animate={{
+            x: `${(step - 1) * 100}%`,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 350,
+            damping: 32,
+            mass: 0.8,
+          }}
+        >
+          <svg
+            className="cat-curved-svg"
+            viewBox="0 0 100 52"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="catWaveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ff7a18" />
+                <stop offset="100%" stopColor="#f95300" />
+              </linearGradient>
+            </defs>
+            <motion.path
+              initial={false}
+              animate={{ d: wavePaths[step] || wavePaths[1] }}
+              transition={{
+                type: "spring",
+                stiffness: 350,
+                damping: 32,
+              }}
+              fill="url(#catWaveGrad)"
+            />
+          </svg>
+        </motion.div>
+
+        {/* Tab Buttons */}
+        {steps.map((item, i) => {
+          const stepNum = i + 1;
+          const isActive = stepNum === step;
+          const isDone = stepNum < step;
+          const isClickable = !disabled && stepNum <= step;
+
+          return (
+            <button
+              type="button"
+              key={i}
+              disabled={!isClickable}
+              onClick={() => onBack(stepNum)}
+              aria-current={isActive ? "step" : undefined}
+              className={`cat-curved-step-btn ${isActive ? "cat-curved-step-btn--active" : ""} ${isDone ? "cat-curved-step-btn--done" : ""}`}
+            >
+              <span className="cat-curved-step-badge">
+                {isDone ? (
+                  <Check size={12} strokeWidth={3} />
+                ) : (
+                  <span>{stepNum}</span>
+                )}
+              </span>
+              <span className="cat-curved-step-label">{item.label}</span>
+            </button>
+          );
+        })}
+      </div>
     </nav>
   );
 }
